@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="com.danhgiamypham.controller" />
+	<mvc:annotation-driven />
+	
+	<bean id="dbProvider" class="com.danhgiamypham.database.DBProvider"></bean>	
+	
+	<bean id="danhMucDao" class="com.danhgiamypham.dao.impl.DanhMucDaoImpl"></bean>
+	<bean id="danhMucService" class="com.danhgiamypham.service.impl.DanhMucServiceImpl"></bean>
+	
+	<bean id="sanPhamDao" class="com.danhgiamypham.dao.impl.SanPhamDaoImpl"></bean>
+	<bean id="sanPhamService" class="com.danhgiamypham.service.impl.SanPhamServiceImpl"></bean>
+	
+	<bean id="loaiDaDao" class="com.danhgiamypham.dao.impl.LoaiDaDaoImpl"></bean>
+	<bean id="danhGiaSanPhamDao" class="com.danhgiamypham.dao.impl.DanhGiaSanPhamDaoImpl"></bean>
+	
+	<bean id="userDao" class="com.danhgiamypham.dao.impl.UserDaoImpl"></bean>
+	<bean id="userService" class="com.danhgiamypham.service.impl.UserServiceImpl"></bean>
+	
+	<bean id="hangDao" class="com.danhgiamypham.dao.impl.HangDaoImpl"></bean>
+	<bean id="hangService" class="com.danhgiamypham.service.impl.HangServiceImpl"></bean>
+	
+	<bean id="binhLuanDao" class="com.danhgiamypham.dao.impl.BinhLuanDaoImpl"></bean>
+	<bean id="binhLuanService" class="com.danhgiamypham.service.impl.BinhLuanServiceImpl"></bean>
+	<bean id="binhLuanServiceImpl" class="com.danhgiamypham.service.impl.BinhLuanServiceImpl"></bean>
+		
+	<bean id="cauHoiDao" class="com.danhgiamypham.dao.impl.CauHoiDaoImpl"></bean>
+	<bean id="cauHoiService" class="com.danhgiamypham.service.impl.CauHoiServiceImpl"></bean>
+	
+	<bean id="sanPhamMoiDao" class="com.danhgiamypham.dao.impl.SanPhamMoiDaoImpl"></bean>
+	<bean id="sanPhamMoiService" class="com.danhgiamypham.service.impl.SanPhamMoiServiceImpl"></bean>
+		
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- for uploading file -->
+	<bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+ 
+         <!-- setting maximum upload size -->
+        <property name="maxUploadSize" value="500000" />
+ 
+    </bean>
+	 <mvc:annotation-driven>
+    	<mvc:path-matching registered-suffixes-only="false"/>
+	</mvc:annotation-driven>
+	
+</beans>

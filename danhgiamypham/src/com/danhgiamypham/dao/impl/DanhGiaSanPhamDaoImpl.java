@@ -1,0 +1,58 @@
+package com.danhgiamypham.dao.impl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.danhgiamypham.dao.DanhGiaSanPhamDao;
+import com.danhgiamypham.database.DBProvider;
+import com.danhgiamypham.model.DanhGiaSanPham;
+
+@Component
+public class DanhGiaSanPhamDaoImpl implements DanhGiaSanPhamDao {
+
+	@Autowired
+	private DBProvider dbProvider;
+
+	@Override
+	public List<DanhGiaSanPham> getDanhGiaSanPham(int maSP) {
+		List<DanhGiaSanPham> danhGiaSanPhams = new ArrayList<DanhGiaSanPham>();
+
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getDanhGia(?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maSP);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				int maDG  = rs.getInt("MaDanhGia");
+				int diemDG = rs.getInt("DiemDanhGia");
+				String binhL = rs.getString("BinhLuan");
+				int soLL = rs.getInt("SoLuotLike");
+				int tinhT = rs.getInt("TinhTrang");
+				Date ngayGN = rs.getDate("NgayGiaNhap");
+				String addC = rs.getString("AddClass");
+				String tinhTL = rs.getString("TinhTrangLike");
+				
+				DanhGiaSanPham blsp = new DanhGiaSanPham(maDG, diemDG, binhL, soLL, tinhT,ngayGN, addC, tinhTL);
+				danhGiaSanPhams.add(blsp);
+			
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return danhGiaSanPhams;
+
+	}
+
+}
