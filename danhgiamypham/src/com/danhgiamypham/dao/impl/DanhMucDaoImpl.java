@@ -18,6 +18,8 @@ import com.danhgiamypham.dao.DanhMucDao;
 import com.danhgiamypham.database.DBProvider;
 import com.danhgiamypham.model.BinhLuan;
 import com.danhgiamypham.model.DanhMuc;
+import com.danhgiamypham.model.Hang;
+import com.danhgiamypham.model.NhomHang;
 import com.danhgiamypham.model.NhomSanPham;
 import com.danhgiamypham.model.SanPham;
 
@@ -233,6 +235,58 @@ public class DanhMucDaoImpl implements DanhMucDao {
 			e.printStackTrace();
 		}
 		return ketQua;
+
+	}
+	
+	@Override
+	public List<NhomHang> getNhomHang() {
+		List<NhomHang> nhomHangs = new ArrayList<NhomHang>();
+		try {
+			Connection cnn = dbProvider.getConnection();
+			Statement st = cnn.createStatement();
+			String sql = "{call getNhomHang()}";
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				int maNH = rs.getInt("MaNhomSanPham");
+				String tenNH = rs.getString("TenNhom");
+
+				NhomHang nh = new NhomHang(maNH, tenNH);
+				nhomHangs.add(nh);
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return nhomHangs;
+
+	}
+	
+	
+	@Override
+	public List<Hang> getHang() {
+		List<Hang> hangs = new ArrayList<Hang>();
+		try {
+			Connection cnn = dbProvider.getConnection();
+			Statement st = cnn.createStatement();
+			String sql = "{call getHang()}";
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				int maH = rs.getInt("MaHang");
+				String tenH = rs.getString("TenHang");
+				int maNH = rs.getInt("MaNhomHang");
+
+				Hang nh = new Hang(maH, tenH, maNH);
+				hangs.add(nh);
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return hangs;
 
 	}
 

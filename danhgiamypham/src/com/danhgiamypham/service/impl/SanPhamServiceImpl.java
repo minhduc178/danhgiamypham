@@ -167,16 +167,13 @@ public class SanPhamServiceImpl implements SanPhamService {
 	}
 
 	@Override
-	public Set<SanPham> locSanPhamTheoNhom(String[] chuoiMN) {
-		int indexPage = 0;
-		int maxItem = 0;
+	public Set<SanPham> locSanPhamTheoNhom(int indexPage,int maxItem, String[] chuoiMN) {
 		Set<SanPham> sanPhamNhom = new HashSet<SanPham>();
-		//String result[] = chuoiMN.split(" ");
 		
 		if (chuoiMN.length == 0) {	
 			sanPhamNhom = sanPhamDao.getSanPham(indexPage, maxItem);
 		} else
-		for (String r : chuoiMN) {
+			for (String r : chuoiMN) {
 			int k = Integer.parseInt(r);
 
 			Set<SanPham> rs = new HashSet<SanPham>();

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.danhgiamypham.dto.DanhMucNhom;
+import com.danhgiamypham.dto.HangNhom;
 import com.danhgiamypham.dto.SanPhamYeuThichNhom;
 import com.danhgiamypham.model.DanhMuc;
 import com.danhgiamypham.model.NhomSanPham;
@@ -63,6 +64,12 @@ public class DanhMucController {
 	public boolean themNhomSanPham(@RequestParam("madanhmuc") int MaDanhMuc,
 								   @RequestParam("tennhomsanpham") String TenNhomSanPham) {
 		return danhMucService.themNhomSanPham(MaDanhMuc, TenNhomSanPham);
+	}
+	
+	@RequestMapping(value = "get-hangnhom", method = RequestMethod.GET)
+	@ResponseBody
+	public List<HangNhom> getHangNhom() {
+		return danhMucService.getHangNhom();
 	}
 	
 	

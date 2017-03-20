@@ -11,7 +11,10 @@ import org.springframework.stereotype.Service;
 import com.danhgiamypham.Utilities.ResourceUtils;
 import com.danhgiamypham.dao.DanhMucDao;
 import com.danhgiamypham.dto.DanhMucNhom;
+import com.danhgiamypham.dto.HangNhom;
 import com.danhgiamypham.model.DanhMuc;
+import com.danhgiamypham.model.Hang;
+import com.danhgiamypham.model.NhomHang;
 import com.danhgiamypham.model.NhomSanPham;
 import com.danhgiamypham.model.SanPham;
 import com.danhgiamypham.service.DanhMucService;
@@ -99,6 +102,43 @@ public class DanhMucServiceImpl implements DanhMucService {
 	@Override 
 	public boolean  themNhomSanPham(int MaDanhMuc, String TenNhomSanPham){
 		return danhMucDao.themNhomSanPham(MaDanhMuc, TenNhomSanPham);
+	}
+	
+	@Override
+	public List<Hang> getHang() {
+		return danhMucDao.getHang();
+	}
+
+	@Override
+	public List<NhomHang> getNhomHang() {
+		return danhMucDao.getNhomHang();
+	}
+
+	@Override
+	public List<HangNhom> getHangNhom() {
+		List<HangNhom> hangNhom = new ArrayList<HangNhom>();
+		List<NhomHang> nhomHangs = danhMucDao.getNhomHang();
+		List<Hang> hangs = danhMucDao.getHang();
+
+		for (NhomHang ha : nhomHangs) {
+			List<Hang> hangCungDanhMuc = hangTheoDM(ha.getMaNhomHang(), hangs);
+			HangNhom hn = new HangNhom();
+			hn.setNhomHang(ha);
+			hn.setHang(hangCungDanhMuc);
+			hangNhom.add(hn);
+
+		}
+		return hangNhom;
+	}
+
+	private List<Hang> hangTheoDM(int maNH, List<Hang> hangs) {
+		List<Hang> hang = new ArrayList<Hang>();
+		for (Hang ha : hangs) {
+			if (ha.getMaNhomHang() == maNH) {
+				hang.add(ha);
+			}
+		}
+		return hang;
 	}
 
 

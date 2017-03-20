@@ -79,8 +79,10 @@ public class SanPhamController {
 	
 	@RequestMapping(value = "loc-san-pham", method = RequestMethod.GET)
 	@ResponseBody
-	public Set<SanPham> getSanPham(@RequestParam("param") String[] param) {
-		return sanPhamService.locSanPhamTheoNhom(param);
+	public Set<SanPham> getSanPham(@RequestParam("tranghientai") int trangHienTai,
+									@RequestParam("soluongtrongtrang") int soLuongTrongTrang,
+									@RequestParam("param") String[] param) {
+		return sanPhamService.locSanPhamTheoNhom(trangHienTai,soLuongTrongTrang,param);
 	}
 	
 	@RequestMapping(value = "get-duyetsanpham", method = RequestMethod.GET)
