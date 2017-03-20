@@ -13,7 +13,7 @@ public interface DanhMucService {
 	public List<NhomSanPham> getNhomSanPham();
 	public List<DanhMucNhom> getDanhMucNhom();
 	public Set<SanPham> getSanPhamTheoNhomSP(int maNSP);
-	public List<SanPham> getSanPhamTheoDanhMuc(int maDM);
+	public List<SanPham> getSanPhamTheoDanhMuc(int trangHienTai, int soLuongTrongTrang, int maDM);
 	public List<SanPham> getDuongDa();
 	public boolean themNhomSanPham(int MaDanhMuc, String TenNhomSanPham);
 }

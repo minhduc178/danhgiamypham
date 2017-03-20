@@ -46,8 +46,10 @@ public class DanhMucController {
 	
 	@RequestMapping(value = "get-sanphamtheodanhmuc", method = RequestMethod.GET)
 	@ResponseBody
-	public List<SanPham> getSanPhamTheoDanhMuc(@RequestParam("madanhmuc") int MaDanhMuc) {
-		return danhMucService.getSanPhamTheoDanhMuc(MaDanhMuc);
+	public List<SanPham> getSanPhamTheoDanhMuc(@RequestParam("tranghientai") int trangHienTai,
+												@RequestParam("soluongtrongtrang") int soLuongTrongTrang, 
+												@RequestParam("madanhmuc") int maDanhMuc) {
+		return danhMucService.getSanPhamTheoDanhMuc(trangHienTai,soLuongTrongTrang, maDanhMuc);
 	}
 	
 	@RequestMapping(value="get-duongda", method = RequestMethod.GET)
@@ -59,7 +61,7 @@ public class DanhMucController {
 	@RequestMapping(value = "them-nhomsanphamtheodanhmuc", method = RequestMethod.GET)
 	@ResponseBody
 	public boolean themNhomSanPham(@RequestParam("madanhmuc") int MaDanhMuc,
-										 @RequestParam("tennhomsanpham") String TenNhomSanPham) {
+								   @RequestParam("tennhomsanpham") String TenNhomSanPham) {
 		return danhMucService.themNhomSanPham(MaDanhMuc, TenNhomSanPham);
 	}
 	

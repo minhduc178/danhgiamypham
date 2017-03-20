@@ -14,6 +14,7 @@ public interface SanPhamDao {
 	public List<Hang> getHangYeuThich(int id);
 	public List<SanPham> getSanPhamTimKiem(int trangHienTai, int soLuongTrongTrang, String timKiem);
 	public int getTongSanPhamTimKiem(String timKiem);
+	public int getTongSoSanPhamMaDanhMuc(int maDanhMuc);
 	public List<SanPham> getDuyetSanPham(int tinhTrang);	
 	public boolean getDuyetSanPhamDang(int maSP);	
 	public boolean getXoaSanPhamDang(int maSP);

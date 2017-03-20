@@ -120,6 +120,28 @@ public class SanPhamDaoImpl implements SanPhamDao {
 	}
 	
 	@Override
+	public int getTongSoSanPhamMaDanhMuc(int maDanhMuc) {
+		 int tongSanPham=0;
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getSoLuongMaDanhMuc(?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maDanhMuc);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				tongSanPham = rs.getInt("SoLuongTheoDanhMuc");
+				
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tongSanPham;
+	}
+	
+	@Override
 	public int getTongSanPham() {
 		int tongSanPham=0;
 		try {

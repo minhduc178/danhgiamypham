@@ -124,13 +124,15 @@ public class DanhMucDaoImpl implements DanhMucDao {
 	
 
 	@Override
-	public List<SanPham> getSanPhamTheoDanhMuc(int maDM) {
+	public List<SanPham> getSanPhamTheoDanhMuc(int trangHienTai, int soLuongTrongTrang, int maDM) {
 		List<SanPham> sanPhams = new ArrayList<SanPham>();
 		try {
 			Connection cnn = dbProvider.getConnection();
-			String sql = "{call getSanPhamTheoDanhMuc(?)}";
+			String sql = "{call getSanPhamTheoDanhMuc(?,?,?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
-			st.setInt(1, maDM);
+			st.setInt(1, trangHienTai);
+			st.setInt(2, soLuongTrongTrang);
+			st.setInt(3, maDM);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				int maSP = rs.getInt("MaSanPham");

@@ -76,7 +76,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 		
 		trangHienTai = ResourceUtils.tinhTrangHienTai(trangHienTai, soLuongTrongTrang);
 		List<SanPham> sanphams = sanPhamDao.getSanPhamTimKiem(trangHienTai, soLuongTrongTrang, timKiem);		
-		System.out.print(sanphams.size());
+
 		for (SanPham sp : sanphams) {
 			float ddg = quyTron(sp.getDiemDanhGia());
 			sp.setDiemDanhGia(ddg);
@@ -95,6 +95,11 @@ public class SanPhamServiceImpl implements SanPhamService {
 	@Override
 	public int getTongSoSanPhamTimKiem(String timKiem){
 		return  sanPhamDao.getTongSanPhamTimKiem(timKiem);
+	}
+	
+	@Override
+	public int getTongSoSanPhamMaDanhMuc(int maDanhMuc){
+		return  sanPhamDao.getTongSoSanPhamMaDanhMuc(maDanhMuc);
 	}
 
 	@Override

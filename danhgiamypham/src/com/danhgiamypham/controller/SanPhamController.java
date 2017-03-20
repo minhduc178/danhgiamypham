@@ -49,6 +49,12 @@ public class SanPhamController {
 	public int getTongSoSanPhamTimKiem(@RequestParam("timkiem")  String timKiem) {
 		return sanPhamService.getTongSoSanPhamTimKiem(timKiem);
 	}
+	
+	@RequestMapping(value = "get-tongsosanphammadanhmuc", method = RequestMethod.GET)
+	@ResponseBody
+	public int getTongSoSanPhamMaDanhMuc(@RequestParam("madanhmuc")  int maDanhMuc) {
+		return sanPhamService.getTongSoSanPhamMaDanhMuc(maDanhMuc);
+	}
 
 	
 

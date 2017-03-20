@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.danhgiamypham.Utilities.ResourceUtils;
 import com.danhgiamypham.dao.DanhMucDao;
 import com.danhgiamypham.dto.DanhMucNhom;
 import com.danhgiamypham.model.DanhMuc;
@@ -76,9 +77,11 @@ public class DanhMucServiceImpl implements DanhMucService {
 	}
 	
 	@Override
-	public List<SanPham> getSanPhamTheoDanhMuc(int maDM){
+	public List<SanPham> getSanPhamTheoDanhMuc(int trangHienTai, int soLuongTrongTrang,int maDM){
 		List<SanPham> sanp = new ArrayList<SanPham>();
-		sanp = danhMucDao.getSanPhamTheoDanhMuc(maDM);
+		
+		trangHienTai = ResourceUtils.tinhTrangHienTai(trangHienTai, soLuongTrongTrang);
+		sanp = danhMucDao.getSanPhamTheoDanhMuc(trangHienTai, soLuongTrongTrang, maDM);		
 		
 		for (SanPham sp : sanp) {
 			float ddg = SanPhamServiceImpl.quyTron(sp.getDiemDanhGia());

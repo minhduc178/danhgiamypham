@@ -17,6 +17,7 @@ public interface SanPhamService {
 	public Set<SanPham> locSanPhamTheoNhom(String[] chuoiMN);
 	public int getTongSoSanPham();
 	public int getTongSoSanPhamTimKiem(String timKiem);
+	public int getTongSoSanPhamMaDanhMuc(int maDanhMuc);
 	public List<SanPham> getSanPhamTimKiem(int trangHienTai, int soLuongTrongTrang, String timKiem);
 	public List<SanPham> getDuyetSanPham(int tinhTrang);
 	public boolean getDuyetSanPhamDang(int maSP);
