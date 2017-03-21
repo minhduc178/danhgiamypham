@@ -28,9 +28,6 @@
 	<bean id="userDao" class="com.danhgiamypham.dao.impl.UserDaoImpl"></bean>
 	<bean id="userService" class="com.danhgiamypham.service.impl.UserServiceImpl"></bean>
 	
-	<bean id="hangDao" class="com.danhgiamypham.dao.impl.HangDaoImpl"></bean>
-	<bean id="hangService" class="com.danhgiamypham.service.impl.HangServiceImpl"></bean>
-	
 	<bean id="binhLuanDao" class="com.danhgiamypham.dao.impl.BinhLuanDaoImpl"></bean>
 	<bean id="binhLuanService" class="com.danhgiamypham.service.impl.BinhLuanServiceImpl"></bean>
 	<bean id="binhLuanServiceImpl" class="com.danhgiamypham.service.impl.BinhLuanServiceImpl"></bean>

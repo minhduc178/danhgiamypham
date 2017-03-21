@@ -18,4 +18,6 @@ public interface DanhMucDao {
 	public boolean themNhomSanPham(int MaDanhMuc, String TenNhomSanPham);
 	public List<Hang> getHang();
 	public List<NhomHang> getNhomHang();
+	public boolean themHang(String tenHang, int maNhomSanPham);
+	public List<Hang> getHangTheoNhom(int maNhomHang);
 }

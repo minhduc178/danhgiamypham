@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.danhgiamypham.dto.DanhMucNhom;
-import com.danhgiamypham.dto.HangNhom;
-import com.danhgiamypham.dto.SanPhamYeuThichNhom;
 import com.danhgiamypham.model.DanhMuc;
-import com.danhgiamypham.model.NhomSanPham;
+import com.danhgiamypham.model.Hang;
+import com.danhgiamypham.model.NhomHang;
 import com.danhgiamypham.model.SanPham;
 import com.danhgiamypham.service.DanhMucService;
 
@@ -66,12 +65,24 @@ public class DanhMucController {
 		return danhMucService.themNhomSanPham(MaDanhMuc, TenNhomSanPham);
 	}
 	
-	@RequestMapping(value = "get-hangnhom", method = RequestMethod.GET)
+	@RequestMapping(value = "get-hang-nhom", method = RequestMethod.GET)
 	@ResponseBody
-	public List<HangNhom> getHangNhom() {
-		return danhMucService.getHangNhom();
+	public List<NhomHang> getNhomHang() {
+		return danhMucService.getNhomHang();
 	}
 	
+	
+	@RequestMapping(value = "them-hang", method = RequestMethod.GET)
+	@ResponseBody
+	public boolean themHang(@RequestParam("tenhang") String tenHang) {
+		return danhMucService.themHang(tenHang);
+	}
+	
+	@RequestMapping(value = "get-hang-theo-nhom", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Hang> getHangTheoNhom(@RequestParam("manhomhang") int maNhomHang) {
+		return danhMucService.getHangTheoNhom(maNhomHang);
+	}
 	
 
 	

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import com.danhgiamypham.dao.DanhMucDao;
 import com.danhgiamypham.database.DBProvider;
 import com.danhgiamypham.model.BinhLuan;
+import com.danhgiamypham.model.CauHoi;
 import com.danhgiamypham.model.DanhMuc;
 import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.NhomHang;
@@ -287,7 +288,56 @@ public class DanhMucDaoImpl implements DanhMucDao {
 			e.printStackTrace();
 		}
 		return hangs;
+	}
+	
+	@Override
+	public boolean themHang(String tenHang, int maNhomSanPham) {
+		boolean ketQua = false;
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call themHang(?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setString(1, tenHang);
+			st.setInt(2, maNhomSanPham);
 
+			int rs = st.executeUpdate();
+
+			if (rs == 1) {
+				ketQua = true;
+			}
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ketQua;
+
+	}
+	
+	@Override
+	public List<Hang> getHangTheoNhom(int maNhomHang) {
+		List<Hang> hangs = new ArrayList<Hang>();
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getHangTheoNhom(?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maNhomHang);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				int maH = rs.getInt("MaHang");
+				String tenH = rs.getString("TenHang");
+				int maNH = rs.getInt("MaNhomHang");
+
+				Hang nh = new Hang(maH, tenH, maNH);
+				hangs.add(nh);
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return hangs;
 	}
 
 }
