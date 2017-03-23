@@ -1,21 +1,17 @@
 package com.danhgiamypham.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.danhgiamypham.Utilities.ResourceUtils;
 import com.danhgiamypham.dao.DanhMucDao;
 import com.danhgiamypham.dto.DanhMucNhom;
 import com.danhgiamypham.model.DanhMuc;
 import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.NhomHang;
 import com.danhgiamypham.model.NhomSanPham;
-import com.danhgiamypham.model.SanPham;
 import com.danhgiamypham.service.DanhMucService;
 
 @Service
@@ -35,12 +31,38 @@ public class DanhMucServiceImpl implements DanhMucService {
 	}
 
 	@Override
+	public boolean themNhomSanPham(int MaDanhMuc, String TenNhomSanPham) {
+		return danhMucDao.themNhomSanPham(MaDanhMuc, TenNhomSanPham);
+	}
+
+	@Override
+	public List<Hang> getHang() {
+		return danhMucDao.getHang();
+	}
+
+	@Override
+	public List<NhomHang> getNhomHang() {
+		return danhMucDao.getNhomHang();
+	}
+
+	@Override
+	public boolean themHang(String tenHang) {
+		int maNhomSanPham = timMaNhomHang(tenHang);
+		return danhMucDao.themHang(tenHang, maNhomSanPham);
+	}
+
+	@Override
+	public List<Hang> getHangTheoNhom(int maNhomHang) {
+		return danhMucDao.getHangTheoNhom(maNhomHang);
+	}
+
+	@Override
 	public List<DanhMucNhom> getDanhMucNhom() {
 		List<DanhMucNhom> danhMucNhom = new ArrayList<DanhMucNhom>();
 		List<DanhMuc> danhMucs = danhMucDao.getAll();
 		List<NhomSanPham> nhomSanPhams = danhMucDao.getNhomSanPham();
 
-		for (int i=0; i<4; i++) {
+		for (int i = 0; i < 4; i++) {
 			DanhMuc dm = danhMucs.get(i);
 			List<NhomSanPham> sanPhamCungDanhMuc = nhomSanPhamTheoDM(
 					dm.getMaDanhMuc(), nhomSanPhams);
@@ -64,78 +86,17 @@ public class DanhMucServiceImpl implements DanhMucService {
 		}
 		return nhomSP;
 	}
-	
-	@Override
-	public Set<SanPham> getSanPhamTheoNhomSP(int maNSP){
-		Set<SanPham> sanp = new HashSet<SanPham>();
-		sanp = danhMucDao.getSanPhamTheoNhomSP(maNSP);
-		
-		for (SanPham sp : sanp) {
-			float ddg = SanPhamServiceImpl.quyTron(sp.getDiemDanhGia());
-			sp.setDiemDanhGia(ddg);
-		}
-		
-		return sanp;
-	}
-	
-	@Override
-	public List<SanPham> getSanPhamTheoDanhMuc(int trangHienTai, int soLuongTrongTrang,int maDM){
-		List<SanPham> sanp = new ArrayList<SanPham>();
-		
-		trangHienTai = ResourceUtils.tinhTrangHienTai(trangHienTai, soLuongTrongTrang);
-		sanp = danhMucDao.getSanPhamTheoDanhMuc(trangHienTai, soLuongTrongTrang, maDM);		
-		
-		for (SanPham sp : sanp) {
-			float ddg = SanPhamServiceImpl.quyTron(sp.getDiemDanhGia());
-			sp.setDiemDanhGia(ddg);
-		}
-		
-		return sanp;
-	}
-	
-	@Override
-	public List<SanPham> getDuongDa() {
-		return danhMucDao.getDuongDa();
-	}
 
-	@Override 
-	public boolean  themNhomSanPham(int MaDanhMuc, String TenNhomSanPham){
-		return danhMucDao.themNhomSanPham(MaDanhMuc, TenNhomSanPham);
-	}
-	
-	@Override
-	public List<Hang> getHang() {
-		return danhMucDao.getHang();
-	}
-
-	@Override
-	public List<NhomHang> getNhomHang() {
-		return danhMucDao.getNhomHang();
-	}
-
-	
-	@Override
-	public boolean themHang(String tenHang){
-		int maNhomSanPham = timMaNhomHang(tenHang);
-		return danhMucDao.themHang(tenHang, maNhomSanPham);
-	}
-	
-	@Override
-	public List<Hang> getHangTheoNhom(int maNhomHang){
-		return danhMucDao.getHangTheoNhom(maNhomHang);
-	}
-	
-	private int timMaNhomHang(String tenHang){
+	private int timMaNhomHang(String tenHang) {
 		List<NhomHang> nhomHangs = danhMucDao.getNhomHang();
 		String kyTu = Character.toString(tenHang.charAt(0));
 		kyTu = kyTu.toUpperCase();
-		for (NhomHang nh  : nhomHangs) {
-			if(kyTu.equals(nh.getTenNhomHang())){
-				return  nh.getMaNhomHang();
+		for (NhomHang nh : nhomHangs) {
+			if (kyTu.equals(nh.getTenNhomHang())) {
+				return nh.getMaNhomHang();
 			}
-	      }	
+		}
 		return -1;
 	}
-	
 
 }

@@ -2,7 +2,6 @@ package com.danhgiamypham.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.NhomSanPham;
 import com.danhgiamypham.model.SanPhamMoi;
 import com.danhgiamypham.service.SanPhamMoiService;
-import com.mysql.fabric.xmlrpc.base.Array;
 
 @Controller
 @RequestMapping("/san-pham-moi/")
@@ -59,6 +57,7 @@ public class SanPhamMoiController {
 		String cachSD = request.getParameter("cachSD");
 		String thanhP = request.getParameter("thanhP");
 		String maND = request.getParameter("maND");
+		String[] chuoiN = request.getParameterValues("chuoiN");
 	
 		MultipartFile multiFile = request.getFile("file");
 		StringBuilder rs = new StringBuilder();
@@ -75,6 +74,7 @@ public class SanPhamMoiController {
 		spm.setCachSuDung(cachSD);
 		spm.setThanhPhan(thanhP);
 		spm.setMaNguoiDung(Integer.parseInt(maND));
+		spm.setListMaNhomSP(chuoiN);
 				
 		return sanPhamMoiService.them(spm, fileName, multiFile);
 	}

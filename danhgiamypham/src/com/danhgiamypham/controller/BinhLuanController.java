@@ -1,5 +1,8 @@
 package com.danhgiamypham.controller;
 
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.danhgiamypham.dto.BinhLuanDTO;
 import com.danhgiamypham.model.BinhLuan;
 import com.danhgiamypham.service.BinhLuanService;
 import com.danhgiamypham.service.impl.BinhLuanServiceImpl;
@@ -40,7 +42,10 @@ public class BinhLuanController {
 		String diemDanhGia = request.getParameter("diemDanhGia");
 		String binhLuan = request.getParameter("binhLuan");
 
-		MultipartFile multiFile = request.getFile("file");
+		List<MultipartFile> multiFile = request.getFiles("file");
+		for(MultipartFile hura :multiFile){
+			System.out.println(hura.getOriginalFilename());
+		}
 		StringBuilder rs = new StringBuilder();
 			
 		BinhLuan bl= new BinhLuan(); 
@@ -49,7 +54,7 @@ public class BinhLuanController {
 		bl.setMaNguoiDung(Integer.parseInt(maNguoiDung));
 		bl.setMaSanPham(Integer.parseInt(maSanPham));
 					
-		binhLuanService.themBinhLuan(bl, multiFile);
+	//	binhLuanService.themBinhLuan(bl, multiFile);
 		return true;
 	}
 	

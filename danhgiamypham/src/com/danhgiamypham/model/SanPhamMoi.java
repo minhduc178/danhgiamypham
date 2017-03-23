@@ -12,10 +12,12 @@ public class SanPhamMoi {
 	private int maNguoiDung;
 	private int maSanPham;
 	
+	private String[] listMaNhomSP;
 	
-	public SanPhamMoi(String tenSanPham, int maHang, String maNhom, int maboPhan,
-			String gioiThieu, String congDung, String cachSuDung,
-			String thanhPhan, int maNguoiDung) {
+	public SanPhamMoi(String tenSanPham, int maHang, String maNhom,
+			int maboPhan, String gioiThieu, String congDung, String cachSuDung,
+			String thanhPhan, int maNguoiDung, int maSanPham,
+			String[] listMaNhomSP) {
 		super();
 		this.tenSanPham = tenSanPham;
 		this.maHang = maHang;
@@ -26,13 +28,24 @@ public class SanPhamMoi {
 		this.cachSuDung = cachSuDung;
 		this.thanhPhan = thanhPhan;
 		this.maNguoiDung = maNguoiDung;
+		this.maSanPham = maSanPham;
+		this.listMaNhomSP = listMaNhomSP;
 	}
+
+
+
 	public SanPhamMoi() {
 		super();
 	}
 	
 	
 	
+	public String[] getListMaNhomSP() {
+		return listMaNhomSP;
+	}
+	public void setListMaNhomSP(String[] listMaNhomSp) {
+		this.listMaNhomSP = listMaNhomSp;
+	}
 	public int getMaSanPham() {
 		return maSanPham;
 	}

@@ -1,7 +1,6 @@
 package com.danhgiamypham.controller;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,6 @@ import com.danhgiamypham.dto.DanhMucNhom;
 import com.danhgiamypham.model.DanhMuc;
 import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.NhomHang;
-import com.danhgiamypham.model.SanPham;
 import com.danhgiamypham.service.DanhMucService;
 
 @Controller
@@ -36,27 +34,7 @@ public class DanhMucController {
 	public List<DanhMucNhom> getDanhMucNhom(){
 		return danhMucService.getDanhMucNhom();
 	}
-	
-	@RequestMapping(value = "get-sanphamtheonhom", method = RequestMethod.GET)
-	@ResponseBody
-	public Set<SanPham> getSanPhamTheoNhom(@RequestParam("manhomsanpham") int MaNhomSanPham) {
-		return danhMucService.getSanPhamTheoNhomSP(MaNhomSanPham);
-	}
-	
-	
-	@RequestMapping(value = "get-sanphamtheodanhmuc", method = RequestMethod.GET)
-	@ResponseBody
-	public List<SanPham> getSanPhamTheoDanhMuc(@RequestParam("tranghientai") int trangHienTai,
-												@RequestParam("soluongtrongtrang") int soLuongTrongTrang, 
-												@RequestParam("madanhmuc") int maDanhMuc) {
-		return danhMucService.getSanPhamTheoDanhMuc(trangHienTai,soLuongTrongTrang, maDanhMuc);
-	}
-	
-	@RequestMapping(value="get-duongda", method = RequestMethod.GET)
-	@ResponseBody
-	public List<SanPham> getDuongDa(){
-		return danhMucService.getDuongDa();
-	}
+
 	
 	@RequestMapping(value = "them-nhomsanphamtheodanhmuc", method = RequestMethod.GET)
 	@ResponseBody

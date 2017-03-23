@@ -14,15 +14,11 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.danhgiamypham.dao.BinhLuanDao;
 import com.danhgiamypham.dao.CauHoiDao;
 import com.danhgiamypham.database.DBProvider;
-import com.danhgiamypham.model.BinhLuan;
 import com.danhgiamypham.model.CauHoi;
 import com.danhgiamypham.model.CauTraLoi;
 import com.danhgiamypham.model.NhomCauHoi;
-import com.danhgiamypham.model.NhomHang;
-import com.danhgiamypham.model.SanPham;
 
 @Component
 public class CauHoiDaoImpl implements CauHoiDao {

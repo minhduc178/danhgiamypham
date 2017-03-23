@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import com.danhgiamypham.dao.UserDao;
 import com.danhgiamypham.database.DBProvider;
 import com.danhgiamypham.dto.ResponseData;
-import com.danhgiamypham.model.BinhLuan;
 import com.danhgiamypham.model.User;
 import com.mysql.jdbc.Statement;
 

@@ -6,23 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.danhgiamypham.dao.DanhGiaSanPhamDao;
 import com.danhgiamypham.dao.SanPhamMoiDao;
 import com.danhgiamypham.database.DBProvider;
-import com.danhgiamypham.model.BinhLuan;
-import com.danhgiamypham.model.CauHoi;
-import com.danhgiamypham.model.CauTraLoi;
-import com.danhgiamypham.model.DanhGiaSanPham;
 import com.danhgiamypham.model.Hang;
-import com.danhgiamypham.model.NhomHang;
 import com.danhgiamypham.model.NhomSanPham;
 import com.danhgiamypham.model.SanPhamMoi;
 

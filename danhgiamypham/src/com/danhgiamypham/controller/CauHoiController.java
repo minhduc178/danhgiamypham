@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.danhgiamypham.dto.CauHoiDTO;
-import com.danhgiamypham.dto.DanhMucNhom;
 import com.danhgiamypham.model.CauHoi;
 import com.danhgiamypham.model.CauTraLoi;
 import com.danhgiamypham.model.NhomCauHoi;
-import com.danhgiamypham.model.SanPham;
 import com.danhgiamypham.service.CauHoiService;
 
 @Controller

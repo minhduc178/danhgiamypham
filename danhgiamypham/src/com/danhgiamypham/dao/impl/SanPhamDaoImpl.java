@@ -18,7 +18,6 @@ import com.danhgiamypham.dao.SanPhamDao;
 import com.danhgiamypham.database.DBProvider;
 import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.SanPham;
-import com.mysql.jdbc.CallableStatement;
 
 @Component
 public class SanPhamDaoImpl implements SanPhamDao {
@@ -61,6 +60,360 @@ public class SanPhamDaoImpl implements SanPhamDao {
 		return sanPhams;
 
 	}
+	@Override
+	public Set<SanPham> getSanPhamTheoNhomSP(int maNhomSanPham) {
+		Set<SanPham> sanPhams = new HashSet<SanPham>();
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getSanPhamTheoNhomSP(?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maNhomSanPham);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				int maSP = rs.getInt("MaSanPham");
+				String tenSP = rs.getString("TenSanPham");
+				String tenH = rs.getString("TenHang");
+				String gioiT = rs.getString("GioiThieu");
+				String congD = rs.getString("CongDung");
+				String cachSD = rs.getString("CachSuDung");
+				String thanhP = rs.getString("ThanhPhan");
+				String tenND = rs.getString("TenDangNhap");
+				int tinhT = rs.getInt("TinhTrang");
+				Date ngayD = rs.getDate("NgayDang");
+				String nuoc = rs.getString("Nuoc");
+				String tenN = rs.getString("TenNhom");
+				float diemDG = rs.getFloat("DiemDanhGia");
+				int soLDG = rs.getInt("SoLuotDanhGia");
+				int soLBL = rs.getInt("SoLuotBinhLuan");
+				String hinhAC = rs.getString("HinhAnhChinh");
+				int maNSP = rs.getInt("MaNhomSanPham");
+
+				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
+						cachSD, thanhP, tenND, tinhT, ngayD, nuoc, tenN,
+						diemDG, soLDG, soLBL, hinhAC, maNSP);
+				sanPhams.add(sp);
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sanPhams;
+
+	}
+	
+	@Override
+	public int getTongSanPham() {
+		int tongSanPham=0;
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getSoSanPham()}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				tongSanPham = rs.getInt("tongsanpham");
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tongSanPham;
+	}
+	
+	@Override
+	public int getTongSanPhamTheoNhom(int maNhom) {
+		int tongSanPham=0;
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getSoSanPhamTheoNhom(?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maNhom);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				tongSanPham = rs.getInt("tongsanpham");
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tongSanPham;
+	}
+	
+	@Override
+	public Set<SanPham> getSanPhamTheoDanhMuc(int trangHienTai, int soLuongTrongTrang, int maDM) {
+		Set<SanPham> sanPhams = new HashSet<SanPham>();
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getSanPhamTheoDanhMuc(?,?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, trangHienTai);
+			st.setInt(2, soLuongTrongTrang);
+			st.setInt(3, maDM);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				int maSP = rs.getInt("MaSanPham");
+				String tenSP = rs.getString("TenSanPham");
+				String tenH = rs.getString("TenHang");
+				String gioiT = rs.getString("GioiThieu");
+				String congD = rs.getString("CongDung");
+				String cachSD = rs.getString("CachSuDung");
+				String thanhP = rs.getString("ThanhPhan");
+				String tenND = rs.getString("TenDangNhap");
+				int tinhT = rs.getInt("TinhTrang");
+				Date ngayD = rs.getDate("NgayDang");
+				String nuoc = rs.getString("Nuoc");
+				String tenN = rs.getString("TenNhom");
+				float diemDG = rs.getFloat("DiemDanhGia");
+				int soLDG = rs.getInt("SoLuotDanhGia");
+				int soLBL = rs.getInt("SoLuotBinhLuan");
+				String hinhAC = rs.getString("HinhAnhChinh");
+				int maNSP = rs.getInt("MaNhomSanPham");
+
+				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
+						cachSD, thanhP, tenND, tinhT, ngayD, nuoc, tenN,
+						diemDG, soLDG, soLBL, hinhAC, maNSP);
+				sanPhams.add(sp);
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sanPhams;
+
+	}
+	
+	@Override
+	public Set<SanPham> getSanPhamTheoDanhMucMaChuoi(int maDM, int nhomChuoi) {
+		Set<SanPham> sanPhams = new HashSet<SanPham>();
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getSanPhamTheoDanhMucMaChuoi(?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maDM);
+			st.setInt(2, nhomChuoi);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				int maSP = rs.getInt("MaSanPham");
+				String tenSP = rs.getString("TenSanPham");
+				String tenH = rs.getString("TenHang");
+				String gioiT = rs.getString("GioiThieu");
+				String congD = rs.getString("CongDung");
+				String cachSD = rs.getString("CachSuDung");
+				String thanhP = rs.getString("ThanhPhan");
+				String tenND = rs.getString("TenDangNhap");
+				int tinhT = rs.getInt("TinhTrang");
+				Date ngayD = rs.getDate("NgayDang");
+				String nuoc = rs.getString("Nuoc");
+				String tenN = rs.getString("TenNhom");
+				float diemDG = rs.getFloat("DiemDanhGia");
+				int soLDG = rs.getInt("SoLuotDanhGia");
+				int soLBL = rs.getInt("SoLuotBinhLuan");
+				String hinhAC = rs.getString("HinhAnhChinh");
+				int maNSP = rs.getInt("MaNhomSanPham");
+
+				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
+						cachSD, thanhP, tenND, tinhT, ngayD, nuoc, tenN,
+						diemDG, soLDG, soLBL, hinhAC, maNSP);
+				sanPhams.add(sp);
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sanPhams;
+
+	}
+	
+	@Override
+	public int getTongSoSanPhamMaDanhMuc(int maDanhMuc) {
+		 int tongSanPham=0;
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getSoLuongMaDanhMuc(?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maDanhMuc);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				tongSanPham = rs.getInt("SoLuongTheoDanhMuc");
+				
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tongSanPham;
+	}
+	
+	@Override
+	public int getTongSoSanPhamMaDanhMuc(int maDanhMuc, int maNhom) {
+		 int tongSanPham=0;
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getSoLuongMaDanhMucMaNhom(?, ?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maDanhMuc);
+			st.setInt(2, maNhom);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				tongSanPham = rs.getInt("SoLuongTheoDanhMuc");
+				
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tongSanPham;
+	}
+	
+	@Override
+	public Set<SanPham> getSanPhamTheoNhomSPham(int trangHienTai, int soLuongTrongTrang,int maNhomSanPham) {
+		Set<SanPham> sanPhams = new HashSet<SanPham>();
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getSanPhamTheoNhomSPham(?,?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, trangHienTai);
+			st.setInt(2, soLuongTrongTrang);
+			st.setInt(3, maNhomSanPham);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				int maSP = rs.getInt("MaSanPham");
+				String tenSP = rs.getString("TenSanPham");
+				String tenH = rs.getString("TenHang");
+				String gioiT = rs.getString("GioiThieu");
+				String congD = rs.getString("CongDung");
+				String cachSD = rs.getString("CachSuDung");
+				String thanhP = rs.getString("ThanhPhan");
+				String tenND = rs.getString("TenDangNhap");
+				int tinhT = rs.getInt("TinhTrang");
+				Date ngayD = rs.getDate("NgayDang");
+				String nuoc = rs.getString("Nuoc");
+				String tenN = rs.getString("TenNhom");
+				float diemDG = rs.getFloat("DiemDanhGia");
+				int soLDG = rs.getInt("SoLuotDanhGia");
+				int soLBL = rs.getInt("SoLuotBinhLuan");
+				String hinhAC = rs.getString("HinhAnhChinh");
+				int maNSP = rs.getInt("MaNhomSanPham");
+
+				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
+						cachSD, thanhP, tenND, tinhT, ngayD, nuoc, tenN,
+						diemDG, soLDG, soLBL, hinhAC, maNSP);
+				sanPhams.add(sp);
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sanPhams;
+
+	}
+	
+	@Override
+	public Set<SanPham> getSanPhamMaNhomSPMaChuoi(int maNhomSanPham, int nhomChuoi) {
+		Set<SanPham> sanPhams = new HashSet<SanPham>();
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getSanPhamMaNhomSPMaChuoi(?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maNhomSanPham);
+			st.setInt(2, nhomChuoi);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				int maSP = rs.getInt("MaSanPham");
+				String tenSP = rs.getString("TenSanPham");
+				String tenH = rs.getString("TenHang");
+				String gioiT = rs.getString("GioiThieu");
+				String congD = rs.getString("CongDung");
+				String cachSD = rs.getString("CachSuDung");
+				String thanhP = rs.getString("ThanhPhan");
+				String tenND = rs.getString("TenDangNhap");
+				int tinhT = rs.getInt("TinhTrang");
+				Date ngayD = rs.getDate("NgayDang");
+				String nuoc = rs.getString("Nuoc");
+				String tenN = rs.getString("TenNhom");
+				float diemDG = rs.getFloat("DiemDanhGia");
+				int soLDG = rs.getInt("SoLuotDanhGia");
+				int soLBL = rs.getInt("SoLuotBinhLuan");
+				String hinhAC = rs.getString("HinhAnhChinh");
+				int maNSP = rs.getInt("MaNhomSanPham");
+
+				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
+						cachSD, thanhP, tenND, tinhT, ngayD, nuoc, tenN,
+						diemDG, soLDG, soLBL, hinhAC, maNSP);
+				sanPhams.add(sp);
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sanPhams;
+
+	}
+	
+
+	@Override
+	public int getTongSoSanPhamMaNhomSP(int maNhomSP) {
+		 int tongSanPham=0;
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getTongSoSanPhamMaNhomSP(?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maNhomSP);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				tongSanPham = rs.getInt("SoLuongTheoNhomSanPham");
+				
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tongSanPham;
+	}
+	
+	@Override
+	public int getTongSoSanPhamMaNhomSPChuoiNhom(int maNhomSP, int nhomChuoi) {
+		 int tongSanPham=0;
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getTongSoSanPhamMaNhomSPChuoiNhom(?, ?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maNhomSP);
+			st.setInt(2, nhomChuoi);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				tongSanPham = rs.getInt("SoLuongTheoNhomSanPham");
+				
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tongSanPham;
+	}
+	
+	
 	
 	@Override
 	public List<SanPham> getSanPhamTimKiem(int trangHienTai, int soLuongTrongTrang, String timKiem) {
@@ -119,47 +472,8 @@ public class SanPhamDaoImpl implements SanPhamDao {
 		return tongSanPham;
 	}
 	
-	@Override
-	public int getTongSoSanPhamMaDanhMuc(int maDanhMuc) {
-		 int tongSanPham=0;
-		try {
-			Connection cnn = dbProvider.getConnection();
-			String sql = "{call getSoLuongMaDanhMuc(?)}";
-			PreparedStatement st = cnn.prepareStatement(sql);
-			st.setInt(1, maDanhMuc);
-			ResultSet rs = st.executeQuery();
-			while (rs.next()) {
-				tongSanPham = rs.getInt("SoLuongTheoDanhMuc");
-				
-			}
-			rs.close();
-			st.close();
-			cnn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return tongSanPham;
-	}
 	
-	@Override
-	public int getTongSanPham() {
-		int tongSanPham=0;
-		try {
-			Connection cnn = dbProvider.getConnection();
-			String sql = "{call getSoSanPham()}";
-			PreparedStatement st = cnn.prepareStatement(sql);
-			ResultSet rs = st.executeQuery();
-			while (rs.next()) {
-				tongSanPham = rs.getInt("tongsanpham");
-			}
-			rs.close();
-			st.close();
-			cnn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return tongSanPham;
-	}
+	
 
 	@Override
 	public SanPham getChiTietSanpham(int maSP) {
@@ -358,6 +672,51 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				e.printStackTrace();
 			}
 			return maDanhMuc;
+	}
+	
+	
+
+	@Override
+	public List<SanPham> getDuongDa() {
+		List<SanPham> sanPhams = new ArrayList<SanPham>();
+
+		try {
+			Connection cnn = dbProvider.getConnection();
+			Statement st = cnn.createStatement();
+			String sql = "{call getDuongDa()}";
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				int maSP = rs.getInt("MaSanPham");
+				String tenSP = rs.getString("TenSanPham");
+				String tenH = rs.getString("TenHang");
+				String gioiT = rs.getString("GioiThieu");
+				String congD = rs.getString("CongDung");
+				String cachSD = rs.getString("CachSuDung");
+				String thanhP = rs.getString("ThanhPhan");
+				String tenND = rs.getString("TenDangNhap");
+				int tinhT = rs.getInt("TinhTrang");
+				Date ngayD = rs.getDate("NgayDang");
+				String nuoc = rs.getString("Nuoc");
+				String tenN = rs.getString("TenNhom");
+				float diemDG = rs.getFloat("DiemDanhGia");
+				int soLDG = rs.getInt("SoLuotDanhGia");
+				int soLBL = rs.getInt("SoLuotBinhLuan");
+				String hinhAC = rs.getString("HinhAnhChinh");
+				int maNSP = rs.getInt("MaNhomSanPham");
+
+				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
+						cachSD, thanhP, tenND, tinhT, ngayD, nuoc, tenN,
+						diemDG, soLDG, soLBL, hinhAC, maNSP);
+				sanPhams.add(sp);
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sanPhams;
+
 	}
 
 
