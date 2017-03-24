@@ -1,6 +1,7 @@
 package com.danhgiamypham.service.impl;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.danhgiamypham.Utilities.ResourceUtils;
 import com.danhgiamypham.dao.SanPhamMoiDao;
 import com.danhgiamypham.model.Hang;
+import com.danhgiamypham.model.HinhAnhSanPham;
 import com.danhgiamypham.model.NhomSanPham;
 import com.danhgiamypham.model.SanPhamMoi;
 import com.danhgiamypham.service.SanPhamMoiService;
@@ -50,29 +52,38 @@ public class SanPhamMoiServiceImpl implements SanPhamMoiService {
 	
 	@Override
 	public boolean them(SanPhamMoi spm, List<MultipartFile> multiFile){
-		int maSP = spm.getMaSanPham();
-		
 		//them san pham moi
 		sanPhamMoiDao.themSanPham(spm);
 		
+		//Lay ma san pham tu du lieu moi tao
+		int maSP = spm.getMaSanPham();
+
 		//them nhom cho san pham
 		String[] chuoiNhoms = spm.getListMaNhomSP();
 		for(String maNhomSP: chuoiNhoms){
 			int maNhom = Integer.parseInt(maNhomSP);
 			sanPhamMoiDao.themNhomSanPhamMoi(maSP, maNhom);
 		}
-
-		//them ten hinh anh vao mysql
-//		for(int i=0; i<spm.getListMaNhomSP.; i++){
-//			
-//		}
-		
-		//them hinh anh vao server
-		for(MultipartFile file:multiFile){
-			ResourceUtils.ghiFile(file);
+				
+		//Them hinh anh 
+		HinhAnhSanPham hasp = new HinhAnhSanPham();
+		hasp.setMaSanPham(maSP);
+		for(int i=0; i<multiFile.size(); i++){
+			String pathHinh = ResourceUtils.ghiFile(multiFile.get(i));
+			if(i == 0){
+				hasp.setHinhAnhChinh(pathHinh);
+			} else if(i == 1){
+				hasp.setHinh1(pathHinh);	
+			}else if(i == 2){
+				hasp.setHinh2(pathHinh);	
+			} else if(i == 3){
+				hasp.setHinh3(pathHinh);	
+			} else if(i == 4){
+				hasp.setHinh4(pathHinh);	
+			}
 		}
-	
 		
+		sanPhamMoiDao.themHinhAnhMoi(hasp);
 		return true;
 	}
 	

@@ -3,6 +3,7 @@ package com.danhgiamypham.dao;
 import java.util.List;
 
 import com.danhgiamypham.model.Hang;
+import com.danhgiamypham.model.HinhAnhSanPham;
 import com.danhgiamypham.model.NhomSanPham;
 import com.danhgiamypham.model.SanPhamMoi;
 
@@ -16,4 +17,5 @@ public interface SanPhamMoiDao {
 	public boolean capnhatHinhAnh(int maSP,String fileName);
 	public List<NhomSanPham> getNhomSanPhamTheoSP(int maSP, int MaDanhMuc);
 	public boolean themNhomSanPhamMoi(int maSP,int maNhom);
+	public boolean themHinhAnhMoi(HinhAnhSanPham hasp);
 }

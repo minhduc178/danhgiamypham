@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import com.danhgiamypham.dao.SanPhamMoiDao;
 import com.danhgiamypham.database.DBProvider;
 import com.danhgiamypham.model.Hang;
+import com.danhgiamypham.model.HinhAnhSanPham;
 import com.danhgiamypham.model.NhomSanPham;
 import com.danhgiamypham.model.SanPhamMoi;
 
@@ -276,6 +277,33 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 			if (rs == 1) {
 				ketQua = true;
 			}
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ketQua;
+	}
+	
+	public boolean themHinhAnhMoi(HinhAnhSanPham hasp){
+		boolean ketQua = false;
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call themHinhAnhSanPhamMoi(?,?,?,?,?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, hasp.getMaSanPham()); 
+			st.setString(2, hasp.getHinhAnhChinh());
+			st.setString(3, hasp.getHinh1());
+			st.setString(4, hasp.getHinh2());
+			st.setString(5, hasp.getHinh3());
+			st.setString(6, hasp.getHinh4());
+		
+			int rs  = st.executeUpdate();
+			
+			if(rs==1){
+				ketQua  = true;
+			} 
+			
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
