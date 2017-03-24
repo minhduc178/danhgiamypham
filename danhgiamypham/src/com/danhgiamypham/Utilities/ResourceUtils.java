@@ -33,7 +33,7 @@ public class ResourceUtils {
 		return true;
 	}
 	
-	public String ghiFile(MultipartFile multiFile) {
+	public static String ghiFile(MultipartFile multiFile) {
 		String pathRs = "";
 		StringBuilder rs = new StringBuilder();
 		try {

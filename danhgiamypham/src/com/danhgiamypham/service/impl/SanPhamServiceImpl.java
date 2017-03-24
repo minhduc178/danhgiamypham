@@ -71,7 +71,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 		}
 
 	}
-	
+
 	@Override
 	public Set<SanPham> locSanPham(String chuoiMN) {
 		Set<SanPham> SanPhamNhom = new HashSet<SanPham>();
@@ -83,7 +83,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 		return SanPhamNhom;
 
 	}
-	
+
 	@Override
 	public int getTongSoSanPham() {
 		return sanPhamDao.getTongSanPham();
@@ -99,8 +99,6 @@ public class SanPhamServiceImpl implements SanPhamService {
 		}
 		return n;
 	}
-	
-	
 
 	@Override
 	public Set<SanPham> getSanPhamTheoDanhMuc(int trangHienTai,
@@ -120,7 +118,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 			}
 
 			return sanp;
-			
+
 		} else {
 			Set<SanPham> sanPhamNhom = new HashSet<SanPham>();
 			List<SanPham> kt = new ArrayList<SanPham>();
@@ -139,14 +137,15 @@ public class SanPhamServiceImpl implements SanPhamService {
 			return sanPhamNhom;
 		}
 	}
-	
+
 	@Override
 	public int getTongSoSanPhamMaDanhMuc(int maDanhMuc) {
 		return sanPhamDao.getTongSoSanPhamMaDanhMuc(maDanhMuc);
 	}
 
 	@Override
-	public int getTongSoSanPhamMaDanhMucChuoiNhom(int maDanhMuc, String[] chuoiNhom) {
+	public int getTongSoSanPhamMaDanhMucChuoiNhom(int maDanhMuc,
+			String[] chuoiNhom) {
 		int n = 0;
 		for (String r : chuoiNhom) {
 			int maNhom = Integer.parseInt(r);
@@ -155,7 +154,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 		}
 		return n;
 	}
-	
+
 	@Override
 	public Set<SanPham> getSanPhamTheoNhomSanPham(int trangHienTai,
 			int soLuongTrongTrang, int maNhomSP, String[] chuoiNhom) {
@@ -174,7 +173,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 			}
 
 			return sanp;
-			
+
 		} else {
 			Set<SanPham> sanPhamNhom = new HashSet<SanPham>();
 			List<SanPham> kt = new ArrayList<SanPham>();
@@ -193,24 +192,24 @@ public class SanPhamServiceImpl implements SanPhamService {
 			return sanPhamNhom;
 		}
 	}
-	
-	
+
 	@Override
 	public int getTongSoSanPhamMaNhomSP(int maNhomSP) {
 		return sanPhamDao.getTongSoSanPhamMaNhomSP(maNhomSP);
 	}
 
 	@Override
-	public int getTongSoSanPhamMaNhomSPChuoiNhom(int maNhomSP,String[] chuoiNhom) {
+	public int getTongSoSanPhamMaNhomSPChuoiNhom(int maNhomSP,
+			String[] chuoiNhom) {
 		int n = 0;
 		for (String r : chuoiNhom) {
 			int maNhom = Integer.parseInt(r);
-			int m = sanPhamDao.getTongSoSanPhamMaNhomSPChuoiNhom(maNhomSP, maNhom);
+			int m = sanPhamDao.getTongSoSanPhamMaNhomSPChuoiNhom(maNhomSP,
+					maNhom);
 			n = n + m;
 		}
 		return n;
 	}
-	
 
 	@Override
 	public List<SanPham> getSanPhamTimKiem(int trangHienTai,
@@ -229,14 +228,11 @@ public class SanPhamServiceImpl implements SanPhamService {
 		return sanphams;
 
 	}
-	
 
 	@Override
 	public int getTongSoSanPhamTimKiem(String timKiem) {
 		return sanPhamDao.getTongSanPhamTimKiem(timKiem);
 	}
-	
-
 
 	@Override
 	public SanPham getChiTietSanPham(int maSP) {
@@ -255,31 +251,29 @@ public class SanPhamServiceImpl implements SanPhamService {
 		return sp;
 
 	}
-	
+
 	@Override
 	public List<SanPham> getDuongDa() {
 		return sanPhamDao.getDuongDa();
 	}
-	
+
 	@Override
 	public List<SanPham> getDuyetSanPham(int tinhTrang) {
 		// int maDanhMuc = sanPhamDao.getTimMaDanhMuc(maSP);
 		// sp.setMaDanhMuc(maDanhMuc);
 		return sanPhamDao.getDuyetSanPham(tinhTrang);
 	}
-	
+
 	@Override
 	public boolean getDuyetSanPhamDang(int maSP) {
 		return sanPhamDao.getDuyetSanPhamDang(maSP);
 	}
-	
+
 	@Override
 	public boolean getXoaSanPhamDang(int maSP) {
 		return sanPhamDao.getXoaSanPhamDang(maSP);
 	}
-	
 
-	
 	@Override
 	public List<Hang> getHangYeuThich(int maND) {
 		return sanPhamDao.getHangYeuThich(maND);
@@ -314,24 +308,14 @@ public class SanPhamServiceImpl implements SanPhamService {
 	}
 
 	@Override
-	public Set<SanPham> getSanPhamTheoNhomSP(int maNSP){
+	public Set<SanPham> getSanPhamTheoNhomSP(int maNSP) {
 		Set<SanPham> sanp = new HashSet<SanPham>();
 		sanp = sanPhamDao.getSanPhamTheoNhomSP(maNSP);
-		
+
 		for (SanPham sp : sanp) {
 			float ddg = ResourceUtils.quyTron(sp.getDiemDanhGia());
 			sp.setDiemDanhGia(ddg);
 		}
 		return sanp;
 	}
-	
-	
-	
-
-	
-
-	
-	
-	
-
 }

@@ -15,4 +15,5 @@ public interface SanPhamMoiDao {
 	public boolean capnhatSanPham(SanPhamMoi spm);
 	public boolean capnhatHinhAnh(int maSP,String fileName);
 	public List<NhomSanPham> getNhomSanPhamTheoSP(int maSP, int MaDanhMuc);
+	public boolean themNhomSanPhamMoi(int maSP,int maNhom);
 }

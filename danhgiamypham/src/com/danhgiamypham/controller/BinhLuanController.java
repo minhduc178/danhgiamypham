@@ -36,16 +36,13 @@ public class BinhLuanController {
 	@RequestMapping(value = "them", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean binhLuan(MultipartHttpServletRequest request) {
-	//	String fileName = request.getParameter("fileName");
+		//String fileName = request.getParameter("fileName");
 		String maNguoiDung = request.getParameter("maNguoiDung");
 		String maSanPham = request.getParameter("maSanPham");
 		String diemDanhGia = request.getParameter("diemDanhGia");
 		String binhLuan = request.getParameter("binhLuan");
 
 		List<MultipartFile> multiFile = request.getFiles("file");
-		for(MultipartFile hura :multiFile){
-			System.out.println(hura.getOriginalFilename());
-		}
 		StringBuilder rs = new StringBuilder();
 			
 		BinhLuan bl= new BinhLuan(); 
@@ -54,7 +51,7 @@ public class BinhLuanController {
 		bl.setMaNguoiDung(Integer.parseInt(maNguoiDung));
 		bl.setMaSanPham(Integer.parseInt(maSanPham));
 					
-	//	binhLuanService.themBinhLuan(bl, multiFile);
+		binhLuanService.themBinhLuan(bl, multiFile);
 		return true;
 	}
 	

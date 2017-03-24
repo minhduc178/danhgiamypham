@@ -39,7 +39,7 @@ public class SanPhamController {
 		return sanPhamService.getSanPhamTheoDanhMuc(trangHienTai,soLuongTrongTrang, maDanhMuc, chuoiNhom);
 	}
 	
-	@RequestMapping(value = "get-sanphamtheonhom", method = RequestMethod.GET)
+	@RequestMapping(value = "get-sanphamtheonhomsp", method = RequestMethod.GET)
 	@ResponseBody
 	public Set<SanPham> getSanPhamTheoNhomSanPham(@RequestParam("tranghientai") int trangHienTai,
 												@RequestParam("soluongtrongtrang") int soLuongTrongTrang, 
@@ -85,7 +85,7 @@ public class SanPhamController {
 		return sanPhamService.getTongSoSanPhamMaDanhMucChuoiNhom(maDanhMuc, chuoiNhom);
 	}
 	
-	//lay tong san pham cho trang get san pham theo nhom san pham
+//	lay tong san pham cho trang get san pham theo nhom san pham
 		@RequestMapping(value = "get-tongsosanphammanhomsanpham", method = RequestMethod.GET)
 		@ResponseBody
 		public int getTongSoSanPhamMaNhomSP(@RequestParam("manhomsanpham")  int maNhomSP) {
@@ -155,7 +155,6 @@ public class SanPhamController {
 	public Set<SanPham> getSanPhamTheoNhom(@RequestParam("manhomsanpham") int MaNhomSanPham) {
 		return sanPhamService.getSanPhamTheoNhomSP(MaNhomSanPham);
 	}
-	
 	
 	@RequestMapping(value="get-duongda", method = RequestMethod.GET)
 	@ResponseBody

@@ -49,56 +49,45 @@ public class SanPhamMoiServiceImpl implements SanPhamMoiService {
 	
 	
 	@Override
-	public boolean them(SanPhamMoi spm, String fileName, MultipartFile multiFile){
-		sanPhamMoiDao.themSanPham(spm);
-		
+	public boolean them(SanPhamMoi spm, List<MultipartFile> multiFile){
 		int maSP = spm.getMaSanPham();
 		
-		String path = "sanpham";
-		String hinhAnhChinh = maSP + "_" + fileName;
-		sanPhamMoiDao.themHinhAnh(maSP, path + File.separator + hinhAnhChinh);
-		ResourceUtils.ghiFileHA(path, hinhAnhChinh, multiFile);
+		//them san pham moi
+		sanPhamMoiDao.themSanPham(spm);
 		
-		int maNhomBoPhan = spm.getMaboPhan();
-		sanPhamMoiDao.themSanPhamNhomSanPham(maSP, maNhomBoPhan);
-		
-		String maNhom = spm.getMaNhom();
-		String result[] = maNhom.split("\\+");
-		System.out.println(result.length);
-		if(result.length>1){
-			for (int r=1; r< result.length;r++){
-				int k = Integer.parseInt(result[r]);
-				sanPhamMoiDao.themSanPhamNhomSanPham(maSP, k);
-			}	
+		//them nhom cho san pham
+		String[] chuoiNhoms = spm.getListMaNhomSP();
+		for(String maNhomSP: chuoiNhoms){
+			int maNhom = Integer.parseInt(maNhomSP);
+			sanPhamMoiDao.themNhomSanPhamMoi(maSP, maNhom);
 		}
+
+		//them ten hinh anh vao mysql
+//		for(int i=0; i<spm.getListMaNhomSP.; i++){
+//			
+//		}
+		
+		//them hinh anh vao server
+		for(MultipartFile file:multiFile){
+			ResourceUtils.ghiFile(file);
+		}
+	
+		
 		return true;
 	}
 	
 	@Override
 	public boolean capnhat(SanPhamMoi spm, MultipartFile multiFile){
-		ResourceUtils ut = new ResourceUtils();
-		String filePath = ut.ghiFile(multiFile) ;
+//		ResourceUtils ut = new ResourceUtils();
+//		String filePath = ut.ghiFile(multiFile) ;
 //		sanPhamMoiDao.capnhatSanPham(spm);
 //		
 //		int maSP = spm.getMaSanPham();
-//		
-//		String path = "sanpham";
-//		sanPhamMoiDao.capnhatHinhAnh(maSP, path + File.separator + hinhAnhChinh);
+		
+//	String path = "sanpham";
+//		sanPhamMoiDao.capnhatHinhAnh(maSP, path + File.separator );
 //		ResourceUtils.ghiFile(path, hinhAnhChinh, multiFile);
-//		
-//		int maNhomBoPhan = spm.getMaboPhan();
-//		//sanPhamMoiDao.capnhatSanPhamNhomSanPham(maSP, maNhomBoPhan);
-//		
-//		String maNhom = spm.getMaNhom();
-//		String result[] = maNhom.split("\\+");
-//		System.out.println(result.length);
-//		if(result.length>1){
-//			for (int r=1; r< result.length;r++){
-//				int k = Integer.parseInt(result[r]);
-//				System.out.println(k);
-//		//		sanPhamMoiDao.capnhatSanPhamNhomSanPham(maSP, k);
-//			}	
-//		}
+		
 		return true;
 	}
 	

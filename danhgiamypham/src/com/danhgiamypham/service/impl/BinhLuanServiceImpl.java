@@ -1,5 +1,7 @@
 package com.danhgiamypham.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,14 +18,18 @@ public class BinhLuanServiceImpl implements BinhLuanService {
 	private BinhLuanDao binhLuanDao;
 
 	@Override
-	public boolean themBinhLuan(BinhLuan bl, MultipartFile multiFile) {
+	public boolean themBinhLuan(BinhLuan bl, List<MultipartFile> multiFile) {
 		//save image;
 		ResourceUtils ut =  new ResourceUtils();
-		String hinhAnh = ut.ghiFile(multiFile);
-		
-		if (!hinhAnh.equals("")) {
-			bl.setHinhAnh(hinhAnh);
+		for(MultipartFile file:multiFile ){
+//			List<String> huhu = 
+			//String hinhAnh = ut.ghiFile(file);
+		//	System.out.print(file);
+			
 		}
+//		if (!hinhAnh.equals("")) {
+//			bl.setHinhAnh(hinhAnh);
+//		}
 		
 		//successed;
 		//

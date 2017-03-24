@@ -47,36 +47,32 @@ public class SanPhamMoiController {
 	@RequestMapping(value = "them", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean them(MultipartHttpServletRequest request) {
-		String fileName = request.getParameter("fileName");
+		String nguoiD = request.getParameter("nguoiD");
 		String tenSP = request.getParameter("tenSP");
-		String maH = request.getParameter("maH");
-		String maN = request.getParameter("maN");
-		String boP = request.getParameter("boP");
 		String gioiT = request.getParameter("gioiT");
 		String congD = request.getParameter("congD");
 		String cachSD = request.getParameter("cachSD");
 		String thanhP = request.getParameter("thanhP");
 		String maND = request.getParameter("maND");
+
+		String maH = request.getParameter("maH");
 		String[] chuoiN = request.getParameterValues("chuoiN");
-	
-		MultipartFile multiFile = request.getFile("file");
-		StringBuilder rs = new StringBuilder();
 		
+		List<MultipartFile> multiFile = request.getFiles("file");
+		StringBuilder rs = new StringBuilder();
 		List<String> result = new ArrayList<String>();
 		
 		SanPhamMoi spm = new SanPhamMoi();
+		spm.setMaNguoiDung(Integer.parseInt(nguoiD));
 		spm.setTenSanPham(tenSP);
 		spm.setMaHang(Integer.parseInt(maH));
-		spm.setMaNhom(maN);
-		spm.setMaboPhan(Integer.parseInt(boP));
 		spm.setGioiThieu(gioiT);
 		spm.setCongDung(congD);
 		spm.setCachSuDung(cachSD);
 		spm.setThanhPhan(thanhP);
 		spm.setMaNguoiDung(Integer.parseInt(maND));
 		spm.setListMaNhomSP(chuoiN);
-				
-		return sanPhamMoiService.them(spm, fileName, multiFile);
+		return sanPhamMoiService.them(spm, multiFile);
 	}
 	
 	@RequestMapping(value = "cap-nhat", method = RequestMethod.POST)

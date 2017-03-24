@@ -203,6 +203,28 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 		return ketQua;
 	}
 	
+	@Override
+	public boolean themNhomSanPhamMoi(int maSP, int maNhom) {
+		boolean ketQua = false;
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call themSanPhamNhomSanPham(?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maSP);
+			st.setInt(2,maNhom);
+			int rs = st.executeUpdate();
+
+			if (rs == 1) {
+				ketQua = true;
+			}
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ketQua;
+	}
+	
 	
 	@Override
 	public boolean capnhatSanPham(SanPhamMoi spm) {
