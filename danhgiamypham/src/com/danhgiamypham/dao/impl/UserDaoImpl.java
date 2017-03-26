@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,6 +19,8 @@ import com.mysql.jdbc.Statement;
 @Component
 public class UserDaoImpl implements UserDao {
 
+	Logger logger = Logger.getLogger("UserDaoImpl");
+
 	// Thay vi tao moi dbProvider thi khai bao trong danhgiamypham-servlet:
 	// id.....
 	@Autowired
@@ -27,6 +31,8 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public ResponseData<User> login(User user) {
+		logger.log(Level.INFO,user.getMatKhau() + "-dn-" +user.getTenDangNhap());
+		
 		ResponseData<User> response = new ResponseData<User>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -47,6 +53,8 @@ public class UserDaoImpl implements UserDao {
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
+			logger.log(Level.INFO, "loi",  e);
+			
 			response.setErrorMessage(e.getMessage());
 		}
 		return response;

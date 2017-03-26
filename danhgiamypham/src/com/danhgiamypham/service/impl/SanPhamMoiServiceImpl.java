@@ -1,7 +1,5 @@
 package com.danhgiamypham.service.impl;
 
-import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +49,7 @@ public class SanPhamMoiServiceImpl implements SanPhamMoiService {
 	
 	
 	@Override
-	public boolean them(SanPhamMoi spm, List<MultipartFile> multiFile){
+	public  boolean them(SanPhamMoi spm, List<MultipartFile> multiFile){
 		//them san pham moi
 		sanPhamMoiDao.themSanPham(spm);
 		
@@ -83,8 +81,7 @@ public class SanPhamMoiServiceImpl implements SanPhamMoiService {
 			}
 		}
 		
-		sanPhamMoiDao.themHinhAnhMoi(hasp);
-		return true;
+		return sanPhamMoiDao.themHinhAnhMoi(hasp);
 	}
 	
 	@Override

@@ -285,11 +285,13 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 		return ketQua;
 	}
 	
+	
+	
 	public boolean themHinhAnhMoi(HinhAnhSanPham hasp){
 		boolean ketQua = false;
 		try {
 			Connection cnn = dbProvider.getConnection();
-			String sql = "{call themHinhAnhSanPhamMoi(?,?,?,?,?,?)}";
+			String sql = "{call themHinhAnhMoi(?,?,?,?,?,?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
 			st.setInt(1, hasp.getMaSanPham()); 
 			st.setString(2, hasp.getHinhAnhChinh());

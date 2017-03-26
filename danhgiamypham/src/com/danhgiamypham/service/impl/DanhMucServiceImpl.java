@@ -2,6 +2,8 @@ package com.danhgiamypham.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,11 +19,14 @@ import com.danhgiamypham.service.DanhMucService;
 @Service
 public class DanhMucServiceImpl implements DanhMucService {
 
+	Logger logger = Logger.getLogger(DanhMucServiceImpl.class.getName());
+	
 	@Autowired
 	private DanhMucDao danhMucDao;
 
 	@Override
 	public List<DanhMuc> getAll() {
+		logger.log(Level.INFO, "danh muc dao is null: " + (danhMucDao == null));
 		return danhMucDao.getAll();
 	}
 

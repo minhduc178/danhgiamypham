@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,7 @@ import com.danhgiamypham.model.NhomSanPham;
 @Component
 public class DanhMucDaoImpl implements DanhMucDao {
 
+	Logger logger = Logger.getLogger("DanhMucDaoImpl");
 	@Autowired
 	private DBProvider dbProvider;
 
@@ -28,6 +31,7 @@ public class DanhMucDaoImpl implements DanhMucDao {
 	public List<DanhMuc> getAll() {
 		List<DanhMuc> danhMucs = new ArrayList<DanhMuc>();
 		try {
+			logger.log(Level.INFO, "db provider is null: " + (dbProvider == null));
 			Connection cnn = dbProvider.getConnection();
 			Statement st = cnn.createStatement();
 			String sql = "{call getAll()}";
@@ -44,7 +48,7 @@ public class DanhMucDaoImpl implements DanhMucDao {
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.log(Level.INFO,"error", e);
 		}
 		return danhMucs;
 
