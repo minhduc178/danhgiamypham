@@ -31,7 +31,8 @@ public class DanhMucDaoImpl implements DanhMucDao {
 	public List<DanhMuc> getAll() {
 		List<DanhMuc> danhMucs = new ArrayList<DanhMuc>();
 		try {
-			logger.log(Level.INFO, "db provider is null: " + (dbProvider == null));
+			logger.log(Level.INFO, "db provider is null: "
+					+ (dbProvider == null));
 			Connection cnn = dbProvider.getConnection();
 			Statement st = cnn.createStatement();
 			String sql = "{call getAll()}";
@@ -48,7 +49,7 @@ public class DanhMucDaoImpl implements DanhMucDao {
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			logger.log(Level.INFO,"error", e);
+			logger.log(Level.INFO, "error", e);
 		}
 		return danhMucs;
 
@@ -80,10 +81,8 @@ public class DanhMucDaoImpl implements DanhMucDao {
 
 	}
 
-	
-	
 	@Override
-	public boolean themNhomSanPham(int maDanhMuc, String tenNhomSanPham){
+	public boolean themNhomSanPham(int maDanhMuc, String tenNhomSanPham) {
 		boolean ketQua = false;
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -91,12 +90,12 @@ public class DanhMucDaoImpl implements DanhMucDao {
 			PreparedStatement st = cnn.prepareStatement(sql);
 			st.setInt(1, maDanhMuc);
 			st.setString(2, tenNhomSanPham);
-			
-			int rs  = st.executeUpdate();
-			
-			if(rs==1){
-				ketQua  = true;
-			} 
+
+			int rs = st.executeUpdate();
+
+			if (rs == 1) {
+				ketQua = true;
+			}
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
@@ -105,7 +104,7 @@ public class DanhMucDaoImpl implements DanhMucDao {
 		return ketQua;
 
 	}
-	
+
 	@Override
 	public List<NhomHang> getNhomHang() {
 		List<NhomHang> nhomHangs = new ArrayList<NhomHang>();
@@ -130,8 +129,7 @@ public class DanhMucDaoImpl implements DanhMucDao {
 		return nhomHangs;
 
 	}
-	
-	
+
 	@Override
 	public List<Hang> getHang() {
 		List<Hang> hangs = new ArrayList<Hang>();
@@ -156,7 +154,7 @@ public class DanhMucDaoImpl implements DanhMucDao {
 		}
 		return hangs;
 	}
-	
+
 	@Override
 	public boolean themHang(String tenHang, int maNhomSanPham) {
 		boolean ketQua = false;
@@ -180,7 +178,7 @@ public class DanhMucDaoImpl implements DanhMucDao {
 		return ketQua;
 
 	}
-	
+
 	@Override
 	public List<Hang> getHangTheoNhom(int maNhomHang) {
 		List<Hang> hangs = new ArrayList<Hang>();

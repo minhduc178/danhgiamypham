@@ -47,31 +47,26 @@ public class SanPhamMoiController {
 	@RequestMapping(value = "them", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean them(MultipartHttpServletRequest request) {
-		String nguoiD = request.getParameter("nguoiD");
-		String tenSP = request.getParameter("tenSP");
-		String gioiT = request.getParameter("gioiT");
-		String congD = request.getParameter("congD");
-		String cachSD = request.getParameter("cachSD");
-		String thanhP = request.getParameter("thanhP");
-		String maND = request.getParameter("maND");
-
-		String maH = request.getParameter("maH");
-		String[] chuoiN = request.getParameterValues("chuoiN");
-		
-		List<MultipartFile> multiFile = request.getFiles("file");
-		StringBuilder rs = new StringBuilder();
-		List<String> result = new ArrayList<String>();
+		String maND = request.getParameter("maNguoiDung");
+		String tenSP = request.getParameter("tenSanPham");
+		String gioiT = request.getParameter("gioiThieu");
+		String congD = request.getParameter("congDung");
+		String cachSD = request.getParameter("cachSuDung");
+		String thanhP = request.getParameter("thanhPhan");
+		String maH = request.getParameter("maHang");
+		String[] chuoiN = request.getParameterValues("chuoiNhom");		
+		List<MultipartFile> multiFile = request.getFiles("danhSachHinh");
 		
 		SanPhamMoi spm = new SanPhamMoi();
-		spm.setMaNguoiDung(Integer.parseInt(nguoiD));
+		spm.setMaNguoiDung(Integer.parseInt(maND));
 		spm.setTenSanPham(tenSP);
 		spm.setMaHang(Integer.parseInt(maH));
 		spm.setGioiThieu(gioiT);
 		spm.setCongDung(congD);
 		spm.setCachSuDung(cachSD);
 		spm.setThanhPhan(thanhP);
-		spm.setMaNguoiDung(Integer.parseInt(maND));
 		spm.setListMaNhomSP(chuoiN);
+		
 		return sanPhamMoiService.them(spm, multiFile);
 	}
 	
@@ -107,7 +102,7 @@ public class SanPhamMoiController {
 		spm.setThanhPhan(thanhP);
 		spm.setMaNguoiDung(Integer.parseInt(maND));
 		
-		sanPhamMoiService.capnhat(spm, multiFile);
+	//	sanPhamMoiService.capnhat(spm, multiFile);
 
 		return true;
 	}

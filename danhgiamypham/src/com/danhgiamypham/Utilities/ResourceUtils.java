@@ -44,17 +44,20 @@ public class ResourceUtils {
 				dir.mkdirs();
 			}
 			
-			String fileName =multiFile.getOriginalFilename() +  Calendar.getInstance().getTimeInMillis();
-			
+			String fileName =Calendar.getInstance().getTimeInMillis() + multiFile.getOriginalFilename();
+			Long ngaythang = Calendar.getInstance().getTimeInMillis(); 
+			String date = String.valueOf(ngaythang);
+			System.out.print(fileName);
+
 			// saving the file
 			File file = new File(dir.getAbsolutePath() + System.getProperty("file.separator") + fileName);
 			BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
-			
 			byte[] bytes = multiFile.getBytes();
 			stream.write(bytes);
 			stream.close();
 			pathRs = file.getAbsolutePath();
-			int k = pathRs.indexOf("FILE_UPLOAD");
+			int k =  pathRs.indexOf(date);
+			//int k = pathRs.indexOf("FILE_UPLOAD");
 			pathRs = pathRs.substring(k);
 		} catch (Exception e) {
 			rs.append("Error: ").append(e.getMessage());

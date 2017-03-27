@@ -19,7 +19,7 @@ import com.mysql.jdbc.Statement;
 @Component
 public class UserDaoImpl implements UserDao {
 
-	Logger logger = Logger.getLogger("UserDaoImpl");
+	//Logger logger = Logger.getLogger("UserDaoImpl");
 
 	// Thay vi tao moi dbProvider thi khai bao trong danhgiamypham-servlet:
 	// id.....
@@ -31,7 +31,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public ResponseData<User> login(User user) {
-		logger.log(Level.INFO,user.getMatKhau() + "-dn-" +user.getTenDangNhap());
+	//	logger.log(Level.INFO,user.getMatKhau() + "-dn-" +user.getTenDangNhap());
 		
 		ResponseData<User> response = new ResponseData<User>();
 		try {
@@ -53,7 +53,7 @@ public class UserDaoImpl implements UserDao {
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			logger.log(Level.INFO, "loi",  e);
+		//	logger.log(Level.INFO, "loi",  e);
 			
 			response.setErrorMessage(e.getMessage());
 		}
