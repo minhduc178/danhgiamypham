@@ -14,7 +14,6 @@ public class SanPham {
 	private String tenNguoiDung;
 	private int tinhTrang;
 	private Date ngayDang;
-	private String nuoc;
 	private String tenNhom;
 	private float diemDanhGia;
 	private int soLuotDanhGia;
@@ -100,7 +99,7 @@ public class SanPham {
 	public SanPham(int maSanPham, String tenSanPham, String tenHang,
 			String gioiThieu, String congDung, String cachSuDung,
 			String thanhPhan, String tenNguoiDung, int tinhTrang,
-			Date ngayDang, String nuoc, String tenNhom, float diemDanhGia,
+			Date ngayDang, String tenNhom, float diemDanhGia,
 			int soLuotDanhGia, int soLuotBinhLuan, String hinhAnhChinh, int maNhomSanPham) {
 		super();
 		this.maSanPham = maSanPham;
@@ -113,7 +112,6 @@ public class SanPham {
 		this.tenNguoiDung = tenNguoiDung;
 		this.tinhTrang = tinhTrang;
 		this.ngayDang = ngayDang;
-		this.nuoc = nuoc;
 		this.tenNhom = tenNhom;
 		this.diemDanhGia = diemDanhGia;
 		this.soLuotDanhGia = soLuotDanhGia;
@@ -125,7 +123,7 @@ public class SanPham {
 	
 	public SanPham(int maSP,String tenSP, String tenH,String gioiT,
 			String congD,String cachSD,String thanhP,String tenND,
-			int tinhT,Date ngayD,String nuoc,float diemDG,String hinhAC,String hinh1,
+			int tinhT,Date ngayD,float diemDG,String hinhAC,String hinh1,
 			String hinh2, String hinh3,String hinh4 ){
 		this.maSanPham = maSP;
 		this.tenSanPham = tenSP;
@@ -138,7 +136,6 @@ public class SanPham {
 		this.tinhTrang = tinhT;
 		this.ngayDang = ngayD;
 		this.tinhTrang = tinhT;
-		this.nuoc = nuoc;
 		this.diemDanhGia = diemDG;
 		this.hinhAnhChinh = hinhAC;
 		this.hinh1 = hinh1;
@@ -275,14 +272,7 @@ public class SanPham {
 		this.ngayDang = ngayDang;
 	}
 
-	public String getNuoc() {
-		return nuoc;
-	}
-
-	public void setNuoc(String nuoc) {
-		this.nuoc = nuoc;
-	}
-
+	
 	public String getTenNhom() {
 		return tenNhom;
 	}

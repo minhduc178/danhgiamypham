@@ -80,7 +80,6 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				String tenND = rs.getString("TenDangNhap");
 				int tinhT = rs.getInt("TinhTrang");
 				Date ngayD = rs.getDate("NgayDang");
-				String nuoc = rs.getString("Nuoc");
 				String tenN = rs.getString("TenNhom");
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
@@ -89,7 +88,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int maNSP = rs.getInt("MaNhomSanPham");
 
 				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
-						cachSD, thanhP, tenND, tinhT, ngayD, nuoc, tenN,
+						cachSD, thanhP, tenND, tinhT, ngayD, tenN,
 						diemDG, soLDG, soLBL, hinhAC, maNSP);
 				sanPhams.add(sp);
 			}
@@ -166,7 +165,6 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				String tenND = rs.getString("TenDangNhap");
 				int tinhT = rs.getInt("TinhTrang");
 				Date ngayD = rs.getDate("NgayDang");
-				String nuoc = rs.getString("Nuoc");
 				String tenN = rs.getString("TenNhom");
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
@@ -175,7 +173,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int maNSP = rs.getInt("MaNhomSanPham");
 
 				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
-						cachSD, thanhP, tenND, tinhT, ngayD, nuoc, tenN,
+						cachSD, thanhP, tenND, tinhT, ngayD, tenN,
 						diemDG, soLDG, soLBL, hinhAC, maNSP);
 				sanPhams.add(sp);
 			}
@@ -210,7 +208,6 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				String tenND = rs.getString("TenDangNhap");
 				int tinhT = rs.getInt("TinhTrang");
 				Date ngayD = rs.getDate("NgayDang");
-				String nuoc = rs.getString("Nuoc");
 				String tenN = rs.getString("TenNhom");
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
@@ -219,7 +216,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int maNSP = rs.getInt("MaNhomSanPham");
 
 				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
-						cachSD, thanhP, tenND, tinhT, ngayD, nuoc, tenN,
+						cachSD, thanhP, tenND, tinhT, ngayD, tenN,
 						diemDG, soLDG, soLBL, hinhAC, maNSP);
 				sanPhams.add(sp);
 			}
@@ -300,7 +297,6 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				String tenND = rs.getString("TenDangNhap");
 				int tinhT = rs.getInt("TinhTrang");
 				Date ngayD = rs.getDate("NgayDang");
-				String nuoc = rs.getString("Nuoc");
 				String tenN = rs.getString("TenNhom");
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
@@ -309,7 +305,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int maNSP = rs.getInt("MaNhomSanPham");
 
 				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
-						cachSD, thanhP, tenND, tinhT, ngayD, nuoc, tenN,
+						cachSD, thanhP, tenND, tinhT, ngayD, tenN,
 						diemDG, soLDG, soLBL, hinhAC, maNSP);
 				sanPhams.add(sp);
 			}
@@ -344,7 +340,6 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				String tenND = rs.getString("TenDangNhap");
 				int tinhT = rs.getInt("TinhTrang");
 				Date ngayD = rs.getDate("NgayDang");
-				String nuoc = rs.getString("Nuoc");
 				String tenN = rs.getString("TenNhom");
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
@@ -353,7 +348,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int maNSP = rs.getInt("MaNhomSanPham");
 
 				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
-						cachSD, thanhP, tenND, tinhT, ngayD, nuoc, tenN,
+						cachSD, thanhP, tenND, tinhT, ngayD, tenN,
 						diemDG, soLDG, soLBL, hinhAC, maNSP);
 				sanPhams.add(sp);
 			}
@@ -496,7 +491,6 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				String tenND = rs.getString("TenDangNhap");
 				int tinhT = rs.getInt("TinhTrang");
 				Date ngayD = rs.getDate("NgayDang");
-				String nuoc = rs.getString("Nuoc");
 				float diemDG = rs.getFloat("DiemDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
 				String hinh1 = rs.getString("Hinh1");
@@ -505,7 +499,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				String hinh4 = rs.getString("Hinh4");
 
 				sanPham = new SanPham(maSP, tenSP, tenH, gioiT, congD, cachSD,
-						thanhP, tenND, tinhT, ngayD, nuoc, diemDG, hinhAC,
+						thanhP, tenND, tinhT, ngayD, diemDG, hinhAC,
 						hinh1, hinh2, hinh3, hinh4);
 			}
 			rs.close();
@@ -696,7 +690,6 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				String tenND = rs.getString("TenDangNhap");
 				int tinhT = rs.getInt("TinhTrang");
 				Date ngayD = rs.getDate("NgayDang");
-				String nuoc = rs.getString("Nuoc");
 				String tenN = rs.getString("TenNhom");
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
@@ -705,7 +698,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int maNSP = rs.getInt("MaNhomSanPham");
 
 				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
-						cachSD, thanhP, tenND, tinhT, ngayD, nuoc, tenN,
+						cachSD, thanhP, tenND, tinhT, ngayD, tenN,
 						diemDG, soLDG, soLBL, hinhAC, maNSP);
 				sanPhams.add(sp);
 			}
