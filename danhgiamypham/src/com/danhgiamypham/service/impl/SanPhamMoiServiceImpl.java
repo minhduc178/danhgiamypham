@@ -68,7 +68,6 @@ public class SanPhamMoiServiceImpl implements SanPhamMoiService {
 		//Them hinh anh 
 		HinhAnhSanPham hasp = new HinhAnhSanPham();
 		hasp.setMaSanPham(maSP);
-		System.out.print(multiFile.size());
 		for(int i=0; i<multiFile.size(); i++){
 			String pathHinh = ResourceUtils.ghiFile(multiFile.get(i));
 			if(i == 0){

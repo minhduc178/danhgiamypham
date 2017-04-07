@@ -100,6 +100,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 		return n;
 	}
 
+	//sanphamtheodanhmuc-service
 	@Override
 	public Set<SanPham> getSanPhamTheoDanhMuc(int trangHienTai,
 			int soLuongTrongTrang, int maDM, String[] chuoiNhom) {
@@ -150,6 +151,63 @@ public class SanPhamServiceImpl implements SanPhamService {
 		for (String r : chuoiNhom) {
 			int maNhom = Integer.parseInt(r);
 			int m = sanPhamDao.getTongSoSanPhamMaDanhMuc(maDanhMuc, maNhom);
+			n = n + m;
+		}
+		return n;
+	}
+	
+	//sanphamtheohang-service
+	
+	@Override
+	public Set<SanPham> getSanPhamTheoHang(int trangHienTai,
+			int soLuongTrongTrang, int maH, String[] chuoiNhom) {
+
+		if (chuoiNhom.length == 0) {
+			Set<SanPham> sanp = new HashSet<SanPham>();
+
+			trangHienTai = ResourceUtils.tinhTrangHienTai(trangHienTai,
+					soLuongTrongTrang);
+			sanp = sanPhamDao.getSanPhamTheoHang(trangHienTai,
+					soLuongTrongTrang, maH);
+
+			for (SanPham sp : sanp) {
+				float ddg = ResourceUtils.quyTron(sp.getDiemDanhGia());
+				sp.setDiemDanhGia(ddg);
+			}
+
+			return sanp;
+
+		} else {
+			Set<SanPham> sanPhamNhom = new HashSet<SanPham>();
+			List<SanPham> kt = new ArrayList<SanPham>();
+			for (String r : chuoiNhom) {
+				int maNhom = Integer.parseInt(r);
+				Set<SanPham> rs = new HashSet<SanPham>();
+				rs = sanPhamDao.getSanPhamTheoHangMaChuoi(maH, maNhom);
+				kt.addAll(rs);
+			}
+			List<SanPham> sanPhamPhanTrang = new ArrayList<SanPham>();
+
+			int t = getTongSoSanPhamMaHangChuoiNhom(maH, chuoiNhom);
+			sanPhamPhanTrang = Pagination.PhanTrang(trangHienTai,
+					soLuongTrongTrang, t, kt);
+			sanPhamNhom.addAll(sanPhamPhanTrang);
+			return sanPhamNhom;
+		}
+	}
+	
+	@Override
+	public int getTongSoSanPhamMaHang(int maHang) {
+		return sanPhamDao.getTongSoSanPhamMaHang(maHang);
+	}
+
+	@Override
+	public int getTongSoSanPhamMaHangChuoiNhom(int maHang,
+			String[] chuoiNhom) {
+		int n = 0;
+		for (String r : chuoiNhom) {
+			int maNhom = Integer.parseInt(r);
+			int m = sanPhamDao.getTongSoSanPhamMaHang(maHang, maNhom);
 			n = n + m;
 		}
 		return n;

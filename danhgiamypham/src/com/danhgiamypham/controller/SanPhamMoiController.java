@@ -1,10 +1,13 @@
 package com.danhgiamypham.controller;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.danhgiamypham.Utilities.ResourceUtils;
 import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.NhomSanPham;
 import com.danhgiamypham.model.SanPhamMoi;
@@ -48,13 +52,13 @@ public class SanPhamMoiController {
 	@ResponseBody
 	public boolean them(MultipartHttpServletRequest request) {
 		String maND = request.getParameter("maNguoiDung");
-		String tenSP = request.getParameter("tenSanPham");
-		String gioiT = request.getParameter("gioiThieu");
-		String congD = request.getParameter("congDung");
-		String cachSD = request.getParameter("cachSuDung");
-		String thanhP = request.getParameter("thanhPhan");
+		String tenSP = ResourceUtils.readUTF8(request.getParameter("tenSanPham"));
+		String gioiT = ResourceUtils.readUTF8(request.getParameter("gioiThieu"));
+		String congD = ResourceUtils.readUTF8(request.getParameter("congDung"));
+		String cachSD = ResourceUtils.readUTF8(request.getParameter("cachSuDung"));
+		String thanhP = ResourceUtils.readUTF8(request.getParameter("thanhPhan"));
 		String maH = request.getParameter("maHang");
-		String[] chuoiN = request.getParameterValues("chuoiNhom");		
+		String[] chuoiN = request.getParameterValues("chuoiNhom");	
 		List<MultipartFile> multiFile = request.getFiles("danhSachHinh");
 		
 		SanPhamMoi spm = new SanPhamMoi();
@@ -76,19 +80,17 @@ public class SanPhamMoiController {
 //		String fileName = request.getParameter("fileName");
 		int maSP = Integer.parseInt(request.getParameter("maSP"));
 		String tenSP = request.getParameter("tenSP");
-		String maH = request.getParameter("maH");
+		String maH = ResourceUtils.readUTF8(request.getParameter("maH"));
 		String maN = request.getParameter("maN");
 		String boP = request.getParameter("boP");
-		String gioiT = request.getParameter("gioiT");
-		String congD = request.getParameter("congD");
-		String cachSD = request.getParameter("cachSD");
-		String thanhP = request.getParameter("thanhP");
+		String gioiT = ResourceUtils.readUTF8(request.getParameter("gioiT"));
+		String congD = ResourceUtils.readUTF8(request.getParameter("congD"));
+		String cachSD = ResourceUtils.readUTF8(request.getParameter("cachSD"));
+		String thanhP = ResourceUtils.readUTF8(request.getParameter("thanhP"));
 		String maND = request.getParameter("maND");
 	
 		MultipartFile multiFile = request.getFile("file");
-		StringBuilder rs = new StringBuilder();
-		
-		List<String> result = new ArrayList<String>();
+	
 		
 		SanPhamMoi spm = new SanPhamMoi();
 		spm.setMaSanPham(maSP);
@@ -107,5 +109,19 @@ public class SanPhamMoiController {
 		return true;
 	}
 	
+	@RequestMapping(value = "test-data", method = RequestMethod.GET)
+	@ResponseBody
+	public String testData(@RequestParam("name") String name) {
+		try{
+			byte[] b = name.getBytes("ISO-8859-15");
+			String s = new String(b, "UTF-8");
+			System.out.print(s);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	
+		return name;
+	}
 	
 }

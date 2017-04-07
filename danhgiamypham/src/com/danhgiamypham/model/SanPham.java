@@ -121,6 +121,20 @@ public class SanPham {
 
 	}
 	
+	public SanPham(int maSanPham, String tenSanPham, String tenHang,
+			Date ngayDang, float diemDanhGia,
+			int soLuotDanhGia, String hinhAnhChinh) {
+		super();
+		this.maSanPham = maSanPham;
+		this.tenSanPham = tenSanPham;
+		this.tenHang = tenHang;
+		this.ngayDang = ngayDang;
+		this.diemDanhGia = diemDanhGia;
+		this.soLuotDanhGia = soLuotDanhGia;
+		this.hinhAnhChinh = hinhAnhChinh;
+
+	}
+	
 	public SanPham(int maSP,String tenSP, String tenH,String gioiT,
 			String congD,String cachSD,String thanhP,String tenND,
 			int tinhT,Date ngayD,float diemDG,String hinhAC,String hinh1,

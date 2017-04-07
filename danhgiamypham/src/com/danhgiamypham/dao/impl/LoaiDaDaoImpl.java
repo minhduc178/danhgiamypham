@@ -31,7 +31,7 @@ public class LoaiDaDaoImpl implements LoaiDaDao {
 			st.setInt(1, maSP);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
-				String tenLD = rs.getString("TenLoaiDa");
+				String tenLD = rs.getString("TenNhom");
 
 				LoaiDa ld = new LoaiDa(tenLD);
 				loaiDas.add(ld);

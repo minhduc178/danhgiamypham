@@ -23,10 +23,13 @@ public class ImageController {
 		StringBuilder rs = new StringBuilder();
 		try {
 			// Creating the directory to store file
+			
 			String rootPath = System.getProperty("catalina.home");
-			File dir = new File(rootPath + File.separator + "webapps"
-					+ File.separator + "FILE_UPLOAD");
-			if (dir == null) {
+			File dir = new File(rootPath + File.separator + "webapps" + File.separator + "FILE_UPLOAD");
+			
+		//	File dir = new File("/FILE_UPLOAD/HINHSANPHAM");
+			
+			if (!dir.exists()) {
 				throw new FileNotFoundException(name);
 			}
 

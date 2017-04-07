@@ -41,13 +41,12 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int maSP = rs.getInt("MaSanPham");
 				String tenSP = rs.getString("TenSanPham");
 				String tenH = rs.getString("TenHang");
-				int tinhT = rs.getInt("TinhTrang");
 				Date ngayD = rs.getDate("NgayDang");
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
 
-				SanPham sp = new SanPham(maSP, tenSP, tenH, tinhT, ngayD,
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD,
 						diemDG, soLDG, hinhAC);
 				sanPhams.add(sp);
 			}
@@ -73,23 +72,13 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int maSP = rs.getInt("MaSanPham");
 				String tenSP = rs.getString("TenSanPham");
 				String tenH = rs.getString("TenHang");
-				String gioiT = rs.getString("GioiThieu");
-				String congD = rs.getString("CongDung");
-				String cachSD = rs.getString("CachSuDung");
-				String thanhP = rs.getString("ThanhPhan");
-				String tenND = rs.getString("TenDangNhap");
-				int tinhT = rs.getInt("TinhTrang");
 				Date ngayD = rs.getDate("NgayDang");
-				String tenN = rs.getString("TenNhom");
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
-				int soLBL = rs.getInt("SoLuotBinhLuan");
 				String hinhAC = rs.getString("HinhAnhChinh");
-				int maNSP = rs.getInt("MaNhomSanPham");
 
-				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
-						cachSD, thanhP, tenND, tinhT, ngayD, tenN,
-						diemDG, soLDG, soLBL, hinhAC, maNSP);
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD,
+						diemDG, soLDG, hinhAC);
 				sanPhams.add(sp);
 			}
 			rs.close();
@@ -142,7 +131,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 		}
 		return tongSanPham;
 	}
-	
+	// getSanPhamTheoDanhMuc-controller
 	@Override
 	public Set<SanPham> getSanPhamTheoDanhMuc(int trangHienTai, int soLuongTrongTrang, int maDM) {
 		Set<SanPham> sanPhams = new HashSet<SanPham>();
@@ -158,23 +147,13 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int maSP = rs.getInt("MaSanPham");
 				String tenSP = rs.getString("TenSanPham");
 				String tenH = rs.getString("TenHang");
-				String gioiT = rs.getString("GioiThieu");
-				String congD = rs.getString("CongDung");
-				String cachSD = rs.getString("CachSuDung");
-				String thanhP = rs.getString("ThanhPhan");
-				String tenND = rs.getString("TenDangNhap");
-				int tinhT = rs.getInt("TinhTrang");
 				Date ngayD = rs.getDate("NgayDang");
-				String tenN = rs.getString("TenNhom");
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
-				int soLBL = rs.getInt("SoLuotBinhLuan");
 				String hinhAC = rs.getString("HinhAnhChinh");
-				int maNSP = rs.getInt("MaNhomSanPham");
 
-				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
-						cachSD, thanhP, tenND, tinhT, ngayD, tenN,
-						diemDG, soLDG, soLBL, hinhAC, maNSP);
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD,
+						diemDG, soLDG, hinhAC);
 				sanPhams.add(sp);
 			}
 			rs.close();
@@ -201,23 +180,13 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int maSP = rs.getInt("MaSanPham");
 				String tenSP = rs.getString("TenSanPham");
 				String tenH = rs.getString("TenHang");
-				String gioiT = rs.getString("GioiThieu");
-				String congD = rs.getString("CongDung");
-				String cachSD = rs.getString("CachSuDung");
-				String thanhP = rs.getString("ThanhPhan");
-				String tenND = rs.getString("TenDangNhap");
-				int tinhT = rs.getInt("TinhTrang");
 				Date ngayD = rs.getDate("NgayDang");
-				String tenN = rs.getString("TenNhom");
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
-				int soLBL = rs.getInt("SoLuotBinhLuan");
 				String hinhAC = rs.getString("HinhAnhChinh");
-				int maNSP = rs.getInt("MaNhomSanPham");
 
-				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
-						cachSD, thanhP, tenND, tinhT, ngayD, tenN,
-						diemDG, soLDG, soLBL, hinhAC, maNSP);
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD,
+						diemDG, soLDG, hinhAC);
 				sanPhams.add(sp);
 			}
 			rs.close();
@@ -275,6 +244,119 @@ public class SanPhamDaoImpl implements SanPhamDao {
 		return tongSanPham;
 	}
 	
+	//sanphamtheomahang 
+	@Override
+	public Set<SanPham> getSanPhamTheoHang(int trangHienTai, int soLuongTrongTrang, int maH) {
+		Set<SanPham> sanPhams = new HashSet<SanPham>();
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getSanPhamTheoHang(?,?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, trangHienTai);
+			st.setInt(2, soLuongTrongTrang);
+			st.setInt(3, maH);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				int maSP = rs.getInt("MaSanPham");
+				String tenSP = rs.getString("TenSanPham");
+				String tenH = rs.getString("TenHang");
+				Date ngayD = rs.getDate("NgayDang");
+				float diemDG = rs.getFloat("DiemDanhGia");
+				int soLDG = rs.getInt("SoLuotDanhGia");
+				String hinhAC = rs.getString("HinhAnhChinh");
+
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD,
+						diemDG, soLDG, hinhAC);
+				sanPhams.add(sp);
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sanPhams;
+
+	}
+	
+	@Override
+	public Set<SanPham> getSanPhamTheoHangMaChuoi(int maH, int nhomChuoi) {
+		Set<SanPham> sanPhams = new HashSet<SanPham>();
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getSanPhamTheoHangMaChuoi(?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maH);
+			st.setInt(2, nhomChuoi);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				int maSP = rs.getInt("MaSanPham");
+				String tenSP = rs.getString("TenSanPham");
+				String tenH = rs.getString("TenHang");
+				Date ngayD = rs.getDate("NgayDang");
+				float diemDG = rs.getFloat("DiemDanhGia");
+				int soLDG = rs.getInt("SoLuotDanhGia");
+				String hinhAC = rs.getString("HinhAnhChinh");
+
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD,
+						diemDG, soLDG, hinhAC);
+				sanPhams.add(sp);
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sanPhams;
+
+	}
+	
+	@Override
+	public int getTongSoSanPhamMaHang(int maHang) {
+		 int tongSanPham=0;
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getSoLuongMaHang(?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maHang);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				tongSanPham = rs.getInt("SoLuongTheoHang");				
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tongSanPham;
+	}
+	
+	@Override
+	public int getTongSoSanPhamMaHang(int maHang, int maNhom) {
+		 int tongSanPham=0;
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getSoLuongMaHangMaNhom(?, ?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maHang);
+			st.setInt(2, maNhom);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				tongSanPham = rs.getInt("SoLuongTheoHang");
+				
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tongSanPham;
+	}
+	
+	
 	@Override
 	public Set<SanPham> getSanPhamTheoNhomSPham(int trangHienTai, int soLuongTrongTrang,int maNhomSanPham) {
 		Set<SanPham> sanPhams = new HashSet<SanPham>();
@@ -290,23 +372,13 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int maSP = rs.getInt("MaSanPham");
 				String tenSP = rs.getString("TenSanPham");
 				String tenH = rs.getString("TenHang");
-				String gioiT = rs.getString("GioiThieu");
-				String congD = rs.getString("CongDung");
-				String cachSD = rs.getString("CachSuDung");
-				String thanhP = rs.getString("ThanhPhan");
-				String tenND = rs.getString("TenDangNhap");
-				int tinhT = rs.getInt("TinhTrang");
 				Date ngayD = rs.getDate("NgayDang");
-				String tenN = rs.getString("TenNhom");
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
-				int soLBL = rs.getInt("SoLuotBinhLuan");
 				String hinhAC = rs.getString("HinhAnhChinh");
-				int maNSP = rs.getInt("MaNhomSanPham");
 
-				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
-						cachSD, thanhP, tenND, tinhT, ngayD, tenN,
-						diemDG, soLDG, soLBL, hinhAC, maNSP);
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD,
+						diemDG, soLDG, hinhAC);
 				sanPhams.add(sp);
 			}
 			rs.close();
@@ -333,23 +405,13 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int maSP = rs.getInt("MaSanPham");
 				String tenSP = rs.getString("TenSanPham");
 				String tenH = rs.getString("TenHang");
-				String gioiT = rs.getString("GioiThieu");
-				String congD = rs.getString("CongDung");
-				String cachSD = rs.getString("CachSuDung");
-				String thanhP = rs.getString("ThanhPhan");
-				String tenND = rs.getString("TenDangNhap");
-				int tinhT = rs.getInt("TinhTrang");
 				Date ngayD = rs.getDate("NgayDang");
-				String tenN = rs.getString("TenNhom");
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
-				int soLBL = rs.getInt("SoLuotBinhLuan");
 				String hinhAC = rs.getString("HinhAnhChinh");
-				int maNSP = rs.getInt("MaNhomSanPham");
 
-				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
-						cachSD, thanhP, tenND, tinhT, ngayD, tenN,
-						diemDG, soLDG, soLBL, hinhAC, maNSP);
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD,
+						diemDG, soLDG, hinhAC);
 				sanPhams.add(sp);
 			}
 			rs.close();
@@ -682,24 +744,14 @@ public class SanPhamDaoImpl implements SanPhamDao {
 			while (rs.next()) {
 				int maSP = rs.getInt("MaSanPham");
 				String tenSP = rs.getString("TenSanPham");
-				String tenH = rs.getString("TenHang");
-				String gioiT = rs.getString("GioiThieu");
-				String congD = rs.getString("CongDung");
-				String cachSD = rs.getString("CachSuDung");
-				String thanhP = rs.getString("ThanhPhan");
-				String tenND = rs.getString("TenDangNhap");
-				int tinhT = rs.getInt("TinhTrang");
+    			String tenH = rs.getString("TenHang");
 				Date ngayD = rs.getDate("NgayDang");
-				String tenN = rs.getString("TenNhom");
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
-				int soLBL = rs.getInt("SoLuotBinhLuan");
 				String hinhAC = rs.getString("HinhAnhChinh");
-				int maNSP = rs.getInt("MaNhomSanPham");
 
-				SanPham sp = new SanPham(maSP, tenSP, tenH, gioiT, congD,
-						cachSD, thanhP, tenND, tinhT, ngayD, tenN,
-						diemDG, soLDG, soLBL, hinhAC, maNSP);
+				SanPham sp = new SanPham(maSP, tenSP,tenH, ngayD,
+						diemDG, soLDG, hinhAC);
 				sanPhams.add(sp);
 			}
 			rs.close();

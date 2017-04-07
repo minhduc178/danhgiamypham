@@ -16,6 +16,10 @@ public interface SanPhamService {
 	public int getTongSoSanPhamMaDanhMuc(int maDanhMuc);
 	public int getTongSoSanPhamMaDanhMucChuoiNhom(int maDanhMuc,String[] chuoiNhom);
 	
+	public Set<SanPham> getSanPhamTheoHang(int trangHienTai, int soLuongTrongTrang,int id, String[] chuoiNhom );
+	public int getTongSoSanPhamMaHang(int maHang);
+	public int getTongSoSanPhamMaHangChuoiNhom(int maHang,String[] chuoiNhom);
+	
 	public Set<SanPham> getSanPhamTheoNhomSanPham(int trangHienTai, int soLuongTrongTrang,int maNhomSanPham, String[] chuoiNhom );
 	public int getTongSoSanPhamMaNhomSP(int maNhomSP);
 	public int getTongSoSanPhamMaNhomSPChuoiNhom(int maNhomSP,String[] chuoiNhom);

@@ -70,16 +70,9 @@
 			<artifactId>commons-io</artifactId>
 			<version>1.3.2</version>
 		</dependency>
-		
 	</dependencies>
 	
-	
-
-
 	<!-- for post method -->
-
-
-
 	<build>
 		<finalName>danhgiamypham</finalName>
 		<sourceDirectory>src</sourceDirectory>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.danhgiamypham.Utilities.ResourceUtils;
 import com.danhgiamypham.dto.DanhMucNhom;
 import com.danhgiamypham.model.DanhMuc;
 import com.danhgiamypham.model.Hang;
@@ -53,7 +54,8 @@ public class DanhMucController {
 	@RequestMapping(value = "them-hang", method = RequestMethod.GET)
 	@ResponseBody
 	public boolean themHang(@RequestParam("tenhang") String tenHang) {
-		return danhMucService.themHang(tenHang);
+		String tenHangMoi = ResourceUtils.readUTF8(tenHang);
+		return danhMucService.themHang(tenHangMoi);
 	}
 	
 	@RequestMapping(value = "get-hang-theo-nhom", method = RequestMethod.GET)

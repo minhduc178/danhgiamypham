@@ -30,14 +30,7 @@ public class SanPhamController {
 		return sanPhamService.getSanPham(trangHienTai, soLuongTrongTrang, chuoiNhom);
 	}
 	
-	@RequestMapping(value = "get-sanphamtheodanhmuc", method = RequestMethod.GET)
-	@ResponseBody
-	public Set<SanPham> getSanPhamTheoDanhMuc(@RequestParam("tranghientai") int trangHienTai,
-												@RequestParam("soluongtrongtrang") int soLuongTrongTrang, 
-												@RequestParam("madanhmuc") int maDanhMuc,
-												@RequestParam("chuoinhom") String[] chuoiNhom) {
-		return sanPhamService.getSanPhamTheoDanhMuc(trangHienTai,soLuongTrongTrang, maDanhMuc, chuoiNhom);
-	}
+
 	
 	@RequestMapping(value = "get-sanphamtheonhomsp", method = RequestMethod.GET)
 	@ResponseBody
@@ -71,7 +64,7 @@ public class SanPhamController {
 		return sanPhamService.getTongSoSanPhamTheoNhom(nhomsanphams);
 	}
 	
-	//lay tong san pham cho trang get san pham theo danh muc
+	//sanphamtheodanhmuc-controller lay tong san pham cho trang get san pham theo danh muc
 	@RequestMapping(value = "get-tongsosanphammadanhmuc", method = RequestMethod.GET)
 	@ResponseBody
 	public int getTongSoSanPhamMaDanhMuc(@RequestParam("madanhmuc")  int maDanhMuc) {
@@ -84,6 +77,38 @@ public class SanPhamController {
 										@RequestParam("nhomsanphams") String[] chuoiNhom) {
 		return sanPhamService.getTongSoSanPhamMaDanhMucChuoiNhom(maDanhMuc, chuoiNhom);
 	}
+	
+	@RequestMapping(value = "get-sanphamtheodanhmuc", method = RequestMethod.GET)
+	@ResponseBody
+	public Set<SanPham> getSanPhamTheoDanhMuc(@RequestParam("tranghientai") int trangHienTai,
+												@RequestParam("soluongtrongtrang") int soLuongTrongTrang, 
+												@RequestParam("madanhmuc") int maDanhMuc,
+												@RequestParam("chuoinhom") String[] chuoiNhom) {
+		return sanPhamService.getSanPhamTheoDanhMuc(trangHienTai,soLuongTrongTrang, maDanhMuc, chuoiNhom);
+	}
+	
+	//sanphamtheohang-controller lay tong san pham cho trang get san pham theo hang
+		@RequestMapping(value = "get-tongsosanphammahang", method = RequestMethod.GET)
+		@ResponseBody
+		public int getTongSoSanPhamMaHang(@RequestParam("mahang")  int maHang) {
+			return sanPhamService.getTongSoSanPhamMaHang(maHang);
+		}
+		
+		@RequestMapping(value = "get-tongsosanphammahangchuoinhom", method = RequestMethod.GET)
+		@ResponseBody
+		public int getTongSoSanPhamMaHang(@RequestParam("mahang")  int maHang,
+											@RequestParam("nhomsanphams") String[] chuoiNhom) {
+			return sanPhamService.getTongSoSanPhamMaHangChuoiNhom(maHang, chuoiNhom);
+		}
+		
+		@RequestMapping(value = "get-sanphamtheohang", method = RequestMethod.GET)
+		@ResponseBody
+		public Set<SanPham> getSanPhamTheoHang(@RequestParam("tranghientai") int trangHienTai,
+													@RequestParam("soluongtrongtrang") int soLuongTrongTrang, 
+													@RequestParam("mahang") int maHang,
+													@RequestParam("chuoinhom") String[] chuoiNhom) {
+			return sanPhamService.getSanPhamTheoHang(trangHienTai,soLuongTrongTrang, maHang, chuoiNhom);
+		}
 	
 //	lay tong san pham cho trang get san pham theo nhom san pham
 		@RequestMapping(value = "get-tongsosanphammanhomsanpham", method = RequestMethod.GET)

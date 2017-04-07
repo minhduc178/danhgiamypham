@@ -17,6 +17,11 @@ public interface SanPhamDao {
 	public int getTongSoSanPhamMaDanhMuc(int maDanhMuc);
 	public int getTongSoSanPhamMaDanhMuc(int maDanhMuc, int maNhom);
 	
+	public Set<SanPham> getSanPhamTheoHang(int trangHienTai, int soLuongTrongTrang, int maH);
+	public Set<SanPham> getSanPhamTheoHangMaChuoi(int maDM, int nhomChuoi);
+	public int getTongSoSanPhamMaHang(int maHang);
+	public int getTongSoSanPhamMaHang(int maHang, int maNhom);
+	
 	public Set<SanPham> getSanPhamTheoNhomSPham(int trangHienTai, int soLuongTrongTrang, int maNhom);
 	public Set<SanPham> getSanPhamMaNhomSPMaChuoi(int maNhomSP, int nhomChuoi);
 	public int getTongSoSanPhamMaNhomSP(int maNhomSP);

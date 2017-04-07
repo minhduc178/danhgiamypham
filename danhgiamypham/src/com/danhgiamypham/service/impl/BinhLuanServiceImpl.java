@@ -20,13 +20,13 @@ public class BinhLuanServiceImpl implements BinhLuanService {
 	@Override
 	public boolean themBinhLuan(BinhLuan bl, List<MultipartFile> multiFile) {
 		//save image;
-		ResourceUtils ut =  new ResourceUtils();
-		for(MultipartFile file:multiFile ){
+//		ResourceUtils ut =  new ResourceUtils();
+//		for(MultipartFile file:multiFile ){
 //			List<String> huhu = 
 			//String hinhAnh = ut.ghiFile(file);
 		//	System.out.print(file);
 			
-		}
+	//	}
 //		if (!hinhAnh.equals("")) {
 //			bl.setHinhAnh(hinhAnh);
 //		}
