@@ -11,8 +11,8 @@ import com.danhgiamypham.model.SanPhamMoi;
 public interface SanPhamMoiService {
 	public List<Hang> getHang();
 	public List<NhomSanPham> getNhomSanPhamTheoDanhMuc(int mdm);
-	public boolean them(SanPhamMoi spm, List<MultipartFile> multiFile);
-	public boolean capnhat(SanPhamMoi spm, List<MultipartFile> multiFile);
 	public List<NhomSanPham> getNhomSPTheoSP(int maSP, int mdm);
+	public boolean them(SanPhamMoi spm, List<MultipartFile> multiFile);
+	public boolean capNhat(SanPhamMoi spm, List<MultipartFile> multiFile);
 
 }

@@ -158,44 +158,72 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 		return id;
 	}
 	
-	@Override
-	public boolean themHinhAnh(int maSP,String fileName) {
-		boolean ketQua = false;
-		try {
-			Connection cnn = dbProvider.getConnection();
-			String sql = "{call themHinhAnh(?,?)}";
-			PreparedStatement st = cnn.prepareStatement(sql);
-			st.setInt(1, maSP);
-			st.setString(2, fileName);
-
-			int rs = st.executeUpdate();
-
-			if (rs == 1) {
-				ketQua = true;
-			}
-			st.close();
-			cnn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return ketQua;
-	}
 	
-	@Override
-	public boolean themSanPhamNhomSanPham(int maSP, int k) {
+	
+//	@Override
+//	public boolean themHinhAnh(int maSP,String fileName) {
+//		boolean ketQua = false;
+//		try {
+//			Connection cnn = dbProvider.getConnection();
+//			String sql = "{call themHinhAnh(?,?)}";
+//			PreparedStatement st = cnn.prepareStatement(sql);
+//			st.setInt(1, maSP);
+//			st.setString(2, fileName);
+//
+//			int rs = st.executeUpdate();
+//
+//			if (rs == 1) {
+//				ketQua = true;
+//			}
+//			st.close();
+//			cnn.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return ketQua;
+//	}
+	
+//	@Override
+//	public boolean themSanPhamNhomSanPham(int maSP, int k) {
+//		boolean ketQua = false;
+//		try {
+//			Connection cnn = dbProvider.getConnection();
+//			String sql = "{call themSanPhamNhomSanPham(?,?)}";
+//			PreparedStatement st = cnn.prepareStatement(sql);
+//			st.setInt(1, maSP);
+//			st.setInt(2, k);
+//
+//			int rs = st.executeUpdate();
+//
+//			if (rs == 1) {
+//				ketQua = true;
+//			}
+//			st.close();
+//			cnn.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return ketQua;
+//	}
+	public boolean themHinhAnhMoi(HinhAnhSanPham hasp){
 		boolean ketQua = false;
 		try {
 			Connection cnn = dbProvider.getConnection();
-			String sql = "{call themSanPhamNhomSanPham(?,?)}";
+			String sql = "{call themHinhAnhMoi(?,?,?,?,?,?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
-			st.setInt(1, maSP);
-			st.setInt(2, k);
-
-			int rs = st.executeUpdate();
-
-			if (rs == 1) {
-				ketQua = true;
-			}
+			st.setInt(1, hasp.getMaSanPham()); 
+			st.setString(2, hasp.getHinhAnhChinh());
+			st.setString(3, hasp.getHinh1());
+			st.setString(4, hasp.getHinh2());
+			st.setString(5, hasp.getHinh3());
+			st.setString(6, hasp.getHinh4());
+		
+			int rs  = st.executeUpdate();
+			
+			if(rs==1){
+				ketQua  = true;
+			} 
+			
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
@@ -228,13 +256,12 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 	
 	
 	@Override
-	public boolean capnhatSanPham(SanPhamMoi spm) {
+	public boolean capNhatSanPham(SanPhamMoi spm) {
 		boolean ketQua = false;
 		try {
 			Connection cnn = dbProvider.getConnection();
-			String sql = "{call capnhatSanPham(?,?,?,?,?,?,?,?)}";
-			PreparedStatement st = cnn.prepareStatement(sql,
-					Statement.RETURN_GENERATED_KEYS);
+			String sql = "{call capNhatSanPham(?,?,?,?,?,?,?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
 			st.setInt(1, spm.getMaSanPham());
 			st.setString(2, spm.getTenSanPham());
 			st.setInt(3, spm.getMaHang());
@@ -249,8 +276,6 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 			if(rs==1){
 				ketQua  = true;
 			} 
-			int id = getMaxMaSanPham();
-			spm.setMaSanPham(id);
 			
 			st.close();
 			cnn.close();
@@ -262,36 +287,34 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 	}
 	
 
-	@Override
-	public boolean capnhatHinhAnh(int maSP,String fileName) {
+//	@Override
+//	public boolean capnhatHinhAnh(int maSP,String fileName) {
+//		boolean ketQua = false;
+//		try {
+//			Connection cnn = dbProvider.getConnection();
+//			String sql = "{call capnhatHinhAnh(?,?)}";
+//			PreparedStatement st = cnn.prepareStatement(sql);
+//			st.setInt(1, maSP);
+//			st.setString(2, fileName);
+//
+//			int rs = st.executeUpdate();
+//
+//			if (rs == 1) {
+//				ketQua = true;
+//			}
+//			st.close();
+//			cnn.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return ketQua;
+//	}
+	
+	public boolean capNhatHinhAnh(int maSP, HinhAnhSanPham hasp){
 		boolean ketQua = false;
 		try {
 			Connection cnn = dbProvider.getConnection();
-			String sql = "{call capnhatHinhAnh(?,?)}";
-			PreparedStatement st = cnn.prepareStatement(sql);
-			st.setInt(1, maSP);
-			st.setString(2, fileName);
-
-			int rs = st.executeUpdate();
-
-			if (rs == 1) {
-				ketQua = true;
-			}
-			st.close();
-			cnn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return ketQua;
-	}
-	
-	
-	
-	public boolean themHinhAnhMoi(HinhAnhSanPham hasp){
-		boolean ketQua = false;
-		try {
-			Connection cnn = dbProvider.getConnection();
-			String sql = "{call themHinhAnhMoi(?,?,?,?,?,?)}";
+			String sql = "{call capNhatHinhAnh(?,?,?,?,?,?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
 			st.setInt(1, hasp.getMaSanPham()); 
 			st.setString(2, hasp.getHinhAnhChinh());
@@ -313,6 +336,32 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 		}
 		return ketQua;
 	}
+	
+	@Override
+	public boolean capNhatNhomSanPham(int maSP, int maNhom) {
+		boolean ketQua = false;
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call capNhatSanPhamNhomSanPham(?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maSP);
+			st.setInt(2,maNhom);
+			int rs = st.executeUpdate();
+
+			if (rs == 1) {
+				ketQua = true;
+			}
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ketQua;
+	}
+	
+	
+	
+	
 	
 
 

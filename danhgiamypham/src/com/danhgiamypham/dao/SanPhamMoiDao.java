@@ -10,12 +10,16 @@ import com.danhgiamypham.model.SanPhamMoi;
 public interface SanPhamMoiDao {
 	public List<Hang> getHang();
 	public List<NhomSanPham> getNhomSanPhamTheoDanhMuc(int MaDanhMuc);
-	public boolean themSanPham(SanPhamMoi spm);
-	public boolean themHinhAnh(int maSP,String fileName);
-	public boolean themSanPhamNhomSanPham(int maSP, int k);
-	public boolean capnhatSanPham(SanPhamMoi spm);
-	public boolean capnhatHinhAnh(int maSP,String fileName);
 	public List<NhomSanPham> getNhomSanPhamTheoSP(int maSP, int MaDanhMuc);
-	public boolean themNhomSanPhamMoi(int maSP,int maNhom);
+
+	public boolean themSanPham(SanPhamMoi spm);
+//	public boolean themHinhAnh(int maSP,String fileName);
 	public boolean themHinhAnhMoi(HinhAnhSanPham hasp);
+//	public boolean themSanPhamNhomSanPham(int maSP, int k);
+	public boolean themNhomSanPhamMoi(int maSP,int maNhom);
+	
+	public boolean capNhatSanPham(SanPhamMoi spm);
+	public boolean capNhatHinhAnh(int maSP, HinhAnhSanPham hasp);
+	public boolean capNhatNhomSanPham(int maSP, int maNhom);
+	
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.BinhLuan;
 import com.danhgiamypham.service.BinhLuanService;
 import com.danhgiamypham.service.impl.BinhLuanServiceImpl;
@@ -25,35 +26,32 @@ public class BinhLuanController {
 	
 	@Autowired
 	private BinhLuanServiceImpl binhLuanServiceImpl;
-
-//	@RequestMapping(value = "them", method = RequestMethod.POST)
-//	@ResponseBody
-//	public boolean binhLuan(@RequestBody BinhLuanDTO blDTO) {
-//		BinhLuan bl = blDTO.unbind();
-//		return binhLuanService.themBinhLuan(bl);
-//	}
 	
 	@RequestMapping(value = "them", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean binhLuan(MultipartHttpServletRequest request) {
-		//String fileName = request.getParameter("fileName");
-		String maNguoiDung = request.getParameter("maNguoiDung");
-		String maSanPham = request.getParameter("maSanPham");
-		String diemDanhGia = request.getParameter("diemDanhGia");
-		String binhLuan = request.getParameter("binhLuan");
-
+	public boolean binhLuan(MultipartHttpServletRequest request) {		
+		BinhLuan bl= new BinhLuan();
+		bl.bindFromMultipart(request);
 		List<MultipartFile> multiFile = request.getFiles("file");
-		StringBuilder rs = new StringBuilder();
-			
-		BinhLuan bl= new BinhLuan(); 
-		bl.setBinhLuan(binhLuan);
-		bl.setDiemDanhGia(Integer.parseInt(diemDanhGia));
-		bl.setMaNguoiDung(Integer.parseInt(maNguoiDung));
-		bl.setMaSanPham(Integer.parseInt(maSanPham));
-					
 		binhLuanService.themBinhLuan(bl, multiFile);
 		return true;
 	}
+	
+//	@RequestMapping(value = "them", method = RequestMethod.POST)
+//	@ResponseBody
+//	public ResponseData<Boolean> binhLuan(MultipartHttpServletRequest request) {
+//		ResponseData<Boolean> resp = new ResponseData<Boolean>();
+//		BinhLuan bl= new BinhLuan();
+//		bl.bindFromMultipart(request);
+//		List<MultipartFile> multiFile = request.getFiles("file");
+//		boolean rs = binhLuanService.themBinhLuan(bl, multiFile);
+//		if(rs){
+//			resp.setData(rs);
+//		}else{
+//			resp.setErrorMessage("Vui long thu lai sau");
+//		}
+//		return resp;
+//	}
 	
 	@RequestMapping(value = "themLike", method = RequestMethod.GET)
 	@ResponseBody

@@ -2,6 +2,8 @@ package com.danhgiamypham.model;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 
 public class BinhLuan {
 	private int maNguoiDung;
@@ -27,6 +29,19 @@ public class BinhLuan {
 		this.tinhTrang = tinhTrang;
 		this.ngayBinhLuan = ngayBinhLuan;
 		this.hinhAnh = hinhAnh;
+	}
+	
+	public void bindFromMultipart(MultipartHttpServletRequest request){
+		String maNguoiDung = request.getParameter("maNguoiDung");
+		String maSanPham = request.getParameter("maSanPham");
+		String diemDanhGia = request.getParameter("diemDanhGia");
+		String binhLuan = request.getParameter("binhLuan");
+
+		this.setBinhLuan(binhLuan);
+		this.setDiemDanhGia(Integer.parseInt(diemDanhGia));
+		this.setMaNguoiDung(Integer.parseInt(maNguoiDung));
+		this.setMaSanPham(Integer.parseInt(maSanPham));
+		
 	}
 
 

@@ -8,19 +8,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.danhgiamypham.Utilities.ConstantURL;
 import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.dto.UserDTO;
 import com.danhgiamypham.model.User;
 import com.danhgiamypham.service.UserService;
 
 @Controller
-@RequestMapping("/user/")
+@RequestMapping(value=ConstantURL.USER_URL)
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "login", method = RequestMethod.POST)
+	@RequestMapping(value=ConstantURL.USER_LOGIN_URL, method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseData<UserDTO> login(
 			@RequestParam("tendangnhap") String userName,

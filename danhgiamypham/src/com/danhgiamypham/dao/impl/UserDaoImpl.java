@@ -17,19 +17,11 @@ import com.mysql.jdbc.Statement;
 @Component
 public class UserDaoImpl implements UserDao {
 
-	//Logger logger = Logger.getLogger("UserDaoImpl");
-
-	// Thay vi tao moi dbProvider thi khai bao trong danhgiamypham-servlet:
-	// id.....
 	@Autowired
 	private DBProvider dbProvider;
 
-	// @Autowired
-	// private ResponseData responseData;
-
 	@Override
 	public ResponseData<User> login(User user) {
-	//	logger.log(Level.INFO,user.getMatKhau() + "-dn-" +user.getTenDangNhap());
 		
 		ResponseData<User> response = new ResponseData<User>();
 		try {
@@ -40,7 +32,6 @@ public class UserDaoImpl implements UserDao {
 			st.setString(2, user.getMatKhau());
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
-				// String tenND = rs.getString("TenNguoiDung");
 				int maND = rs.getInt("MaNguoiDung");
 				String email = rs.getString("Email");
 
@@ -51,7 +42,6 @@ public class UserDaoImpl implements UserDao {
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-		//	logger.log(Level.INFO, "loi",  e);
 			
 			response.setErrorMessage(e.getMessage());
 		}
@@ -73,8 +63,7 @@ public class UserDaoImpl implements UserDao {
 			int affectedRows = st.executeUpdate();
 
 			if (affectedRows == 0) {
-				throw new SQLException(
-						"Creating user failed, no rows affected.");
+				response.setErrorMessage("Vui long thu lai sau");
 			}
 
 			int id = getMaxMaNguoiDung();
@@ -85,12 +74,10 @@ public class UserDaoImpl implements UserDao {
 			cnn.close();
 		} catch (SQLException e) {
 			response.setErrorMessage(e.getMessage());
-
 		} catch (Exception a) {
 			response.setErrorMessage(a.getMessage());
 		}
 		return response;
-
 	}
 
 	public int getMaxMaNguoiDung() {
@@ -111,5 +98,4 @@ public class UserDaoImpl implements UserDao {
 		}
 		return id;
 	}
-	
 }

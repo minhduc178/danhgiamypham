@@ -13,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.danhgiamypham.Utilities.PathRsIMG;
+import com.danhgiamypham.model.PathImage;
+
 @Controller
 @RequestMapping("/resources")
 public class ImageController {
@@ -23,11 +26,10 @@ public class ImageController {
 		StringBuilder rs = new StringBuilder();
 		try {
 			// Creating the directory to store file
-			
-			String rootPath = System.getProperty("catalina.home");
-			File dir = new File(rootPath + File.separator + "webapps" + File.separator + "FILE_UPLOAD");
-			
-		//	File dir = new File("/FILE_UPLOAD/HINHSANPHAM");
+			PathImage sanPhamImg = new PathImage();
+			String location = sanPhamImg.getSanPhamIMG();
+			String path = PathRsIMG.pathHinhSanPham(location);
+			File dir = new File(path);
 			
 			if (!dir.exists()) {
 				throw new FileNotFoundException(name);

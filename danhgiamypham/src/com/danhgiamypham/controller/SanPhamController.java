@@ -1,6 +1,5 @@
 package com.danhgiamypham.controller;
 
-import java.io.File;
 import java.util.List;
 import java.util.Set;
 
@@ -143,11 +142,6 @@ public class SanPhamController {
 	@RequestMapping(value = "get-chi-tiet-san-pham", method = RequestMethod.GET)
 	@ResponseBody
 	public SanPham getChiTietSanPham(@RequestParam("masanpham") int MaSanPham) {
-		String rootPath = System.getProperty("catalina.home");
-		File dir = new File(rootPath + File.separator + "webapps" + File.separator + "IMG");
-		if (!dir.exists()) {
-			dir.mkdirs();
-		}
 		return sanPhamService.getChiTietSanPham(MaSanPham);
 	}
 	
