@@ -26,18 +26,38 @@ public class SanPham {
 	private String ghiChu;
 	private int maNguoiDung;
 	private int maHang;
+	private int maNhomHang;
 	private int maNhomSanPham;
-	private int maDanhMuc;
+	private int maDanhMuc;	
+	private int maNhomSanPhamBoPhan;
+	
+	private String[] listMaNhomSPham;
 
+	
 	private List<LoaiDa> loaiDas;
 	private List<DanhGiaSanPham> danhGiaSanPhams;
 	private List<Hang> hangs;
 	private List<NhomHang> nhomHangs;
 	private List<SanPham> sanPhams;
+	private List<Integer> maNhomSanPhams;
 	
 	
-	
-	
+	public List<Integer> getMaNhomSanPhams() {
+		return maNhomSanPhams;
+	}
+
+	public void setMaNhomSanPhams(List<Integer> maNhomSanPhams) {
+		this.maNhomSanPhams = maNhomSanPhams;
+	}
+
+	public String[] getListMaNhomSPham() {
+		return listMaNhomSPham;
+	}
+
+	public void setListMaNhomSPham(String[] listMaNhomSPham) {
+		this.listMaNhomSPham = listMaNhomSPham;
+	}
+
 	public List<SanPham> getSanPhams() {
 		return sanPhams;
 	}
@@ -158,6 +178,30 @@ public class SanPham {
 		this.hinh4 = hinh4;
 	}
 	
+	public SanPham(int maSP, String tenSP, String tenH, int maH,int maNH, String gioiT,String congD, String cachSD,
+			String thanhP,String tenND,int tinhT,Date ngayD,float diemDG,String hinhAC,String hinh1,
+			String hinh2,String hinh3,String hinh4 ){
+		this.maSanPham = maSP;
+		this.tenSanPham = tenSP;
+		this.tenHang = tenH;
+		this.maHang = maH;
+		this.maNhomHang = maNH;
+		this.gioiThieu = gioiT;
+		this.congDung = congD;
+		this.cachSuDung  = cachSD;
+		this.thanhPhan = thanhP;
+		this.tenNguoiDung = tenND;
+		this.tinhTrang = tinhT;
+		this.ngayDang = ngayD;
+		this.tinhTrang = tinhT;
+		this.diemDanhGia = diemDG;
+		this.hinhAnhChinh = hinhAC;
+		this.hinh1 = hinh1;
+		this.hinh2 = hinh2;
+		this.hinh3 = hinh3;
+		this.hinh4 = hinh4;
+	}
+	
 	
 	
 	public SanPham(int maNguoiDung, String tenSanPham, String tenHang,
@@ -174,6 +218,24 @@ public class SanPham {
 
 	
 	
+	
+
+	public int getMaNhomSanPhamBoPhan() {
+		return maNhomSanPhamBoPhan;
+	}
+
+	public void setMaNhomSanPhamBoPhan(int maNhomSanPhamBoPhan) {
+		this.maNhomSanPhamBoPhan = maNhomSanPhamBoPhan;
+	}
+
+	public int getMaNhomHang() {
+		return maNhomHang;
+	}
+
+	public void setMaNhomHang(int maNhomHang) {
+		this.maNhomHang = maNhomHang;
+	}
+
 	public String getHinh1() {
 		return hinh1;
 	}

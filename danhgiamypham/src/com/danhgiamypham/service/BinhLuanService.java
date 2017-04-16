@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.BinhLuan;
 
 public interface BinhLuanService {
-	public boolean themBinhLuan(BinhLuan bl, List<MultipartFile> multiFile);
-	public boolean themLike(int mdg, int slt, String aClass);
-	public boolean kiemTraBinhLuan(int mnd, int msp);
+	public ResponseData<Boolean> themBinhLuan(BinhLuan bl, List<MultipartFile> multiFile);
+	public ResponseData<Boolean> themLike(int mdg, int slt, String aClass);
+	public ResponseData<Boolean> kiemTraBinhLuan(int mnd, int msp);
 }
 
 

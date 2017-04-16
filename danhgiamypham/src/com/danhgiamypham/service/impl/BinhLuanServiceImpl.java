@@ -8,7 +8,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.danhgiamypham.Utilities.ResourceUtils;
 import com.danhgiamypham.dao.BinhLuanDao;
+import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.BinhLuan;
+import com.danhgiamypham.model.User;
 import com.danhgiamypham.service.BinhLuanService;
 
 @Service
@@ -18,38 +20,28 @@ public class BinhLuanServiceImpl implements BinhLuanService {
 	private BinhLuanDao binhLuanDao;
 
 	@Override
-	public boolean themBinhLuan(BinhLuan bl, List<MultipartFile> multiFile) {
-		//save image;
-//		ResourceUtils ut =  new ResourceUtils();
-//		for(MultipartFile file:multiFile ){
-//			List<String> huhu = 
-			//String hinhAnh = ut.ghiFile(file);
-		//	System.out.print(file);
-			
-	//	}
-//		if (!hinhAnh.equals("")) {
-//			bl.setHinhAnh(hinhAnh);
-//		}
-		
-		//successed;
-		//
-		return binhLuanDao.themBinhLuan(bl);
+	public ResponseData<Boolean> themBinhLuan(BinhLuan bl, List<MultipartFile> multiFile) {
+
+		ResponseData<Boolean> response =  binhLuanDao.themBinhLuan(bl);
+		return response;
 	}
 
 
 	@Override
-	public boolean themLike(int mdg, int slt, String aClass) {
+	public ResponseData<Boolean> themLike(int mdg, int slt, String aClass) {
 		String tTrangLike;
 		if(aClass.equals("thich")){
 			tTrangLike="Thích";
 		} else {
 			tTrangLike="Không Thích";
 		}
-		return binhLuanDao.themLike(mdg, slt, aClass, tTrangLike);
+		ResponseData<Boolean> response =  binhLuanDao.themLike(mdg, slt, aClass, tTrangLike);
+		return response;
 	}
 	
-	public boolean kiemTraBinhLuan(int mnd, int msp){
-		return binhLuanDao.kiemTraBinhLuan(mnd, msp);
+	public ResponseData<Boolean> kiemTraBinhLuan(int mnd, int msp){
+		ResponseData<Boolean> response =  binhLuanDao.kiemTraBinhLuan(mnd, msp);
+		return response;
 	}
 
 }

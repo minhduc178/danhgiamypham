@@ -1,9 +1,8 @@
 package com.danhgiamypham.model;
 
 public class PathImage {
-	private String sanPhamIMG = "FILE_UPLOAD";
+	private String sanPhamIMG = "HINHSANPHAM";
 
-	
 	public String getSanPhamIMG() {
 		return sanPhamIMG;
 	}
@@ -11,7 +10,5 @@ public class PathImage {
 	public void setSanPhamIMG(String sanPhamIMG) {
 		this.sanPhamIMG = sanPhamIMG;
 	}
-	
-	
-	
+
 }

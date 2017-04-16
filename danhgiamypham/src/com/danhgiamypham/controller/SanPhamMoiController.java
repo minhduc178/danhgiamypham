@@ -1,5 +1,6 @@
 package com.danhgiamypham.controller;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.danhgiamypham.Utilities.ResourceUtils;
+import com.danhgiamypham.dto.ResponseData;
+import com.danhgiamypham.dto.UserDTO;
 import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.NhomSanPham;
+import com.danhgiamypham.model.SanPham;
 import com.danhgiamypham.model.SanPhamMoi;
+import com.danhgiamypham.model.User;
 import com.danhgiamypham.service.SanPhamMoiService;
 
 @Controller
@@ -25,20 +30,20 @@ public class SanPhamMoiController {
 
 	@RequestMapping(value = "get-hang", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Hang> getHang() {
+	public ResponseData<List<Hang>> getHang() {
 		return sanPhamMoiService.getHang();
 	}
 
 	@RequestMapping(value = "get-nhomsanphamtheodanhmuc", method = RequestMethod.GET)
 	@ResponseBody
-	public List<NhomSanPham> getNhomSanPhamTheoDanhMuc(@RequestParam("madanhmuc") int MaDanhMuc
+	public ResponseData<List<NhomSanPham>> getNhomSanPhamTheoDanhMuc(@RequestParam("madanhmuc") int MaDanhMuc
 			) {
 		return sanPhamMoiService.getNhomSanPhamTheoDanhMuc(MaDanhMuc);
 	}
 	
 	@RequestMapping(value = "get-nhom-sp-theo-sp", method = RequestMethod.GET)
 	@ResponseBody
-	public List<NhomSanPham> getNhomSPTheoSP(@RequestParam("masanpham") int MaSanPham,
+	public ResponseData<List<NhomSanPham>> getNhomSPTheoSP(@RequestParam("masanpham") int MaSanPham,
 											@RequestParam("madanhmuc") int MaDanhMuc								
 			) {
 		return sanPhamMoiService.getNhomSPTheoSP(MaSanPham, MaDanhMuc );
@@ -46,7 +51,11 @@ public class SanPhamMoiController {
 	
 	@RequestMapping(value = "them", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean them(MultipartHttpServletRequest request) {
+	public ResponseData<Boolean> them(MultipartHttpServletRequest request) {
+		SanPhamMoi spm = new SanPhamMoi();
+		List<MultipartFile> multiFile = request.getFiles("danhSachHinh");
+
+		try {
 		String maND = request.getParameter("maNguoiDung");
 		String tenSP = ResourceUtils.readUTF8(request.getParameter("tenSanPham"));
 		String gioiT = ResourceUtils.readUTF8(request.getParameter("gioiThieu"));
@@ -55,9 +64,7 @@ public class SanPhamMoiController {
 		String thanhP = ResourceUtils.readUTF8(request.getParameter("thanhPhan"));
 		String maH = request.getParameter("maHang");
 		String[] chuoiN = request.getParameterValues("chuoiNhom");	
-		List<MultipartFile> multiFile = request.getFiles("danhSachHinh");
-		
-		SanPhamMoi spm = new SanPhamMoi();
+	
 		spm.setMaNguoiDung(Integer.parseInt(maND));
 		spm.setTenSanPham(tenSP);
 		spm.setMaHang(Integer.parseInt(maH));
@@ -66,37 +73,49 @@ public class SanPhamMoiController {
 		spm.setCachSuDung(cachSD);
 		spm.setThanhPhan(thanhP);
 		spm.setListMaNhomSP(chuoiN);
+		
+		} catch(Exception e){
+		}
 		
 		return sanPhamMoiService.them(spm, multiFile);
 	}
 	
 	@RequestMapping(value = "cap-nhat", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean capNhat(MultipartHttpServletRequest request) {
-		String maND = request.getParameter("maNguoiDung");
-		String maSP = request.getParameter("maSanPham");
-		String tenSP = ResourceUtils.readUTF8(request.getParameter("tenSanPham"));
-		String gioiT = ResourceUtils.readUTF8(request.getParameter("gioiThieu"));
-		String congD = ResourceUtils.readUTF8(request.getParameter("congDung"));
-		String cachSD = ResourceUtils.readUTF8(request.getParameter("cachSuDung"));
-		String thanhP = ResourceUtils.readUTF8(request.getParameter("thanhPhan"));
-		String maH = request.getParameter("maHang");
-		String[] chuoiN = request.getParameterValues("chuoiNhom");	
+	public ResponseData<Boolean> capNhat(MultipartHttpServletRequest request)   {
+		ResponseData<Boolean> result = new ResponseData<Boolean>();
+
+		SanPham spm = new SanPham();
 		List<MultipartFile> multiFile = request.getFiles("danhSachHinh");
-		
-		SanPhamMoi spm = new SanPhamMoi();
-		spm.setMaNguoiDung(Integer.parseInt(maND));
-		spm.setMaSanPham(Integer.parseInt(maSP));
-		spm.setTenSanPham(tenSP);
-		spm.setMaHang(Integer.parseInt(maH));
-		spm.setGioiThieu(gioiT);
-		spm.setCongDung(congD);
-		spm.setCachSuDung(cachSD);
-		spm.setThanhPhan(thanhP);
-		spm.setListMaNhomSP(chuoiN);
+
+		try {
+			String maND = request.getParameter("maNguoiDung");
+			String maSP = request.getParameter("maSanPham");
+			String tenSP = ResourceUtils.readUTF8(request.getParameter("tenSanPham"));
+			String gioiT = ResourceUtils.readUTF8(request.getParameter("gioiThieu"));
+			String congD = ResourceUtils.readUTF8(request.getParameter("congDung"));
+			String cachSD = ResourceUtils.readUTF8(request.getParameter("cachSuDung"));
+			String thanhP = ResourceUtils.readUTF8(request.getParameter("thanhPhan"));
+			String maH = request.getParameter("maHang");
+			String[] chuoiN = request.getParameterValues("chuoiNhom");	
 			
-		return sanPhamMoiService.capNhat(spm, multiFile);
-		
+
+			spm.setMaNguoiDung(Integer.parseInt(maND));
+			spm.setMaSanPham(Integer.parseInt(maSP));
+			spm.setTenSanPham(tenSP);
+			spm.setMaHang(Integer.parseInt(maH));
+			spm.setGioiThieu(gioiT);
+			spm.setCongDung(congD);
+			spm.setCachSuDung(cachSD);
+			spm.setThanhPhan(thanhP);
+			spm.setListMaNhomSPham(chuoiN);
+			
+		} catch(Exception e){
+			result.setErrorMessage("capNhat bi loi");
+		}
+		result =  sanPhamMoiService.capNhat(spm, multiFile);
+		return result;
 	}
+		
 	
 }

@@ -23,5 +23,7 @@ public class DanhMucNhom {
 	}
 	public void setNhomSanPham(List<NhomSanPham> nhomSanPham) {
 		this.nhomSanPham = nhomSanPham;
-	}	
+	}
+	
+	
 }

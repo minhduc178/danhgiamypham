@@ -14,6 +14,7 @@ import com.danhgiamypham.dao.DanhGiaSanPhamDao;
 import com.danhgiamypham.dao.DanhMucDao;
 import com.danhgiamypham.dao.LoaiDaDao;
 import com.danhgiamypham.dao.SanPhamDao;
+import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.dto.SanPhamYeuThichNhom;
 import com.danhgiamypham.model.DanhGiaSanPham;
 import com.danhgiamypham.model.Hang;
@@ -37,16 +38,18 @@ public class SanPhamServiceImpl implements SanPhamService {
 	private DanhGiaSanPhamDao danhGiaSanPhamDao;
 
 	@Override
-	public Set<SanPham> getSanPham(int trangHienTai, int soLuongTrongTrang,
+	public ResponseData<Set<SanPham>> getSanPham(int trangHienTai, int soLuongTrongTrang,
 			String[] chuoiNhom) {
+		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
 
 		if (chuoiNhom.length == 0) {
 			trangHienTai = ResourceUtils.tinhTrangHienTai(trangHienTai,
 					soLuongTrongTrang);
-			Set<SanPham> sanphams = sanPhamDao.getSanPham(trangHienTai,
+			ResponseData<Set<SanPham>> sanphams = sanPhamDao.getSanPham(trangHienTai,
 					soLuongTrongTrang);
+			Set<SanPham> sanphamsnew = sanphams.getData();
 
-			for (SanPham sp : sanphams) {
+			for (SanPham sp : sanphamsnew) {
 				float ddg = ResourceUtils.quyTron(sp.getDiemDanhGia());
 				sp.setDiemDanhGia(ddg);
 			}
@@ -57,120 +60,133 @@ public class SanPhamServiceImpl implements SanPhamService {
 			List<SanPham> kt = new ArrayList<SanPham>();
 			for (String r : chuoiNhom) {
 				int maNhom = Integer.parseInt(r);
-				Set<SanPham> rs = new HashSet<SanPham>();
+				ResponseData<Set<SanPham>> rs = new ResponseData<Set<SanPham>>();
 				rs = sanPhamDao.getSanPhamTheoNhomSP(maNhom);
-				kt.addAll(rs);
+				kt.addAll(rs.getData());
 			}
 			List<SanPham> sanPhamPhanTrang = new ArrayList<SanPham>();
-
-			int t = getTongSoSanPhamTheoNhom(chuoiNhom);
+			
+			ResponseData<Integer> t = getTongSoSanPhamTheoNhom(chuoiNhom);
+			int tnew = t.getData();
 			sanPhamPhanTrang = Pagination.PhanTrang(trangHienTai,
-					soLuongTrongTrang, t, kt);
+					soLuongTrongTrang, tnew, kt);
 			sanPhamNhom.addAll(sanPhamPhanTrang);
-			return sanPhamNhom;
+			response.setData(sanPhamNhom);
+			return response;
 		}
 
 	}
 
 	@Override
-	public Set<SanPham> locSanPham(String chuoiMN) {
-		Set<SanPham> SanPhamNhom = new HashSet<SanPham>();
+	public ResponseData<Set<SanPham>> locSanPham(String chuoiMN) {		
+		ResponseData<Set<SanPham>> SanPhamNhom = new ResponseData<Set<SanPham>>();
 		String result[] = chuoiMN.split(" ");
 		for (String r : result) {
 			int k = Integer.parseInt(r);
 			SanPhamNhom = sanPhamDao.getSanPhamTheoNhomSP(k);
 		}
 		return SanPhamNhom;
-
 	}
 
 	@Override
-	public int getTongSoSanPham() {
+	public ResponseData<Integer> getTongSoSanPham() {
 		return sanPhamDao.getTongSanPham();
 	}
 
 	@Override
-	public int getTongSoSanPhamTheoNhom(String[] nhomsanphams) {
+	public ResponseData<Integer> getTongSoSanPhamTheoNhom(String[] nhomsanphams) {
+		ResponseData<Integer> response = new ResponseData<Integer>();
+
 		int n = 0;
 		for (String r : nhomsanphams) {
 			int maNhom = Integer.parseInt(r);
 			int m = sanPhamDao.getTongSanPhamTheoNhom(maNhom);
 			n = n + m;
 		}
-		return n;
+		response.setData(n);
+		return response;
 	}
 
 	//sanphamtheodanhmuc-service
 	@Override
-	public Set<SanPham> getSanPhamTheoDanhMuc(int trangHienTai,
+	public ResponseData<Set<SanPham>> getSanPhamTheoDanhMuc(int trangHienTai,
 			int soLuongTrongTrang, int maDM, String[] chuoiNhom) {
+		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
 
 		if (chuoiNhom.length == 0) {
-			Set<SanPham> sanp = new HashSet<SanPham>();
-
+			ResponseData<Set<SanPham>> sanp = new ResponseData<Set<SanPham>>();
+			
 			trangHienTai = ResourceUtils.tinhTrangHienTai(trangHienTai,
 					soLuongTrongTrang);
 			sanp = sanPhamDao.getSanPhamTheoDanhMuc(trangHienTai,
 					soLuongTrongTrang, maDM);
+			Set<SanPham> sanpnew = sanp.getData();
 
-			for (SanPham sp : sanp) {
+			for (SanPham sp : sanpnew) {
 				float ddg = ResourceUtils.quyTron(sp.getDiemDanhGia());
 				sp.setDiemDanhGia(ddg);
 			}
-
-			return sanp;
+			response.setData(sanpnew);
+			return response;
 
 		} else {
 			Set<SanPham> sanPhamNhom = new HashSet<SanPham>();
 			List<SanPham> kt = new ArrayList<SanPham>();
 			for (String r : chuoiNhom) {
 				int maNhom = Integer.parseInt(r);
-				Set<SanPham> rs = new HashSet<SanPham>();
+				ResponseData<Set<SanPham>> rs = new ResponseData<Set<SanPham>>();
 				rs = sanPhamDao.getSanPhamTheoDanhMucMaChuoi(maDM, maNhom);
-				kt.addAll(rs);
+				Set<SanPham> rsnew = rs.getData();
+				kt.addAll(rsnew);
 			}
 			List<SanPham> sanPhamPhanTrang = new ArrayList<SanPham>();
 
-			int t = getTongSoSanPhamMaDanhMucChuoiNhom(maDM, chuoiNhom);
+			ResponseData<Integer> t = getTongSoSanPhamMaDanhMucChuoiNhom(maDM, chuoiNhom);
+			int tnew = t.getData();
 			sanPhamPhanTrang = Pagination.PhanTrang(trangHienTai,
-					soLuongTrongTrang, t, kt);
+					soLuongTrongTrang, tnew, kt);
 			sanPhamNhom.addAll(sanPhamPhanTrang);
-			return sanPhamNhom;
+			response.setData(sanPhamNhom);
+			return response;
 		}
 	}
 
 	@Override
-	public int getTongSoSanPhamMaDanhMuc(int maDanhMuc) {
+	public ResponseData<Integer> getTongSoSanPhamMaDanhMuc(int maDanhMuc) {
 		return sanPhamDao.getTongSoSanPhamMaDanhMuc(maDanhMuc);
 	}
 
 	@Override
-	public int getTongSoSanPhamMaDanhMucChuoiNhom(int maDanhMuc,
+	public ResponseData<Integer> getTongSoSanPhamMaDanhMucChuoiNhom(int maDanhMuc,
 			String[] chuoiNhom) {
+		ResponseData<Integer> response = new ResponseData<Integer>();
 		int n = 0;
 		for (String r : chuoiNhom) {
 			int maNhom = Integer.parseInt(r);
-			int m = sanPhamDao.getTongSoSanPhamMaDanhMuc(maDanhMuc, maNhom);
-			n = n + m;
+			ResponseData<Integer> m = sanPhamDao.getTongSoSanPhamMaDanhMuc(maDanhMuc, maNhom);
+			int mnew = m.getData();
+			n = n + mnew;
 		}
-		return n;
+		response.setData(n);
+		return response;
 	}
 	
 	//sanphamtheohang-service
 	
 	@Override
-	public Set<SanPham> getSanPhamTheoHang(int trangHienTai,
+	public  ResponseData<Set<SanPham>> getSanPhamTheoHang(int trangHienTai,
 			int soLuongTrongTrang, int maH, String[] chuoiNhom) {
-
+		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
 		if (chuoiNhom.length == 0) {
-			Set<SanPham> sanp = new HashSet<SanPham>();
+			 ResponseData<Set<SanPham>> sanp = new  ResponseData<Set<SanPham>>();
 
 			trangHienTai = ResourceUtils.tinhTrangHienTai(trangHienTai,
 					soLuongTrongTrang);
 			sanp = sanPhamDao.getSanPhamTheoHang(trangHienTai,
 					soLuongTrongTrang, maH);
+			Set<SanPham> sanpnew = sanp.getData();
 
-			for (SanPham sp : sanp) {
+			for (SanPham sp : sanpnew) {
 				float ddg = ResourceUtils.quyTron(sp.getDiemDanhGia());
 				sp.setDiemDanhGia(ddg);
 			}
@@ -182,50 +198,56 @@ public class SanPhamServiceImpl implements SanPhamService {
 			List<SanPham> kt = new ArrayList<SanPham>();
 			for (String r : chuoiNhom) {
 				int maNhom = Integer.parseInt(r);
-				Set<SanPham> rs = new HashSet<SanPham>();
+				 ResponseData<Set<SanPham>> rs = new  ResponseData<Set<SanPham>>();
 				rs = sanPhamDao.getSanPhamTheoHangMaChuoi(maH, maNhom);
-				kt.addAll(rs);
+				Set<SanPham> rsnew = rs.getData();
+				kt.addAll(rsnew);
 			}
 			List<SanPham> sanPhamPhanTrang = new ArrayList<SanPham>();
 
-			int t = getTongSoSanPhamMaHangChuoiNhom(maH, chuoiNhom);
+			ResponseData<Integer> t = getTongSoSanPhamMaHangChuoiNhom(maH, chuoiNhom);
+			int tnew = t.getData(); 
 			sanPhamPhanTrang = Pagination.PhanTrang(trangHienTai,
-					soLuongTrongTrang, t, kt);
+					soLuongTrongTrang, tnew, kt);
 			sanPhamNhom.addAll(sanPhamPhanTrang);
-			return sanPhamNhom;
+			response.setData(sanPhamNhom);
+			return response;
 		}
 	}
 	
 	@Override
-	public int getTongSoSanPhamMaHang(int maHang) {
+	public ResponseData<Integer> getTongSoSanPhamMaHang(int maHang) {
 		return sanPhamDao.getTongSoSanPhamMaHang(maHang);
 	}
 
 	@Override
-	public int getTongSoSanPhamMaHangChuoiNhom(int maHang,
+	public ResponseData<Integer> getTongSoSanPhamMaHangChuoiNhom(int maHang,
 			String[] chuoiNhom) {
+		ResponseData<Integer> response = new ResponseData<Integer>();
 		int n = 0;
 		for (String r : chuoiNhom) {
 			int maNhom = Integer.parseInt(r);
-			int m = sanPhamDao.getTongSoSanPhamMaHang(maHang, maNhom);
-			n = n + m;
+			ResponseData<Integer> m = sanPhamDao.getTongSoSanPhamMaHang(maHang, maNhom);
+			int mnew = m.getData();
+			n = n + mnew;
 		}
-		return n;
+		response.setData(n);
+		return response;
 	}
 
 	@Override
-	public Set<SanPham> getSanPhamTheoNhomSanPham(int trangHienTai,
+	public ResponseData<Set<SanPham>> getSanPhamTheoNhomSanPham(int trangHienTai,
 			int soLuongTrongTrang, int maNhomSP, String[] chuoiNhom) {
-
+		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
 		if (chuoiNhom.length == 0) {
-			Set<SanPham> sanp = new HashSet<SanPham>();
-
+			ResponseData<Set<SanPham>> sanp = new ResponseData<Set<SanPham>>();
+			Set<SanPham> sanpnew = sanp.getData();
 			trangHienTai = ResourceUtils.tinhTrangHienTai(trangHienTai,
 					soLuongTrongTrang);
 			sanp = sanPhamDao.getSanPhamTheoNhomSPham(trangHienTai,
 					soLuongTrongTrang, maNhomSP);
 
-			for (SanPham sp : sanp) {
+			for (SanPham sp : sanpnew) {
 				float ddg = ResourceUtils.quyTron(sp.getDiemDanhGia());
 				sp.setDiemDanhGia(ddg);
 			}
@@ -237,48 +259,55 @@ public class SanPhamServiceImpl implements SanPhamService {
 			List<SanPham> kt = new ArrayList<SanPham>();
 			for (String r : chuoiNhom) {
 				int maNhom = Integer.parseInt(r);
-				Set<SanPham> rs = new HashSet<SanPham>();
+				ResponseData<Set<SanPham>> rs = new ResponseData<Set<SanPham>>();
 				rs = sanPhamDao.getSanPhamMaNhomSPMaChuoi(maNhomSP, maNhom);
-				kt.addAll(rs);
+				Set<SanPham> rsnew = rs.getData();
+				kt.addAll(rsnew);
 			}
 			List<SanPham> sanPhamPhanTrang = new ArrayList<SanPham>();
 
-			int t = getTongSoSanPhamMaNhomSPChuoiNhom(maNhomSP, chuoiNhom);
+			ResponseData<Integer> t = getTongSoSanPhamMaNhomSPChuoiNhom(maNhomSP, chuoiNhom);
+			int tnew = t.getData();
 			sanPhamPhanTrang = Pagination.PhanTrang(trangHienTai,
-					soLuongTrongTrang, t, kt);
+					soLuongTrongTrang, tnew, kt);
 			sanPhamNhom.addAll(sanPhamPhanTrang);
-			return sanPhamNhom;
+			response.setData(sanPhamNhom);
+			return response;
 		}
 	}
 
 	@Override
-	public int getTongSoSanPhamMaNhomSP(int maNhomSP) {
+	public ResponseData<Integer> getTongSoSanPhamMaNhomSP(int maNhomSP) {
 		return sanPhamDao.getTongSoSanPhamMaNhomSP(maNhomSP);
 	}
 
 	@Override
-	public int getTongSoSanPhamMaNhomSPChuoiNhom(int maNhomSP,
+	public ResponseData<Integer> getTongSoSanPhamMaNhomSPChuoiNhom(int maNhomSP,
 			String[] chuoiNhom) {
+		ResponseData<Integer> response = new ResponseData<Integer>();
 		int n = 0;
 		for (String r : chuoiNhom) {
 			int maNhom = Integer.parseInt(r);
-			int m = sanPhamDao.getTongSoSanPhamMaNhomSPChuoiNhom(maNhomSP,
+			ResponseData<Integer> m = sanPhamDao.getTongSoSanPhamMaNhomSPChuoiNhom(maNhomSP,
 					maNhom);
-			n = n + m;
+			int mnew = m.getData();
+			n = n + mnew;
 		}
-		return n;
+		response.setData(n);
+		return response;
 	}
 
 	@Override
-	public List<SanPham> getSanPhamTimKiem(int trangHienTai,
+	public ResponseData<List<SanPham>> getSanPhamTimKiem(int trangHienTai,
 			int soLuongTrongTrang, String timKiem) {
 
 		trangHienTai = ResourceUtils.tinhTrangHienTai(trangHienTai,
 				soLuongTrongTrang);
-		List<SanPham> sanphams = sanPhamDao.getSanPhamTimKiem(trangHienTai,
+		ResponseData<List<SanPham>> sanphams = sanPhamDao.getSanPhamTimKiem(trangHienTai,
 				soLuongTrongTrang, timKiem);
+		List<SanPham> sanphamsnew = sanphams.getData();
 
-		for (SanPham sp : sanphams) {
+		for (SanPham sp : sanphamsnew) {
 			float ddg = ResourceUtils.quyTron(sp.getDiemDanhGia());
 			sp.setDiemDanhGia(ddg);
 		}
@@ -288,71 +317,114 @@ public class SanPhamServiceImpl implements SanPhamService {
 	}
 
 	@Override
-	public int getTongSoSanPhamTimKiem(String timKiem) {
+	public ResponseData<Integer> getTongSoSanPhamTimKiem(String timKiem) {
 		return sanPhamDao.getTongSanPhamTimKiem(timKiem);
 	}
 
 	@Override
-	public SanPham getChiTietSanPham(int maSP) {
-		SanPham sp = sanPhamDao.getChiTietSanpham(maSP);
-		List<LoaiDa> ld = loaiDaDao.getLoaiDa(maSP);
-		List<DanhGiaSanPham> blsp = danhGiaSanPhamDao.getDanhGiaSanPham(maSP);
-		sp.setLoaiDas(ld);
-		sp.setDanhGiaSanPhams(blsp);
+	public ResponseData<SanPham> getChiTietSanPham(int maSP) {
+		ResponseData<SanPham> sp = sanPhamDao.getChiTietSanpham(maSP);
+		SanPham spnew = sp.getData();
+		ResponseData<List<LoaiDa>> ld = loaiDaDao.getLoaiDa(maSP);
+		ResponseData<List<DanhGiaSanPham>> blsp = danhGiaSanPhamDao.getDanhGiaSanPham(maSP);
+		List<DanhGiaSanPham> blspnew = blsp.getData();
+		spnew.setLoaiDas(ld.getData());
+		spnew.setDanhGiaSanPhams(blspnew);
 
-		int maDanhMuc = sanPhamDao.getTimMaDanhMuc(maSP);
-		sp.setMaDanhMuc(maDanhMuc);
+		ResponseData<Integer> maDanhMuc = sanPhamDao.getTimMaDanhMuc(maSP);
+		int maDanhMucnew = maDanhMuc.getData();
+		spnew.setMaDanhMuc(maDanhMucnew);
 
-		float ddg = ResourceUtils.quyTron(sp.getDiemDanhGia());
-		sp.setDiemDanhGia(ddg);
-
+		float ddg = ResourceUtils.quyTron(spnew.getDiemDanhGia());
+		spnew.setDiemDanhGia(ddg);
+		sp.setData(spnew);
+		
+		
 		return sp;
 
 	}
+	
+	@Override
+	public ResponseData<SanPham> getChiTietSanPhamSua(int maSP) {
+		ResponseData<SanPham> sp = sanPhamDao.getChiTietSanpham(maSP);
+		SanPham spnew = sp.getData();
+		
+		int maNhomHang = spnew.getMaNhomHang();
+		ResponseData<List<LoaiDa>> ld = loaiDaDao.getLoaiDa(maSP);
+		ResponseData<List<DanhGiaSanPham>> blsp = danhGiaSanPhamDao.getDanhGiaSanPham(maSP);
+		ResponseData<List<Hang>> hangTheoNhom =  danhMucDao.getHangTheoNhom(maNhomHang);
+		ResponseData<Integer> maNhomSanPhamBoPhan =  sanPhamDao.getNhomSanPhamTheoBoPhan(maSP);
+		ResponseData<List<Integer>> listMaNhomSanPham =  sanPhamDao.listMaNhomSanPham(maSP);
+	
+		List<Hang> hangTheoNhomnew = hangTheoNhom.getData();
+		List<DanhGiaSanPham> blspnew = blsp.getData();
+		int maNhomSanPhamBoPhannew = maNhomSanPhamBoPhan.getData();
+		
+		spnew.setLoaiDas(ld.getData());
+		spnew.setDanhGiaSanPhams(blspnew);
+		spnew.setHangs(hangTheoNhomnew);
+		spnew.setMaNhomSanPhamBoPhan(maNhomSanPhamBoPhannew);
+		spnew.setMaNhomSanPhams(listMaNhomSanPham.getData());
+
+		ResponseData<Integer> maDanhMuc = sanPhamDao.getTimMaDanhMuc(maSP);
+		int maDanhMucnew = maDanhMuc.getData();
+		spnew.setMaDanhMuc(maDanhMucnew);
+
+		float ddg = ResourceUtils.quyTron(spnew.getDiemDanhGia());
+		spnew.setDiemDanhGia(ddg);
+		sp.setData(spnew);	
+		return sp;
+	}
+	
+
 
 	@Override
-	public List<SanPham> getDuongDa() {
+	public  ResponseData<List<SanPham>> getDuongDa() {
 		return sanPhamDao.getDuongDa();
 	}
 
 	@Override
-	public List<SanPham> getDuyetSanPham(int tinhTrang) {
+	public  ResponseData<List<SanPham>> getDuyetSanPham(int tinhTrang) {
 		// int maDanhMuc = sanPhamDao.getTimMaDanhMuc(maSP);
 		// sp.setMaDanhMuc(maDanhMuc);
 		return sanPhamDao.getDuyetSanPham(tinhTrang);
 	}
 
 	@Override
-	public boolean getDuyetSanPhamDang(int maSP) {
+	public  ResponseData<Boolean> getDuyetSanPhamDang(int maSP) {
 		return sanPhamDao.getDuyetSanPhamDang(maSP);
 	}
 
 	@Override
-	public boolean getXoaSanPhamDang(int maSP) {
+	public  ResponseData<Boolean> getXoaSanPhamDang(int maSP) {
 		return sanPhamDao.getXoaSanPhamDang(maSP);
 	}
 
 	@Override
-	public List<Hang> getHangYeuThich(int maND) {
+	public  ResponseData<List<Hang>> getHangYeuThich(int maND) {
 		return sanPhamDao.getHangYeuThich(maND);
 	}
 
 	@Override
-	public List<SanPhamYeuThichNhom> getSanPhamYeuThich(int maND) {
+	public ResponseData<List<SanPhamYeuThichNhom>> getSanPhamYeuThich(int maND) {
+		ResponseData<List<SanPhamYeuThichNhom>> response = new ResponseData<List<SanPhamYeuThichNhom>>();
+		
 		List<SanPhamYeuThichNhom> spytNhom = new ArrayList<SanPhamYeuThichNhom>();
-		List<Hang> hangs = sanPhamDao.getHangYeuThich(maND);
-		List<SanPham> sanPhams = sanPhamDao.getSanPhamYeuThich(maND);
+		ResponseData<List<Hang>> hangs = sanPhamDao.getHangYeuThich(maND);
+		List<Hang> hangsnew = hangs.getData();
+		ResponseData<List<SanPham>> sanPhams = sanPhamDao.getSanPhamYeuThich(maND);
+		List<SanPham> sanPhamsnew = sanPhams.getData();
 
-		for (Hang ha : hangs) {
+		for (Hang ha : hangsnew) {
 			List<SanPham> sanPhamCungHang = sanPhamTheoH(ha.getMaHang(),
-					sanPhams);
+					sanPhamsnew);
 			SanPhamYeuThichNhom spyt = new SanPhamYeuThichNhom();
 			spyt.setHang(ha);
 			spyt.setSanPhamList(sanPhamCungHang);
 			spytNhom.add(spyt);
 		}
-
-		return spytNhom;
+		response.setData(spytNhom);
+		return response;
 	}
 
 	private List<SanPham> sanPhamTheoH(int maH, List<SanPham> sanPhams) {
@@ -366,11 +438,12 @@ public class SanPhamServiceImpl implements SanPhamService {
 	}
 
 	@Override
-	public Set<SanPham> getSanPhamTheoNhomSP(int maNSP) {
-		Set<SanPham> sanp = new HashSet<SanPham>();
+	public  ResponseData<Set<SanPham>> getSanPhamTheoNhomSP(int maNSP) {
+		 ResponseData<Set<SanPham>> sanp = new  ResponseData<Set<SanPham>>();
 		sanp = sanPhamDao.getSanPhamTheoNhomSP(maNSP);
+		Set<SanPham> sanpnew = sanp.getData();
 
-		for (SanPham sp : sanp) {
+		for (SanPham sp : sanpnew) {
 			float ddg = ResourceUtils.quyTron(sp.getDiemDanhGia());
 			sp.setDiemDanhGia(ddg);
 		}

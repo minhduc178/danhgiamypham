@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 
 import com.danhgiamypham.dao.HoiDapDao;
 import com.danhgiamypham.database.DBProvider;
+import com.danhgiamypham.dto.ResponseData;
+import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.HoiDap;
 
 @Component
@@ -24,7 +26,8 @@ public class HoiDapDaoImpl implements HoiDapDao {
 	private DBProvider dbProvider;
 
 	@Override
-	public List<HoiDap> getHoiDap() {
+	public  ResponseData<List<HoiDap>> getHoiDap() {
+		ResponseData<List<HoiDap>> response = new ResponseData<List<HoiDap>>();
 		List<HoiDap> hoiDaps = new ArrayList<HoiDap>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -45,13 +48,14 @@ public class HoiDapDaoImpl implements HoiDapDao {
 				HoiDap hd = new HoiDap(maHD, cauH, noiD, tenMD, tenND, ngayD, soLTL, soLT,tinhT  );
 				hoiDaps.add(hd);
 			}
+			response.setData(hoiDaps);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getHoiDap bi loi");
 		}
-		return hoiDaps;
+		return response;
 
 	}
 	

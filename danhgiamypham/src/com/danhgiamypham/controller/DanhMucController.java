@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.danhgiamypham.Utilities.ResourceUtils;
 import com.danhgiamypham.dto.DanhMucNhom;
+import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.DanhMuc;
 import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.NhomHang;
@@ -26,41 +27,49 @@ public class DanhMucController {
 	
 	@RequestMapping(value="get-all", method = RequestMethod.GET)
 	@ResponseBody
-	public List<DanhMuc> getAll(){
+	public ResponseData<List<DanhMuc>> getAll(){
 		return danhMucService.getAll();
 	}
 	
 	@RequestMapping(value="get-danhmucnhom", method = RequestMethod.GET)
 	@ResponseBody
-	public List<DanhMucNhom> getDanhMucNhom(){
+	public ResponseData<List<DanhMucNhom>> getDanhMucNhom(){
 		return danhMucService.getDanhMucNhom();
 	}
 
 	
 	@RequestMapping(value = "them-nhomsanphamtheodanhmuc", method = RequestMethod.GET)
 	@ResponseBody
-	public boolean themNhomSanPham(@RequestParam("madanhmuc") int MaDanhMuc,
+	public ResponseData<Boolean> themNhomSanPham(@RequestParam("madanhmuc") int MaDanhMuc,
 								   @RequestParam("tennhomsanpham") String TenNhomSanPham) {
 		return danhMucService.themNhomSanPham(MaDanhMuc, TenNhomSanPham);
 	}
 	
 	@RequestMapping(value = "get-hang-nhom", method = RequestMethod.GET)
 	@ResponseBody
-	public List<NhomHang> getNhomHang() {
+	public ResponseData<List<NhomHang>> getNhomHang() {
 		return danhMucService.getNhomHang();
 	}
 	
 	
 	@RequestMapping(value = "them-hang", method = RequestMethod.GET)
 	@ResponseBody
-	public boolean themHang(@RequestParam("tenhang") String tenHang) {
-		String tenHangMoi = ResourceUtils.readUTF8(tenHang);
+	public ResponseData<Boolean> themHang(@RequestParam("tenhang") String tenHang) {
+		String tenHangMoi=null;
+		try{
+			tenHangMoi = ResourceUtils.readUTF8(tenHang);
+		} catch (Exception e) {
+			
+		}
+	
 		return danhMucService.themHang(tenHangMoi);
+		
+		
 	}
 	
 	@RequestMapping(value = "get-hang-theo-nhom", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Hang> getHangTheoNhom(@RequestParam("manhomhang") int maNhomHang) {
+	public ResponseData<List<Hang>> getHangTheoNhom(@RequestParam("manhomhang") int maNhomHang) {
 		return danhMucService.getHangTheoNhom(maNhomHang);
 	}
 	

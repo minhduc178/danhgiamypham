@@ -1,10 +1,11 @@
 package com.danhgiamypham.dao;
 
+import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.BinhLuan;
 
 
 public interface BinhLuanDao {
-	public boolean themBinhLuan(BinhLuan bl);
-	public boolean themLike(int maDanhGia, int soLuotLike, String aClass, String tTrangLike);
-	public boolean kiemTraBinhLuan(int mnd, int msp);
+	public ResponseData<Boolean> themBinhLuan(BinhLuan bl);
+	public ResponseData<Boolean> themLike(int maDanhGia, int soLuotLike, String aClass, String tTrangLike);
+	public ResponseData<Boolean> kiemTraBinhLuan(int mnd, int msp);
 }

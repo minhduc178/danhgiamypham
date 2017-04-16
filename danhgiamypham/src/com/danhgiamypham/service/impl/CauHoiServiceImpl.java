@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.danhgiamypham.dao.CauHoiDao;
+import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.CauHoi;
 import com.danhgiamypham.model.CauTraLoi;
+import com.danhgiamypham.model.LoaiDa;
 import com.danhgiamypham.model.NhomCauHoi;
 import com.danhgiamypham.service.CauHoiService;
 
@@ -20,44 +22,41 @@ public class CauHoiServiceImpl implements CauHoiService {
 	private CauHoiDao cauHoiDao;
 
 	@Override
-	public boolean themCauHoi(CauHoi ch) {
+	public  ResponseData<Boolean> themCauHoi(CauHoi ch) {
 		return cauHoiDao.themCauHoi(ch);
 	}
 
 	@Override
-	public List<NhomCauHoi> getNhomCauHoi() {
+	public  ResponseData<List<NhomCauHoi>> getNhomCauHoi() {
 		return cauHoiDao.getNhomCauHoi();
 	}
 
 	@Override
-	public Set<CauHoi> getCauHoi(int mch) {
+	public  ResponseData<Set<CauHoi>> getCauHoi(int mch) {
 		return cauHoiDao.getCauHoi(mch);
 	}
 	
 	@Override
-	public Set<CauHoi> locCauHoiTheoNhom(String[] chuoinbp,int mnch){
-	//	int indexPage = 0;
-	//  int maxItem = 0;
-		Set<CauHoi> cauHoiNhom = new HashSet<CauHoi>();
-		
+	public  ResponseData<Set<CauHoi>> locCauHoiTheoNhom(String[] chuoinbp,int mnch){
+		ResponseData<Set<CauHoi>> response = new ResponseData<Set<CauHoi>>();
+		Set<CauHoi> cauHois = new HashSet<CauHoi>();
 		if (chuoinbp.length == 0) {
-			cauHoiNhom = cauHoiDao.getCauHoi(mnch);
+			response = cauHoiDao.getCauHoi(mnch);
 		} else { 
 			for (String r : chuoinbp) {
 				int mnbp = Integer.parseInt(r);
-				Set<CauHoi> rs = new HashSet<CauHoi>();
-				rs = cauHoiDao.getCauHoiTheoNhom(mnbp, mnch);			
-				cauHoiNhom.addAll(rs);
-				
+				ResponseData<Set<CauHoi>> rs = cauHoiDao.getCauHoiTheoNhom(mnbp, mnch);	
+				cauHois.addAll(rs.getData());
 			}
+			response.setData(cauHois);
 		}
 
-		return cauHoiNhom;
+		return response;
 	}
 
 
 	@Override
-	public List<CauTraLoi> getCauTraLoi(int maCH) {
+	public  ResponseData<List<CauTraLoi>> getCauTraLoi(int maCH) {
 		return cauHoiDao.getCauTraLoi(maCH);
 	}
 

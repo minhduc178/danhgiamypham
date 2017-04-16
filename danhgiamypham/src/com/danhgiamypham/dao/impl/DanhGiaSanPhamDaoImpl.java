@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.danhgiamypham.dao.DanhGiaSanPhamDao;
 import com.danhgiamypham.database.DBProvider;
+import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.DanhGiaSanPham;
 
 @Component
@@ -22,7 +23,8 @@ public class DanhGiaSanPhamDaoImpl implements DanhGiaSanPhamDao {
 	private DBProvider dbProvider;
 
 	@Override
-	public List<DanhGiaSanPham> getDanhGiaSanPham(int maSP) {
+	public ResponseData<List<DanhGiaSanPham>> getDanhGiaSanPham(int maSP) {
+		ResponseData<List<DanhGiaSanPham>> response = new ResponseData<List<DanhGiaSanPham>>();
 		List<DanhGiaSanPham> danhGiaSanPhams = new ArrayList<DanhGiaSanPham>();
 
 		try {
@@ -42,16 +44,16 @@ public class DanhGiaSanPhamDaoImpl implements DanhGiaSanPhamDao {
 				String tinhTL = rs.getString("TinhTrangLike");
 				
 				DanhGiaSanPham blsp = new DanhGiaSanPham(maDG, diemDG, binhL, soLL, tinhT,ngayGN, addC, tinhTL);
-				danhGiaSanPhams.add(blsp);
-			
+				danhGiaSanPhams.add(blsp);			
 			}
+			response.setData(danhGiaSanPhams);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getDanhGiaSanPham bi loi");
 		}
-		return danhGiaSanPhams;
+		return response;
 
 	}
 

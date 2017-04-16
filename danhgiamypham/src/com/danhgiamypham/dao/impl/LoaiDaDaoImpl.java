@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 
 import com.danhgiamypham.dao.LoaiDaDao;
 import com.danhgiamypham.database.DBProvider;
+import com.danhgiamypham.dto.ResponseData;
+import com.danhgiamypham.model.HoiDap;
 import com.danhgiamypham.model.LoaiDa;
 
 @Component
@@ -21,7 +23,8 @@ public class LoaiDaDaoImpl implements LoaiDaDao {
 	private DBProvider dbProvider;
 
 	@Override
-	public List<LoaiDa> getLoaiDa(int maSP) {
+	public ResponseData<List<LoaiDa>> getLoaiDa(int maSP) {
+		ResponseData<List<LoaiDa>> response = new ResponseData<List<LoaiDa>>();
 		List<LoaiDa> loaiDas = new ArrayList<LoaiDa>();
 
 		try {
@@ -36,13 +39,14 @@ public class LoaiDaDaoImpl implements LoaiDaDao {
 				LoaiDa ld = new LoaiDa(tenLD);
 				loaiDas.add(ld);
 			}
+			response.setData(loaiDas);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getLoaiDa bi loi");
 		}
-		return loaiDas;
+		return response;
 
 	}
 

@@ -29,40 +29,23 @@ public class BinhLuanController {
 	
 	@RequestMapping(value = "them", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean binhLuan(MultipartHttpServletRequest request) {		
+	public ResponseData<Boolean> binhLuan(MultipartHttpServletRequest request) {
 		BinhLuan bl= new BinhLuan();
 		bl.bindFromMultipart(request);
 		List<MultipartFile> multiFile = request.getFiles("file");
-		binhLuanService.themBinhLuan(bl, multiFile);
-		return true;
+		return binhLuanService.themBinhLuan(bl, multiFile);
 	}
-	
-//	@RequestMapping(value = "them", method = RequestMethod.POST)
-//	@ResponseBody
-//	public ResponseData<Boolean> binhLuan(MultipartHttpServletRequest request) {
-//		ResponseData<Boolean> resp = new ResponseData<Boolean>();
-//		BinhLuan bl= new BinhLuan();
-//		bl.bindFromMultipart(request);
-//		List<MultipartFile> multiFile = request.getFiles("file");
-//		boolean rs = binhLuanService.themBinhLuan(bl, multiFile);
-//		if(rs){
-//			resp.setData(rs);
-//		}else{
-//			resp.setErrorMessage("Vui long thu lai sau");
-//		}
-//		return resp;
-//	}
 	
 	@RequestMapping(value = "themLike", method = RequestMethod.GET)
 	@ResponseBody
-	public boolean themLike(@RequestParam("madanhgia") int MaDanhGia, @RequestParam("soluotthich") int SoLuotThich,
+	public ResponseData<Boolean> themLike(@RequestParam("madanhgia") int MaDanhGia, @RequestParam("soluotthich") int SoLuotThich,
 			@RequestParam("addClass") String AddClass) {
-		return binhLuanService.themLike(MaDanhGia, SoLuotThich, AddClass);
+		return  binhLuanService.themLike(MaDanhGia, SoLuotThich, AddClass);
 	}
 	
 	@RequestMapping(value = "kiem-tra-binh-luan", method = RequestMethod.GET)
 	@ResponseBody
-	public boolean kiemTraBinhLuan(@RequestParam("manguoidung") int mnd, 
+	public ResponseData<Boolean> kiemTraBinhLuan(@RequestParam("manguoidung") int mnd, 
 							@RequestParam("masanpham") int msp) {
 		return binhLuanService.kiemTraBinhLuan(mnd, msp);
 	}

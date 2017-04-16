@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.danhgiamypham.dao.BinhLuanDao;
 import com.danhgiamypham.database.DBProvider;
+import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.BinhLuan;
 
 @Component
@@ -21,8 +22,8 @@ public class BinhLuanDaoImpl implements BinhLuanDao {
 	private DBProvider dbProvider;
 
 	@Override
-	public boolean themBinhLuan(BinhLuan bl) {
-		boolean ketQua = false;
+	public ResponseData<Boolean> themBinhLuan(BinhLuan bl) {
+		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call themBinhLuanMoi(?,?,?,?,?)}";
@@ -35,21 +36,21 @@ public class BinhLuanDaoImpl implements BinhLuanDao {
 			int rs  = st.executeUpdate();
 			
 			if(rs==1){
-				ketQua  = true;
+				response.setData(true);
 			} 
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("themBinhLuan bi loi");
 		}
-		return ketQua;
+		return response;
 
 	}
 	
 	
 	@Override
-	public boolean themLike(int maDanhGia, int soLuotLike, String addClass, String tinhTrangLike){
-		boolean result = false;
+	public ResponseData<Boolean> themLike(int maDanhGia, int soLuotLike, String addClass, String tinhTrangLike){
+		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		try {
 			Connection cnn =  dbProvider.getConnection();
 			String sql = "{call updateDanhGia(?,?,?,?)}";
@@ -60,21 +61,20 @@ public class BinhLuanDaoImpl implements BinhLuanDao {
 			st.setString(4, tinhTrangLike);
 			int rs = st.executeUpdate();
 			if(rs == 1){
-				result = true;
+				response.setData(true);
 			}
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
-			result = false;
+			response.setErrorMessage("themLike bi loi");
 		}
-		return result;
+		return response;
 	}
 	
 	
 	@Override
-	public boolean kiemTraBinhLuan(int mnd, int msp){
-		boolean result = false;
+	public ResponseData<Boolean> kiemTraBinhLuan(int mnd, int msp){
+		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		int k = 0;
 		try {
 			Connection cnn =  dbProvider.getConnection();
@@ -87,16 +87,15 @@ public class BinhLuanDaoImpl implements BinhLuanDao {
 				k++;
 			}
 			if(k != 0){
-				result = true;
+				response.setData(true);;
 			} 
 			System.out.print(k);
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
-			result = false;
+			response.setErrorMessage("kiemTraBinhLuan bi loi");
 		}
-		return result;
+		return response;
 	}
 	
 	

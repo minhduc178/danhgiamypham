@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 
 import com.danhgiamypham.dao.DanhMucDao;
 import com.danhgiamypham.database.DBProvider;
+import com.danhgiamypham.dto.ResponseData;
+import com.danhgiamypham.model.DanhGiaSanPham;
 import com.danhgiamypham.model.DanhMuc;
 import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.NhomHang;
@@ -28,7 +30,8 @@ public class DanhMucDaoImpl implements DanhMucDao {
 	private DBProvider dbProvider;
 
 	@Override
-	public List<DanhMuc> getAll() {
+	public ResponseData<List<DanhMuc>> getAll() {
+		ResponseData<List<DanhMuc>> response = new ResponseData<List<DanhMuc>>();
 		List<DanhMuc> danhMucs = new ArrayList<DanhMuc>();
 		try {
 			logger.log(Level.INFO, "db provider is null: "
@@ -43,20 +46,21 @@ public class DanhMucDaoImpl implements DanhMucDao {
 				String link = rs.getString("Link");
 				DanhMuc dm = new DanhMuc(maDM, tenDM, link);
 				danhMucs.add(dm);
-
 			}
+			response.setData(danhMucs);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			logger.log(Level.INFO, "error", e);
+			response.setErrorMessage("getAll bi loi");
 		}
-		return danhMucs;
+		return response;
 
 	}
 
 	@Override
-	public List<NhomSanPham> getNhomSanPham() {
+	public ResponseData<List<NhomSanPham>> getNhomSanPham() {
+		ResponseData<List<NhomSanPham>> response = new ResponseData<List<NhomSanPham>>();
 		List<NhomSanPham> nhomSanPhams = new ArrayList<NhomSanPham>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -69,21 +73,21 @@ public class DanhMucDaoImpl implements DanhMucDao {
 				int maDM = rs.getInt("MaDanhMuc");
 				NhomSanPham nsp = new NhomSanPham(maNSP, tenNSP, maDM);
 				nhomSanPhams.add(nsp);
-
 			}
+			response.setData(nhomSanPhams);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getNhomSanPham bi loi");
 		}
-		return nhomSanPhams;
+		return response;
 
 	}
 
 	@Override
-	public boolean themNhomSanPham(int maDanhMuc, String tenNhomSanPham) {
-		boolean ketQua = false;
+	public ResponseData<Boolean> themNhomSanPham(int maDanhMuc, String tenNhomSanPham) {
+		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call themNhomSanPham(?,?)}";
@@ -94,19 +98,20 @@ public class DanhMucDaoImpl implements DanhMucDao {
 			int rs = st.executeUpdate();
 
 			if (rs == 1) {
-				ketQua = true;
+				response.setData(true);
 			}
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("themNhomSanPham bi loi");
 		}
-		return ketQua;
+		return response;
 
 	}
 
 	@Override
-	public List<NhomHang> getNhomHang() {
+	public ResponseData<List<NhomHang>> getNhomHang() {
+		ResponseData<List<NhomHang>> response = new ResponseData<List<NhomHang>>();
 		List<NhomHang> nhomHangs = new ArrayList<NhomHang>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -120,18 +125,20 @@ public class DanhMucDaoImpl implements DanhMucDao {
 				NhomHang nh = new NhomHang(maNH, tenNH);
 				nhomHangs.add(nh);
 			}
+			response.setData(nhomHangs);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getNhomHang bi loi");
 		}
-		return nhomHangs;
+		return response;
 
 	}
 
 	@Override
-	public List<Hang> getHang() {
+	public ResponseData<List<Hang>> getHang() {
+		ResponseData<List<Hang>> response = new ResponseData<List<Hang>>();
 		List<Hang> hangs = new ArrayList<Hang>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -146,18 +153,19 @@ public class DanhMucDaoImpl implements DanhMucDao {
 				Hang nh = new Hang(maH, tenH, maNH);
 				hangs.add(nh);
 			}
+			response.setData(hangs);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getHang bi loi");
 		}
-		return hangs;
+		return response;
 	}
 
 	@Override
-	public boolean themHang(String tenHang, int maNhomSanPham) {
-		boolean ketQua = false;
+	public ResponseData<Boolean> themHang(String tenHang, int maNhomSanPham) {
+		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call themHang(?,?)}";
@@ -168,19 +176,20 @@ public class DanhMucDaoImpl implements DanhMucDao {
 			int rs = st.executeUpdate();
 
 			if (rs == 1) {
-				ketQua = true;
+				response.setData(true);
 			}
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("themHang bi loi");
 		}
-		return ketQua;
+		return response;
 
 	}
 
 	@Override
-	public List<Hang> getHangTheoNhom(int maNhomHang) {
+	public ResponseData<List<Hang>> getHangTheoNhom(int maNhomHang) {
+		ResponseData<List<Hang>> response = new ResponseData<List<Hang>>();
 		List<Hang> hangs = new ArrayList<Hang>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -196,13 +205,14 @@ public class DanhMucDaoImpl implements DanhMucDao {
 				Hang nh = new Hang(maH, tenH, maNH);
 				hangs.add(nh);
 			}
+			response.setData(hangs);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getHangTheoNhom bi loi");
 		}
-		return hangs;
+		return response;
 	}
 
 }

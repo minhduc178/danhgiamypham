@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import com.danhgiamypham.dao.CauHoiDao;
 import com.danhgiamypham.database.DBProvider;
+import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.CauHoi;
 import com.danhgiamypham.model.CauTraLoi;
 import com.danhgiamypham.model.NhomCauHoi;
@@ -29,8 +30,8 @@ public class CauHoiDaoImpl implements CauHoiDao {
 	private DBProvider dbProvider;
 
 	@Override
-	public boolean themCauHoi(CauHoi ch) {
-		boolean ketQua = false;
+	public ResponseData<Boolean> themCauHoi(CauHoi ch) {
+		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call themCauHoi(?,?,?,?)}";
@@ -43,20 +44,21 @@ public class CauHoiDaoImpl implements CauHoiDao {
 			int rs = st.executeUpdate();
 
 			if (rs == 1) {
-				ketQua = true;
+				response.setData(true);
 			}
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("themCauHoi bi loi");
 		}
-		return ketQua;
+		return response;
 
 	}
 	
 	
 	@Override
-	public List<NhomCauHoi> getNhomCauHoi() {
+	public ResponseData<List<NhomCauHoi>> getNhomCauHoi() {
+		ResponseData<List<NhomCauHoi>> response = new ResponseData<List<NhomCauHoi>>();
 		List<NhomCauHoi> nhomCauHois = new ArrayList<NhomCauHoi>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -70,19 +72,20 @@ public class CauHoiDaoImpl implements CauHoiDao {
 				NhomCauHoi nch = new NhomCauHoi(maNCH, tenNCH);
 				nhomCauHois.add(nch);
 			}
+			response.setData(nhomCauHois);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getNhomCauHoi bi loi");
 		}
-		return nhomCauHois;
-
+		return response;
 	}
 	
 
 	@Override
-	public Set<CauHoi> getCauHoiTheoNhom(int maNhomBoPhan, int maNhomCauHoi) {
+	public ResponseData<Set<CauHoi>> getCauHoiTheoNhom(int maNhomBoPhan, int maNhomCauHoi) {
+		ResponseData<Set<CauHoi>> response = new ResponseData<Set<CauHoi>>();
 		Set<CauHoi> cauHois = new HashSet<CauHoi>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -105,19 +108,21 @@ public class CauHoiDaoImpl implements CauHoiDao {
 				CauHoi ch = new CauHoi(maCH, tenDN, maNCH, tieuD, noiD, ngayD, soLCL, soLL);
 				 cauHois.add(ch);
 			}
+			response.setData(cauHois);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getCauHoiTheoNhom bi loi");
 		}
-		return cauHois;
+		return response;
 
 	}
 	
 
 	@Override
-	public Set<CauHoi> getCauHoi(int mch) {
+	public ResponseData<Set<CauHoi>> getCauHoi(int mch) {
+		ResponseData<Set<CauHoi>> response = new ResponseData<Set<CauHoi>>();
 		Set<CauHoi> cauHois = new HashSet<CauHoi>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -138,18 +143,20 @@ public class CauHoiDaoImpl implements CauHoiDao {
 				CauHoi ch = new CauHoi(maCH, tenDN, maNCH, tieuD, noiD, ngayD, soLCL, soLL);
 				cauHois.add(ch);
 			}
+			response.setData(cauHois);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getCauHoi bi loi");
 		}
-		return cauHois;
+		return response;
 	}
 	
 	
 	@Override
-	public List<CauTraLoi> getCauTraLoi(int maCH) {
+	public  ResponseData<List<CauTraLoi>> getCauTraLoi(int maCH) {
+		ResponseData<List<CauTraLoi>> response = new ResponseData<List<CauTraLoi>>();
 		List<CauTraLoi> cauTraLois = new ArrayList<CauTraLoi>();
 
 		try {
@@ -168,13 +175,14 @@ public class CauHoiDaoImpl implements CauHoiDao {
 				CauTraLoi ctloi = new CauTraLoi(maCH, noiD, soLT, tenDN, ngayD);
 				cauTraLois.add(ctloi);
 			}
+			response.setData(cauTraLois);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getCauTraLoi bi loi");
 		}
-		return cauTraLois;
+		return response;
 
 	}
 }

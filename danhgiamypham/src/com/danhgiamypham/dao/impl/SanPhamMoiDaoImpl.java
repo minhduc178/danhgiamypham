@@ -13,9 +13,12 @@ import org.springframework.stereotype.Component;
 
 import com.danhgiamypham.dao.SanPhamMoiDao;
 import com.danhgiamypham.database.DBProvider;
+import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.HinhAnhSanPham;
+import com.danhgiamypham.model.LoaiDa;
 import com.danhgiamypham.model.NhomSanPham;
+import com.danhgiamypham.model.SanPham;
 import com.danhgiamypham.model.SanPhamMoi;
 
 @Component
@@ -25,7 +28,8 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 	private DBProvider dbProvider;
 
 	@Override
-	public List<Hang> getHang() {
+	public ResponseData<List<Hang>> getHang() {
+		ResponseData<List<Hang>> response = new ResponseData<List<Hang>>();
 		List<Hang> hangs = new ArrayList<Hang>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -40,19 +44,20 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 				Hang nh = new Hang(maH, tenH, maNH);
 				hangs.add(nh);
 			}
+			response.setData(hangs);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getHang bi loi");
 		}
-		return hangs;
-
+		return response;
 	}
 	
 	
 	@Override
-	public List<NhomSanPham> getNhomSanPhamTheoDanhMuc(int maDanhMuc) {
+	public ResponseData<List<NhomSanPham>> getNhomSanPhamTheoDanhMuc(int maDanhMuc) {
+		ResponseData<List<NhomSanPham>> response = new ResponseData<List<NhomSanPham>>();
 		List<NhomSanPham> nhomSanPhams = new ArrayList<NhomSanPham>();
 
 		try {
@@ -68,18 +73,20 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 				NhomSanPham nh = new NhomSanPham(maNSP, tenN);
 				nhomSanPhams.add(nh);
 			}
+			response.setData(nhomSanPhams);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getNhomSanPhamTheoDanhMuc bi loi");
 		}
-		return nhomSanPhams;
+		return response;
 
 	}
 	
 	@Override
-	public List<NhomSanPham> getNhomSanPhamTheoSP(int maSP, int MaDanhMuc) {
+	public ResponseData<List<NhomSanPham>> getNhomSanPhamTheoSP(int maSP, int MaDanhMuc) {
+		ResponseData<List<NhomSanPham>> response = new ResponseData<List<NhomSanPham>>();
 		List<NhomSanPham> nhomSanPhams = new ArrayList<NhomSanPham>();
 
 		try {
@@ -94,21 +101,23 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 				String tenN = rs.getString("TenNhom");
 
 				NhomSanPham nh = new NhomSanPham(maNSP, tenN);
-				nhomSanPhams.add(nh);
+				nhomSanPhams.add(nh);		
 			}
+			response.setData(nhomSanPhams);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getNhomSanPhamTheoSP bi loi");
+
 		}
-		return nhomSanPhams;
+		return response;
 
 	}
 	
 	@Override
-	public boolean themSanPham(SanPhamMoi spm) {
-		boolean ketQua = false;
+	public ResponseData<Boolean> themSanPham(SanPhamMoi spm) {
+		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call themSanPham(?,?,?,?,?,?,?)}";
@@ -125,7 +134,7 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 			int rs  = st.executeUpdate();
 			
 			if(rs==1){
-				ketQua  = true;
+				response.setData( true);
 			} 
 			int id = getMaxMaSanPham();
 			spm.setMaSanPham(id);
@@ -133,9 +142,9 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("themSanPham bi loi");
 		}
-		return ketQua;
+		return response;
 
 	}
 	
@@ -157,56 +166,9 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 		}
 		return id;
 	}
-	
-	
-	
-//	@Override
-//	public boolean themHinhAnh(int maSP,String fileName) {
-//		boolean ketQua = false;
-//		try {
-//			Connection cnn = dbProvider.getConnection();
-//			String sql = "{call themHinhAnh(?,?)}";
-//			PreparedStatement st = cnn.prepareStatement(sql);
-//			st.setInt(1, maSP);
-//			st.setString(2, fileName);
-//
-//			int rs = st.executeUpdate();
-//
-//			if (rs == 1) {
-//				ketQua = true;
-//			}
-//			st.close();
-//			cnn.close();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return ketQua;
-//	}
-	
-//	@Override
-//	public boolean themSanPhamNhomSanPham(int maSP, int k) {
-//		boolean ketQua = false;
-//		try {
-//			Connection cnn = dbProvider.getConnection();
-//			String sql = "{call themSanPhamNhomSanPham(?,?)}";
-//			PreparedStatement st = cnn.prepareStatement(sql);
-//			st.setInt(1, maSP);
-//			st.setInt(2, k);
-//
-//			int rs = st.executeUpdate();
-//
-//			if (rs == 1) {
-//				ketQua = true;
-//			}
-//			st.close();
-//			cnn.close();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return ketQua;
-//	}
-	public boolean themHinhAnhMoi(HinhAnhSanPham hasp){
-		boolean ketQua = false;
+
+	public ResponseData<Boolean> themHinhAnhMoi(HinhAnhSanPham hasp){
+		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call themHinhAnhMoi(?,?,?,?,?,?)}";
@@ -221,7 +183,7 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 			int rs  = st.executeUpdate();
 			
 			if(rs==1){
-				ketQua  = true;
+				response.setData(true);
 			} 
 			
 			st.close();
@@ -229,12 +191,12 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return ketQua;
+		return response;
 	}
 	
 	@Override
-	public boolean themNhomSanPhamMoi(int maSP, int maNhom) {
-		boolean ketQua = false;
+	public  ResponseData<Boolean> themNhomSanPhamMoi(int maSP, int maNhom) {
+		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call themSanPhamNhomSanPham(?,?)}";
@@ -244,23 +206,23 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 			int rs = st.executeUpdate();
 
 			if (rs == 1) {
-				ketQua = true;
+				response.setData(true);
 			}
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("themNhomSanPhamMoi bi loi");
 		}
-		return ketQua;
+		return response;
 	}
 	
 	
 	@Override
-	public boolean capNhatSanPham(SanPhamMoi spm) {
-		boolean ketQua = false;
+	public ResponseData<Boolean> capNhatSanPham(SanPham spm) {
+		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		try {
 			Connection cnn = dbProvider.getConnection();
-			String sql = "{call capNhatSanPham(?,?,?,?,?,?,?,?)}";
+			String sql = "{call capNhatSanPhamSua(?,?,?,?,?,?,?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
 			st.setInt(1, spm.getMaSanPham());
 			st.setString(2, spm.getTenSanPham());
@@ -269,49 +231,25 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 			st.setString(5, spm.getCongDung());
 			st.setString(6, spm.getCachSuDung());
 			st.setString(7, spm.getThanhPhan());
-			st.setInt(8, spm.getMaNguoiDung());
 
 			int rs  = st.executeUpdate();
 			
 			if(rs==1){
-				ketQua  = true;
+				response.setData(true);
 			} 
 			
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("capNhatSanPham bi loi");
+
 		}
-		return ketQua;
+		return response;
 
 	}
 	
-
-//	@Override
-//	public boolean capnhatHinhAnh(int maSP,String fileName) {
-//		boolean ketQua = false;
-//		try {
-//			Connection cnn = dbProvider.getConnection();
-//			String sql = "{call capnhatHinhAnh(?,?)}";
-//			PreparedStatement st = cnn.prepareStatement(sql);
-//			st.setInt(1, maSP);
-//			st.setString(2, fileName);
-//
-//			int rs = st.executeUpdate();
-//
-//			if (rs == 1) {
-//				ketQua = true;
-//			}
-//			st.close();
-//			cnn.close();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return ketQua;
-//	}
-	
-	public boolean capNhatHinhAnh(int maSP, HinhAnhSanPham hasp){
-		boolean ketQua = false;
+	public ResponseData<Boolean> capNhatHinhAnh(int maSP, HinhAnhSanPham hasp){
+		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call capNhatHinhAnh(?,?,?,?,?,?)}";
@@ -326,20 +264,20 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 			int rs  = st.executeUpdate();
 			
 			if(rs==1){
-				ketQua  = true;
+				response.setData(true);
 			} 
 			
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("capNhatHinhAnh bi loi");
 		}
-		return ketQua;
+		return response;
 	}
 	
 	@Override
-	public boolean capNhatNhomSanPham(int maSP, int maNhom) {
-		boolean ketQua = false;
+	public ResponseData<Boolean> capNhatNhomSanPham(int maSP, int maNhom) {
+		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call capNhatSanPhamNhomSanPham(?,?)}";
@@ -349,14 +287,55 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 			int rs = st.executeUpdate();
 
 			if (rs == 1) {
-				ketQua = true;
+				response.setData(true);
 			}
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("capNhatNhomSanPham bi loi");
 		}
-		return ketQua;
+		return response;
+	}
+	
+
+	@Override
+	public ResponseData<Boolean> xoaHinhAnhSanPham(int maSP) {
+		ResponseData<Boolean> response = new ResponseData<Boolean>();
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call xoaHinhAnhSanPham(?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maSP);
+			int rs = st.executeUpdate();
+			if (rs == 1) {
+				response.setData(true);
+			}
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			response.setErrorMessage("xoaHinhAnhSanPham bi loi");
+		}
+		return response;
+	}
+	
+	@Override
+	public ResponseData<Boolean> xoaNhomSanPham(int maSP){
+		ResponseData<Boolean> response = new ResponseData<Boolean>();
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call xoaNhomSanPham(?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maSP);
+			int rs = st.executeUpdate();
+			if (rs == 1) {
+				response.setData(true);
+			}
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			response.setErrorMessage("xoaNhomSanPham bi loi");
+		}
+		return response;
 	}
 	
 	

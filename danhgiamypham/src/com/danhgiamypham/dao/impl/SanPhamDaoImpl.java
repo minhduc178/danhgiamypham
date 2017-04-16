@@ -16,7 +16,10 @@ import org.springframework.stereotype.Component;
 
 import com.danhgiamypham.dao.SanPhamDao;
 import com.danhgiamypham.database.DBProvider;
+import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.Hang;
+import com.danhgiamypham.model.LoaiDa;
+import com.danhgiamypham.model.NhomSanPham;
 import com.danhgiamypham.model.SanPham;
 
 @Component
@@ -28,7 +31,9 @@ public class SanPhamDaoImpl implements SanPhamDao {
 	private DBProvider dbProvider;
 
 	@Override
-	public Set<SanPham> getSanPham(int trangHienTai, int soLuongTrongTrang) {
+	public ResponseData<Set<SanPham>> getSanPham(int trangHienTai,
+			int soLuongTrongTrang) {
+		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
 		Set<SanPham> sanPhams = new HashSet<SanPham>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -46,21 +51,24 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
 
-				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD,
-						diemDG, soLDG, hinhAC);
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
+						soLDG, hinhAC);
 				sanPhams.add(sp);
 			}
+			response.setData(sanPhams);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getSanPham bi loi");
 		}
-		return sanPhams;
+		return response;
 
 	}
+
 	@Override
-	public Set<SanPham> getSanPhamTheoNhomSP(int maNhomSanPham) {
+	public ResponseData<Set<SanPham>> getSanPhamTheoNhomSP(int maNhomSanPham) {
+		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
 		Set<SanPham> sanPhams = new HashSet<SanPham>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -77,23 +85,25 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
 
-				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD,
-						diemDG, soLDG, hinhAC);
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
+						soLDG, hinhAC);
 				sanPhams.add(sp);
 			}
+			response.setData(sanPhams);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getSanPhamTheoNhomSP bi loi");
 		}
-		return sanPhams;
+		return response;
 
 	}
-	
+
 	@Override
-	public int getTongSanPham() {
-		int tongSanPham=0;
+	public ResponseData<Integer> getTongSanPham() {
+		ResponseData<Integer> response = new ResponseData<Integer>();
+		int tongSanPham = 0;
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getSoSanPham()}";
@@ -102,18 +112,19 @@ public class SanPhamDaoImpl implements SanPhamDao {
 			while (rs.next()) {
 				tongSanPham = rs.getInt("tongsanpham");
 			}
+			response.setData(tongSanPham);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getTongSanPham bi loi");
 		}
-		return tongSanPham;
+		return response;
 	}
-	
+
 	@Override
 	public int getTongSanPhamTheoNhom(int maNhom) {
-		int tongSanPham=0;
+		int tongSanPham = 0;
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getSoSanPhamTheoNhom(?)}";
@@ -131,9 +142,12 @@ public class SanPhamDaoImpl implements SanPhamDao {
 		}
 		return tongSanPham;
 	}
+
 	// getSanPhamTheoDanhMuc-controller
 	@Override
-	public Set<SanPham> getSanPhamTheoDanhMuc(int trangHienTai, int soLuongTrongTrang, int maDM) {
+	public ResponseData<Set<SanPham>> getSanPhamTheoDanhMuc(int trangHienTai,
+			int soLuongTrongTrang, int maDM) {
+		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
 		Set<SanPham> sanPhams = new HashSet<SanPham>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -152,22 +166,25 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
 
-				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD,
-						diemDG, soLDG, hinhAC);
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
+						soLDG, hinhAC);
 				sanPhams.add(sp);
 			}
+			response.setData(sanPhams);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getSanPhamTheoDanhMuc bi loi");
 		}
-		return sanPhams;
+		return response;
 
 	}
-	
+
 	@Override
-	public Set<SanPham> getSanPhamTheoDanhMucMaChuoi(int maDM, int nhomChuoi) {
+	public ResponseData<Set<SanPham>> getSanPhamTheoDanhMucMaChuoi(int maDM,
+			int nhomChuoi) {
+		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
 		Set<SanPham> sanPhams = new HashSet<SanPham>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -185,23 +202,25 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
 
-				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD,
-						diemDG, soLDG, hinhAC);
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
+						soLDG, hinhAC);
 				sanPhams.add(sp);
 			}
+			response.setData(sanPhams);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getSanPhamTheoDanhMucMaChuoi bi loi");
 		}
-		return sanPhams;
+		return response;
 
 	}
-	
+
 	@Override
-	public int getTongSoSanPhamMaDanhMuc(int maDanhMuc) {
-		 int tongSanPham=0;
+	public ResponseData<Integer> getTongSoSanPhamMaDanhMuc(int maDanhMuc) {
+		ResponseData<Integer> response = new ResponseData<Integer>();
+		int tongSanPham = 0;
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getSoLuongMaDanhMuc(?)}";
@@ -210,20 +229,22 @@ public class SanPhamDaoImpl implements SanPhamDao {
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				tongSanPham = rs.getInt("SoLuongTheoDanhMuc");
-				
 			}
+			response.setData(tongSanPham);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getTongSoSanPhamMaDanhMuc bi loi");
 		}
-		return tongSanPham;
+		return response;
 	}
-	
+
 	@Override
-	public int getTongSoSanPhamMaDanhMuc(int maDanhMuc, int maNhom) {
-		 int tongSanPham=0;
+	public ResponseData<Integer> getTongSoSanPhamMaDanhMuc(int maDanhMuc,
+			int maNhom) {
+		ResponseData<Integer> response = new ResponseData<Integer>();
+		int tongSanPham = 0;
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getSoLuongMaDanhMucMaNhom(?, ?)}";
@@ -233,20 +254,22 @@ public class SanPhamDaoImpl implements SanPhamDao {
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				tongSanPham = rs.getInt("SoLuongTheoDanhMuc");
-				
 			}
+			response.setData(tongSanPham);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getTongSoSanPhamMaDanhMuc bi loi");
 		}
-		return tongSanPham;
+		return response;
 	}
-	
-	//sanphamtheomahang 
+
+	// sanphamtheomahang
 	@Override
-	public Set<SanPham> getSanPhamTheoHang(int trangHienTai, int soLuongTrongTrang, int maH) {
+	public ResponseData<Set<SanPham>> getSanPhamTheoHang(int trangHienTai,
+			int soLuongTrongTrang, int maH) {
+		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
 		Set<SanPham> sanPhams = new HashSet<SanPham>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -265,22 +288,25 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
 
-				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD,
-						diemDG, soLDG, hinhAC);
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
+						soLDG, hinhAC);
 				sanPhams.add(sp);
 			}
+			response.setData(sanPhams);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getSanPhamTheoHang bi loi");
 		}
-		return sanPhams;
+		return response;
 
 	}
-	
+
 	@Override
-	public Set<SanPham> getSanPhamTheoHangMaChuoi(int maH, int nhomChuoi) {
+	public ResponseData<Set<SanPham>> getSanPhamTheoHangMaChuoi(int maH,
+			int nhomChuoi) {
+		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
 		Set<SanPham> sanPhams = new HashSet<SanPham>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -298,23 +324,25 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
 
-				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD,
-						diemDG, soLDG, hinhAC);
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
+						soLDG, hinhAC);
 				sanPhams.add(sp);
 			}
+			response.setData(sanPhams);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getSanPhamTheoHangMaChuoi bi loi");
 		}
-		return sanPhams;
+		return response;
 
 	}
-	
+
 	@Override
-	public int getTongSoSanPhamMaHang(int maHang) {
-		 int tongSanPham=0;
+	public ResponseData<Integer> getTongSoSanPhamMaHang(int maHang) {
+		ResponseData<Integer> response = new ResponseData<Integer>();
+		int tongSanPham = 0;
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getSoLuongMaHang(?)}";
@@ -322,20 +350,22 @@ public class SanPhamDaoImpl implements SanPhamDao {
 			st.setInt(1, maHang);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
-				tongSanPham = rs.getInt("SoLuongTheoHang");				
+				tongSanPham = rs.getInt("SoLuongTheoHang");
 			}
+			response.setData(tongSanPham);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getTongSoSanPhamMaHang bi loi");
 		}
-		return tongSanPham;
+		return response;
 	}
-	
+
 	@Override
-	public int getTongSoSanPhamMaHang(int maHang, int maNhom) {
-		 int tongSanPham=0;
+	public ResponseData<Integer> getTongSoSanPhamMaHang(int maHang, int maNhom) {
+		ResponseData<Integer> response = new ResponseData<Integer>();
+		int tongSanPham = 0;
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getSoLuongMaHangMaNhom(?, ?)}";
@@ -345,20 +375,21 @@ public class SanPhamDaoImpl implements SanPhamDao {
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				tongSanPham = rs.getInt("SoLuongTheoHang");
-				
 			}
+			response.setData(tongSanPham);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getTongSoSanPhamMaHang bi loi");
 		}
-		return tongSanPham;
+		return response;
 	}
-	
-	
+
 	@Override
-	public Set<SanPham> getSanPhamTheoNhomSPham(int trangHienTai, int soLuongTrongTrang,int maNhomSanPham) {
+	public ResponseData<Set<SanPham>> getSanPhamTheoNhomSPham(int trangHienTai,
+			int soLuongTrongTrang, int maNhomSanPham) {
+		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
 		Set<SanPham> sanPhams = new HashSet<SanPham>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -377,22 +408,25 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
 
-				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD,
-						diemDG, soLDG, hinhAC);
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
+						soLDG, hinhAC);
 				sanPhams.add(sp);
 			}
+			response.setData(sanPhams);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getSanPhamTheoNhomSPham bi loi");
 		}
-		return sanPhams;
+		return response;
 
 	}
-	
+
 	@Override
-	public Set<SanPham> getSanPhamMaNhomSPMaChuoi(int maNhomSanPham, int nhomChuoi) {
+	public ResponseData<Set<SanPham>> getSanPhamMaNhomSPMaChuoi(
+			int maNhomSanPham, int nhomChuoi) {
+		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
 		Set<SanPham> sanPhams = new HashSet<SanPham>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -410,24 +444,25 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
 
-				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD,
-						diemDG, soLDG, hinhAC);
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
+						soLDG, hinhAC);
 				sanPhams.add(sp);
 			}
+			response.setData(sanPhams);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getSanPhamMaNhomSPMaChuoi bi loi");
 		}
-		return sanPhams;
+		return response;
 
 	}
-	
 
 	@Override
-	public int getTongSoSanPhamMaNhomSP(int maNhomSP) {
-		 int tongSanPham=0;
+	public ResponseData<Integer> getTongSoSanPhamMaNhomSP(int maNhomSP) {
+		ResponseData<Integer> response = new ResponseData<Integer>();
+		int tongSanPham = 0;
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getTongSoSanPhamMaNhomSP(?)}";
@@ -436,20 +471,22 @@ public class SanPhamDaoImpl implements SanPhamDao {
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				tongSanPham = rs.getInt("SoLuongTheoNhomSanPham");
-				
 			}
+			response.setData(tongSanPham);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getTongSoSanPhamMaNhomSP bi loi");
 		}
-		return tongSanPham;
+		return response;
 	}
-	
+
 	@Override
-	public int getTongSoSanPhamMaNhomSPChuoiNhom(int maNhomSP, int nhomChuoi) {
-		 int tongSanPham=0;
+	public ResponseData<Integer> getTongSoSanPhamMaNhomSPChuoiNhom(
+			int maNhomSP, int nhomChuoi) {
+		ResponseData<Integer> response = new ResponseData<Integer>();
+		int tongSanPham = 0;
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getTongSoSanPhamMaNhomSPChuoiNhom(?, ?)}";
@@ -459,21 +496,21 @@ public class SanPhamDaoImpl implements SanPhamDao {
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				tongSanPham = rs.getInt("SoLuongTheoNhomSanPham");
-				
 			}
+			response.setData(tongSanPham);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getTongSoSanPhamMaNhomSPChuoiNhom bi loi");
 		}
-		return tongSanPham;
+		return response;
 	}
-	
-	
-	
+
 	@Override
-	public List<SanPham> getSanPhamTimKiem(int trangHienTai, int soLuongTrongTrang, String timKiem) {
+	public ResponseData<List<SanPham>> getSanPhamTimKiem(int trangHienTai,
+			int soLuongTrongTrang, String timKiem) {
+		ResponseData<List<SanPham>> response = new ResponseData<List<SanPham>>();
 		List<SanPham> sanPhams = new ArrayList<SanPham>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -498,19 +535,21 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				System.out.print(sp.getTenSanPham());
 				sanPhams.add(sp);
 			}
+			response.setData(sanPhams);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getSanPhamTimKiem bi loi");
 		}
-		return sanPhams;
+		return response;
 
 	}
-	
+
 	@Override
-	public int getTongSanPhamTimKiem(String timKiem) {
-		 int tongSanPham=0;
+	public ResponseData<Integer> getTongSanPhamTimKiem(String timKiem) {
+		ResponseData<Integer> response = new ResponseData<Integer>();
+		int tongSanPham = 0;
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getSoLuongTimKiem(?)}";
@@ -520,20 +559,19 @@ public class SanPhamDaoImpl implements SanPhamDao {
 			while (rs.next()) {
 				tongSanPham = rs.getInt("SoLuongTimKiem");
 			}
+			response.setData(tongSanPham);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getTongSanPhamTimKiem bi loi");
 		}
-		return tongSanPham;
+		return response;
 	}
-	
-	
-	
 
 	@Override
-	public SanPham getChiTietSanpham(int maSP) {
+	public ResponseData<SanPham> getChiTietSanpham(int maSP) {
+		ResponseData<SanPham> response = new ResponseData<SanPham>();
 		SanPham sanPham = null;
 
 		try {
@@ -546,6 +584,8 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				maSP = rs.getInt("MaSanPham");
 				String tenSP = rs.getString("TenSanPham");
 				String tenH = rs.getString("TenHang");
+				int maH = rs.getInt("MaHang");
+				int maNH = rs.getInt("MaNhomHang");
 				String gioiT = rs.getString("GioiThieu");
 				String congD = rs.getString("CongDung");
 				String cachSD = rs.getString("CachSuDung");
@@ -560,22 +600,24 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				String hinh3 = rs.getString("Hinh3");
 				String hinh4 = rs.getString("Hinh4");
 
-				sanPham = new SanPham(maSP, tenSP, tenH, gioiT, congD, cachSD,
-						thanhP, tenND, tinhT, ngayD, diemDG, hinhAC,
-						hinh1, hinh2, hinh3, hinh4);
+				sanPham = new SanPham(maSP, tenSP, tenH, maH, maNH, gioiT, congD, cachSD,
+						thanhP, tenND, tinhT, ngayD, diemDG, hinhAC, hinh1,
+						hinh2, hinh3, hinh4);
 			}
+			response.setData(sanPham);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getChiTietSanpham bi loi");
 		}
-		return sanPham;
+		return response;
 
 	}
-	
+
 	@Override
-	public List<SanPham> getSanPhamYeuThich(int maNguoiDung) {
+	public ResponseData<List<SanPham>> getSanPhamYeuThich(int maNguoiDung) {
+		ResponseData<List<SanPham>> response = new ResponseData<List<SanPham>>();
 		List<SanPham> sanPhamYeuThichs = new ArrayList<SanPham>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -594,18 +636,20 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				SanPham spyt = new SanPham(maND, tenSP, tenH, diemDG, ghiC, maH);
 				sanPhamYeuThichs.add(spyt);
 			}
+			response.setData(sanPhamYeuThichs);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getSanPhamYeuThich bi loi");
 		}
-		return sanPhamYeuThichs;
+		return response;
 
 	}
-	
+
 	@Override
-	public List<Hang> getHangYeuThich(int maNguoiDung) {
+	public ResponseData<List<Hang>> getHangYeuThich(int maNguoiDung) {
+		ResponseData<List<Hang>> response = new ResponseData<List<Hang>>();
 		List<Hang> hangYeuThichs = new ArrayList<Hang>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -614,25 +658,27 @@ public class SanPhamDaoImpl implements SanPhamDao {
 			st.setInt(1, maNguoiDung);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
-		
+
 				String tenH = rs.getString("TenHang");
 				int maH = rs.getInt("MaHang");
 
 				Hang spyt = new Hang(maH, tenH);
 				hangYeuThichs.add(spyt);
 			}
+			response.setData(hangYeuThichs);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getHangYeuThich bi loi");
 		}
-		return hangYeuThichs;
+		return response;
 
 	}
-	
+
 	@Override
-	public List<SanPham> getDuyetSanPham(int tinhTrang) {
+	public ResponseData<List<SanPham>> getDuyetSanPham(int tinhTrang) {
+		ResponseData<List<SanPham>> response = new ResponseData<List<SanPham>>();
 		List<SanPham> sanPhams = new ArrayList<SanPham>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -654,86 +700,85 @@ public class SanPhamDaoImpl implements SanPhamDao {
 						diemDG, soLDG, hinhAC);
 				sanPhams.add(sp);
 			}
+			response.setData(sanPhams);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getDuyetSanPham bi loi");
 		}
-		return sanPhams;
+		return response;
 
 	}
-	
-	
+
 	@Override
-	public boolean getDuyetSanPhamDang(int masanPham) {
-		boolean result = false;
+	public ResponseData<Boolean> getDuyetSanPhamDang(int masanPham) {
+		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getDuyetSanPhamDang(?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
 			st.setInt(1, masanPham);
 			int rs = st.executeUpdate();
-			if(rs == 1){
-				result = true;
+			if (rs == 1) {
+				response.setData(true);
 			}
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
-			result = false;
+			response.setErrorMessage("getDuyetSanPhamDang bi loi");
 		}
-		return result;
+		return response;
 
 	}
-	
+
 	@Override
-	public boolean getXoaSanPhamDang(int masanPham) {
-		boolean result = false;
+	public ResponseData<Boolean> getXoaSanPhamDang(int masanPham) {
+		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getXoaSanPhamDang(?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
 			st.setInt(1, masanPham);
 			int rs = st.executeUpdate();
-			if(rs == 1){
-				result = true;
+			if (rs == 1) {
+				response.setData(true);
 			}
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
-			result = false;
+			response.setErrorMessage("getXoaSanPhamDang bi loi");
 		}
-		return result;
+		return response;
 
 	}
-	
+
 	@Override
-	public int getTimMaDanhMuc(int maSP){
-		 int maDanhMuc=0;
-			try {
-				Connection cnn = dbProvider.getConnection();
-				String sql = "{call timMaDanhMuc(?)}";
-				PreparedStatement st = cnn.prepareStatement(sql);
-				st.setInt(1, maSP);
-				ResultSet rs = st.executeQuery();
-				while (rs.next()) {
-					maDanhMuc = rs.getInt("MaDanhMuc");
-				}
-				rs.close();
-				st.close();
-				cnn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
+	public ResponseData<Integer> getTimMaDanhMuc(int maSP) {
+		ResponseData<Integer> response = new ResponseData<Integer>();
+		int maDanhMuc = 0;
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call timMaDanhMuc(?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maSP);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				maDanhMuc = rs.getInt("MaDanhMuc");
 			}
-			return maDanhMuc;
+			response.setData(maDanhMuc);
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			response.setErrorMessage("getTimMaDanhMuc bi loi");
+		}
+		return response;
 	}
-	
-	
 
 	@Override
-	public List<SanPham> getDuongDa() {
+	public ResponseData<List<SanPham>> getDuongDa() {
+		ResponseData<List<SanPham>> response = new ResponseData<List<SanPham>>();
 		List<SanPham> sanPhams = new ArrayList<SanPham>();
 
 		try {
@@ -744,25 +789,73 @@ public class SanPhamDaoImpl implements SanPhamDao {
 			while (rs.next()) {
 				int maSP = rs.getInt("MaSanPham");
 				String tenSP = rs.getString("TenSanPham");
-    			String tenH = rs.getString("TenHang");
+				String tenH = rs.getString("TenHang");
 				Date ngayD = rs.getDate("NgayDang");
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
 
-				SanPham sp = new SanPham(maSP, tenSP,tenH, ngayD,
-						diemDG, soLDG, hinhAC);
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
+						soLDG, hinhAC);
 				sanPhams.add(sp);
 			}
+			response.setData(sanPhams);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setErrorMessage("getDuongDa bi loi");
 		}
-		return sanPhams;
+		return response;
 
 	}
-
+	
+	@Override
+	public ResponseData<Integer> getNhomSanPhamTheoBoPhan(int maSP) {
+		ResponseData<Integer> response = new ResponseData<Integer>();
+		int maNhomBoPhan = 0;
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getNhomSanPhamTheoBoPhan(?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maSP);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				maNhomBoPhan = rs.getInt("MaNhomSanPham");
+			}
+			response.setData(maNhomBoPhan);
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			response.setErrorMessage("getNhomSanPhamTheoBoPhan bi loi");
+		}
+		return response;
+	}
+	
+	@Override
+	public ResponseData<List<Integer>> listMaNhomSanPham(int maSP) {
+		ResponseData<List<Integer>> response = new ResponseData<List<Integer>>();
+		List<Integer> listNhomSanPham = new ArrayList<Integer>();
+		int maNhom = 0;
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getlistMaNhomSanPham(?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maSP);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				maNhom = rs.getInt("MaNhomSanPham");
+				listNhomSanPham.add(maNhom);
+			}
+			response.setData(listNhomSanPham);
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			response.setErrorMessage("getlistMaNhomSanPham bi loi");
+		}
+		return response;
+	}
 
 }
