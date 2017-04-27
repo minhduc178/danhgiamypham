@@ -132,12 +132,12 @@ public class SanPhamController {
 		return sanPhamService.getTongSoSanPhamTimKiem(timKiem);
 	}
 	
-//	@RequestMapping(value = "get-tongsosanphamtimkiem", method = RequestMethod.GET)
-//	@ResponseBody
-//	public int getTongSoSanPhamTimKiem(@RequestParam("timkiem")  String timKiem,
-//										@RequestParam("chuoinhom") String[] chuoiNhom) {
-//		return sanPhamService.getTongSoSanPhamTimKiem(timKiem, chuoiNhom);
-//	}
+	@RequestMapping(value = "get-tongsosanphamtimkiemtheochuoi", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseData<Integer> getTongSoSanPhamTimKiem(@RequestParam("timkiem")  String timKiem,
+										@RequestParam("chuoinhom") String[] chuoiNhom) {
+		return sanPhamService.getTongSoSanPhamTimKiemTheoChuoi(timKiem, chuoiNhom);
+	}
 	
 	
 	@RequestMapping(value = "get-chi-tiet-san-pham", method = RequestMethod.GET)

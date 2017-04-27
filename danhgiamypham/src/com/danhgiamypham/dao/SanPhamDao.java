@@ -31,6 +31,7 @@ public interface SanPhamDao {
 
 	public ResponseData<List<SanPham>> getSanPhamTimKiem(int trangHienTai, int soLuongTrongTrang, String timKiem);
 	public ResponseData<Integer> getTongSanPhamTimKiem(String timKiem);
+	public ResponseData<Integer>getTongSoSanPhamTimKiemTheoChuoi(String timKiem,int chuoiNhom);
 	
 	public ResponseData<List<SanPham>> getSanPhamYeuThich(int id);
 	public ResponseData<List<Hang>> getHangYeuThich(int id);

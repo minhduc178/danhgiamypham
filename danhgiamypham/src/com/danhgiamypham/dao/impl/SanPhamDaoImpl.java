@@ -568,6 +568,30 @@ public class SanPhamDaoImpl implements SanPhamDao {
 		}
 		return response;
 	}
+	
+	@Override
+	public ResponseData<Integer> getTongSoSanPhamTimKiemTheoChuoi(String timKiem,int chuoiNhom) {
+		ResponseData<Integer> response = new ResponseData<Integer>();
+		int tongSanPham = 0;
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getSoLuongTimKiemTheoChuoi(?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setString(1, timKiem);
+			st.setInt(2, chuoiNhom);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				tongSanPham = rs.getInt("SoLuongTimKiem");
+			}
+			response.setData(tongSanPham);
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			response.setErrorMessage("getTongSoSanPhamTimKiemTheoChuoi bi loi");
+		}
+		return response;
+	}
 
 	@Override
 	public ResponseData<SanPham> getChiTietSanpham(int maSP) {

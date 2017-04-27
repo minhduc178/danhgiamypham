@@ -320,6 +320,23 @@ public class SanPhamServiceImpl implements SanPhamService {
 	public ResponseData<Integer> getTongSoSanPhamTimKiem(String timKiem) {
 		return sanPhamDao.getTongSanPhamTimKiem(timKiem);
 	}
+	
+	@Override
+	public ResponseData<Integer> getTongSoSanPhamTimKiemTheoChuoi(String timKiem, String[] chuoiNhom) {
+		ResponseData<Integer> response = new ResponseData<Integer>();
+		int n = 0;
+		for (String r : chuoiNhom) {
+			int maNhom = Integer.parseInt(r);
+			ResponseData<Integer> m =  sanPhamDao.getTongSoSanPhamTimKiemTheoChuoi(timKiem, maNhom);
+			int mnew = m.getData();
+			n = n + mnew;
+		}
+		response.setData(n);
+		return response;
+		
+	}
+	
+	
 
 	@Override
 	public ResponseData<SanPham> getChiTietSanPham(int maSP) {

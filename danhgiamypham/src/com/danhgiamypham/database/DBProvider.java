@@ -13,7 +13,7 @@ public class DBProvider {
 		try {
 			Class.forName(DBProperties.JDBC_DRIVER);
 			connection = DriverManager.getConnection(DBProperties.DB_URL, DBProperties.USER, DBProperties.PASS);
-		} catch (SQLException e) {
+			} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
