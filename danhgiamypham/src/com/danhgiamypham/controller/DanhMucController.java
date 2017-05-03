@@ -55,15 +55,15 @@ public class DanhMucController {
 	@RequestMapping(value = "them-hang", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseData<Boolean> themHang(@RequestParam("tenhang") String tenHang) {
+		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		String tenHangMoi=null;
 		try{
 			tenHangMoi = ResourceUtils.readUTF8(tenHang);
 		} catch (Exception e) {
-			
+			response.setErrorMessage("them-hang bi loi");
 		}
-	
-		return danhMucService.themHang(tenHangMoi);
-		
+		response = danhMucService.themHang(tenHangMoi); 
+		return response;
 		
 	}
 	
