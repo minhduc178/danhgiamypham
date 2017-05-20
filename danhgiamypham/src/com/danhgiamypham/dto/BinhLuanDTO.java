@@ -30,7 +30,6 @@ public class BinhLuanDTO {
 		bl.setMaSanPham(maSanPham);
 		bl.setDiemDanhGia(diemDanhGia);
 		bl.setBinhLuan(binhLuan);
-		bl.setHinhAnh(hinhAnh);
 		return bl;
 
 	}
@@ -40,7 +39,6 @@ public class BinhLuanDTO {
 		this.maSanPham = bl.getMaSanPham();
 		this.diemDanhGia = bl.getDiemDanhGia();
 		this.binhLuan = bl.getBinhLuan();
-		this.hinhAnh = bl.getHinhAnh();
 	}
 	
 	

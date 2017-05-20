@@ -31,8 +31,18 @@ public class BinhLuanController {
 	@ResponseBody
 	public ResponseData<Boolean> binhLuan(MultipartHttpServletRequest request) {
 		BinhLuan bl= new BinhLuan();
-		bl.bindFromMultipart(request);
-		List<MultipartFile> multiFile = request.getFiles("file");
+		List<MultipartFile> multiFile = request.getFiles("danhSachHinh");
+		
+		String maND =  request.getParameter("maNguoiDung");
+		String maSP =  request.getParameter("maSanPham");
+		String diemDG = request.getParameter("diemDanhGia");
+		String binhL = request.getParameter("binhLuan");
+		
+		bl.setMaNguoiDung(Integer.parseInt(maND));
+		bl.setMaSanPham(Integer.parseInt(maSP));
+		bl.setDiemDanhGia(Integer.parseInt(diemDG));
+		bl.setBinhLuan(binhL);
+		
 		return binhLuanService.themBinhLuan(bl, multiFile);
 	}
 	
