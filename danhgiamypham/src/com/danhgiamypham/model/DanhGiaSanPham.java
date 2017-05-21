@@ -1,6 +1,7 @@
 package com.danhgiamypham.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class DanhGiaSanPham {
 	private int maDanhGia;
@@ -11,13 +12,15 @@ public class DanhGiaSanPham {
 	private Date ngayGiaNhap;
 	private String addClass;
 	private String tinhTrangLike;
+	private List<String> hinhAnh;
 
 	public DanhGiaSanPham() {
 
 	}
 
 	public DanhGiaSanPham(int maDanhGia, int diemDanhGia, String binhLuan,
-			int soLuotLike, int tinhTrang, Date ngayGiaNhap, String addClass, String tinhTrangLike) {
+			int soLuotLike, int tinhTrang, Date ngayGiaNhap, String addClass,
+			String tinhTrangLike) {
 		super();
 		this.maDanhGia = maDanhGia;
 		this.diemDanhGia = diemDanhGia;
@@ -26,11 +29,32 @@ public class DanhGiaSanPham {
 		this.tinhTrang = tinhTrang;
 		this.ngayGiaNhap = ngayGiaNhap;
 		this.addClass = addClass;
-		this.tinhTrangLike =  tinhTrangLike;
-
+		this.tinhTrangLike = tinhTrangLike;
+	
 	}
 	
-	
+	public DanhGiaSanPham(int maDanhGia, int diemDanhGia, String binhLuan,
+			int soLuotLike, int tinhTrang, Date ngayGiaNhap, String addClass,
+			String tinhTrangLike, List<String> hinhAnh) {
+		super();
+		this.maDanhGia = maDanhGia;
+		this.diemDanhGia = diemDanhGia;
+		this.binhLuan = binhLuan;
+		this.soLuotLike = soLuotLike;
+		this.tinhTrang = tinhTrang;
+		this.ngayGiaNhap = ngayGiaNhap;
+		this.addClass = addClass;
+		this.tinhTrangLike = tinhTrangLike;
+		this.hinhAnh = hinhAnh;
+	}
+
+	public List<String> getHinhAnh() {
+		return hinhAnh;
+	}
+
+	public void setHinhAnh(List<String> hinhAnh) {
+		this.hinhAnh = hinhAnh;
+	}
 
 	public String getTinhTrangLike() {
 		return tinhTrangLike;

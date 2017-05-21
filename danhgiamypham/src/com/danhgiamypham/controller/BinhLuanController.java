@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.danhgiamypham.Utilities.ResourceUtils;
 import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.BinhLuan;
 import com.danhgiamypham.service.BinhLuanService;
@@ -36,7 +37,13 @@ public class BinhLuanController {
 		String maND =  request.getParameter("maNguoiDung");
 		String maSP =  request.getParameter("maSanPham");
 		String diemDG = request.getParameter("diemDanhGia");
-		String binhL = request.getParameter("binhLuan");
+		String binhL = null;
+		try {
+			binhL = ResourceUtils.readUTF8(request.getParameter("binhLuan"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		bl.setMaNguoiDung(Integer.parseInt(maND));
 		bl.setMaSanPham(Integer.parseInt(maSP));

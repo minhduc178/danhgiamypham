@@ -45,4 +45,30 @@ public class ImageController {
 			rs.append("Error: ").append(e.getMessage());
 		}
 	}
+	
+	@RequestMapping(value = "getBinhLuan", method = RequestMethod.GET)
+	public void getResourceBinhLuan(@PathParam(value="name") String name,
+			HttpServletResponse response) {
+		StringBuilder rs = new StringBuilder();
+		try {
+			// Creating the directory to store file
+			PathImage binhLuanImg = new PathImage();
+			String location = binhLuanImg.getBinhLuanIMG();
+			String path = PathRsIMG.pathHinhSanPham(location);
+			File dir = new File(path);
+			
+			if (!dir.exists()) {
+				throw new FileNotFoundException(name);
+			}
+
+			// read file
+			File file = new File(dir.getAbsolutePath()
+					+ System.getProperty("file.separator") + name);
+			InputStream in = new FileInputStream(file);
+			IOUtils.copy(in, response.getOutputStream());
+			response.flushBuffer();
+		} catch (Exception e) {
+			rs.append("Error: ").append(e.getMessage());
+		}
+	}
 }

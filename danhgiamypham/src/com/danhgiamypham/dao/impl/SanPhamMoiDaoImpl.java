@@ -16,7 +16,6 @@ import com.danhgiamypham.database.DBProvider;
 import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.HinhAnhSanPham;
-import com.danhgiamypham.model.LoaiDa;
 import com.danhgiamypham.model.NhomSanPham;
 import com.danhgiamypham.model.SanPham;
 import com.danhgiamypham.model.SanPhamMoi;

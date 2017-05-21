@@ -56,5 +56,30 @@ public class DanhGiaSanPhamDaoImpl implements DanhGiaSanPhamDao {
 		return response;
 
 	}
+	
+	@Override
+	public ResponseData<List<String>> getHinhAnhBinhLuan(int maDG) {
+		ResponseData<List<String>> response = new ResponseData<List<String>>();
+		List<String> hinhAnhList = new ArrayList<String>();
+
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getHinhAnhBinhLuan(?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maDG);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				String hinhAnh = rs.getString("HinhAnh");
+				hinhAnhList.add(hinhAnh);			
+			}
+			response.setData(hinhAnhList);
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			response.setErrorMessage("getHinhAnhBinhLuan bi loi");
+		}
+		return response;
+	}
 
 }

@@ -343,7 +343,10 @@ public class SanPhamServiceImpl implements SanPhamService {
 		ResponseData<SanPham> sp = sanPhamDao.getChiTietSanpham(maSP);
 		SanPham spnew = sp.getData();
 		ResponseData<List<LoaiDa>> ld = loaiDaDao.getLoaiDa(maSP);
-		ResponseData<List<DanhGiaSanPham>> blsp = danhGiaSanPhamDao.getDanhGiaSanPham(maSP);
+		
+		
+		ResponseData<List<DanhGiaSanPham>> blsp = getDanhGiaTheoSP(maSP);
+		
 		List<DanhGiaSanPham> blspnew = blsp.getData();
 		spnew.setLoaiDas(ld.getData());
 		spnew.setDanhGiaSanPhams(blspnew);
@@ -359,7 +362,22 @@ public class SanPhamServiceImpl implements SanPhamService {
 		
 		return sp;
 
+	}	
+	
+	public ResponseData<List<DanhGiaSanPham>> getDanhGiaTheoSP(int maSP) {
+		ResponseData<List<DanhGiaSanPham>> dgspList = new ResponseData<List<DanhGiaSanPham>>();
+		List<DanhGiaSanPham> danhGiaSanPham = new ArrayList<DanhGiaSanPham>();
+		dgspList = danhGiaSanPhamDao.getDanhGiaSanPham(maSP);
+		for (DanhGiaSanPham dgsp : dgspList.getData()) {
+			ResponseData<List<String>> hinhAnhListData = danhGiaSanPhamDao.getHinhAnhBinhLuan(dgsp.getMaDanhGia());
+			List<String> hinhAnhList = hinhAnhListData.getData();
+			dgsp.setHinhAnh(hinhAnhList);
+			danhGiaSanPham.add(dgsp);
+		}
+		dgspList.setData(danhGiaSanPham);
+		return dgspList;
 	}
+	
 	
 	@Override
 	public ResponseData<SanPham> getChiTietSanPhamSua(int maSP) {
