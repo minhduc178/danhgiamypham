@@ -2,8 +2,6 @@ package com.danhgiamypham.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +10,8 @@ import org.springframework.stereotype.Service;
 import com.danhgiamypham.dao.DanhMucDao;
 import com.danhgiamypham.dto.DanhMucNhom;
 import com.danhgiamypham.dto.ResponseData;
-import com.danhgiamypham.model.CauHoi;
 import com.danhgiamypham.model.DanhMuc;
 import com.danhgiamypham.model.Hang;
-import com.danhgiamypham.model.LoaiDa;
 import com.danhgiamypham.model.NhomHang;
 import com.danhgiamypham.model.NhomSanPham;
 import com.danhgiamypham.service.DanhMucService;

@@ -5,7 +5,6 @@ import java.util.Set;
 
 import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.Hang;
-import com.danhgiamypham.model.NhomSanPham;
 import com.danhgiamypham.model.SanPham;
 
 public interface SanPhamDao {

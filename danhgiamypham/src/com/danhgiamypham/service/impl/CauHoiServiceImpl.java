@@ -11,7 +11,6 @@ import com.danhgiamypham.dao.CauHoiDao;
 import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.CauHoi;
 import com.danhgiamypham.model.CauTraLoi;
-import com.danhgiamypham.model.LoaiDa;
 import com.danhgiamypham.model.NhomCauHoi;
 import com.danhgiamypham.service.CauHoiService;
 

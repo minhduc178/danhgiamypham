@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import com.danhgiamypham.dao.LoaiDaDao;
 import com.danhgiamypham.database.DBProvider;
 import com.danhgiamypham.dto.ResponseData;
-import com.danhgiamypham.model.HoiDap;
 import com.danhgiamypham.model.LoaiDa;
 
 @Component

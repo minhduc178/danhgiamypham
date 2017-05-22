@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import com.danhgiamypham.dao.HoiDapDao;
 import com.danhgiamypham.database.DBProvider;
 import com.danhgiamypham.dto.ResponseData;
-import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.HoiDap;
 
 @Component

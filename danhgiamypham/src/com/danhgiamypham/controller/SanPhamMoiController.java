@@ -14,12 +14,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.danhgiamypham.Utilities.ResourceUtils;
 import com.danhgiamypham.dto.ResponseData;
-import com.danhgiamypham.dto.UserDTO;
 import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.NhomSanPham;
 import com.danhgiamypham.model.SanPham;
 import com.danhgiamypham.model.SanPhamMoi;
-import com.danhgiamypham.model.User;
 import com.danhgiamypham.service.SanPhamMoiService;
 
 @Controller

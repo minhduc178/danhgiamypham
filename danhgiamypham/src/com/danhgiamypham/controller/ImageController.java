@@ -28,7 +28,7 @@ public class ImageController {
 			// Creating the directory to store file
 			PathImage sanPhamImg = new PathImage();
 			String location = sanPhamImg.getSanPhamIMG();
-			String path = PathRsIMG.pathHinhSanPham(location);
+			String path = PathRsIMG.pathHinh(location);
 			File dir = new File(path);
 			
 			if (!dir.exists()) {
@@ -54,7 +54,7 @@ public class ImageController {
 			// Creating the directory to store file
 			PathImage binhLuanImg = new PathImage();
 			String location = binhLuanImg.getBinhLuanIMG();
-			String path = PathRsIMG.pathHinhSanPham(location);
+			String path = PathRsIMG.pathHinh(location);
 			File dir = new File(path);
 			
 			if (!dir.exists()) {
