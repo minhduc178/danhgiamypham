@@ -142,14 +142,14 @@ public class SanPhamController {
 	
 	@RequestMapping(value = "get-chi-tiet-san-pham", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseData<SanPham> getChiTietSanPham(@RequestParam("masanpham") int MaSanPham) {
-		return sanPhamService.getChiTietSanPham(MaSanPham);
+	public ResponseData<SanPham> getChiTietSanPham(@RequestParam("link") String link) {
+		return sanPhamService.getChiTietSanPham(link);
 	}
 	
 	@RequestMapping(value = "get-chi-tiet-san-pham-sua", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseData<SanPham> getChiTietSanPhamSua(@RequestParam("masanpham") int MaSanPham) {
-		return sanPhamService.getChiTietSanPhamSua(MaSanPham);
+	public ResponseData<SanPham> getChiTietSanPhamSua(@RequestParam("link") String link) {
+		return sanPhamService.getChiTietSanPhamSua(link);
 	}
 	
 	@RequestMapping(value = "san-pham-yeu-thich", method = RequestMethod.GET)

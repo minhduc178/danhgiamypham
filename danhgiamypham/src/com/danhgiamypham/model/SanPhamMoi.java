@@ -11,13 +11,14 @@ public class SanPhamMoi {
 	private String thanhPhan;
 	private int maNguoiDung;
 	private int maSanPham;
+	private String link;
 	
 	private String[] listMaNhomSP;
 	
 	public SanPhamMoi(String tenSanPham, int maHang, String maNhom,
 			int maboPhan, String gioiThieu, String congDung, String cachSuDung,
 			String thanhPhan, int maNguoiDung, int maSanPham,
-			String[] listMaNhomSP) {
+			String[] listMaNhomSP,String link) {
 		super();
 		this.tenSanPham = tenSanPham;
 		this.maHang = maHang;
@@ -30,6 +31,7 @@ public class SanPhamMoi {
 		this.maNguoiDung = maNguoiDung;
 		this.maSanPham = maSanPham;
 		this.listMaNhomSP = listMaNhomSP;
+		this.link = link;
 	}
 
 
@@ -37,9 +39,22 @@ public class SanPhamMoi {
 	public SanPhamMoi() {
 		super();
 	}
+
 	
 	
 	
+	public String getLink() {
+		return link;
+	}
+
+
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+
+
 	public String[] getListMaNhomSP() {
 		return listMaNhomSP;
 	}

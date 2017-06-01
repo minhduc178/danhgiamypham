@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.danhgiamypham.Utilities.PathRsIMG;
+import com.danhgiamypham.Utilities.ResourceUtils;
 import com.danhgiamypham.dao.SanPhamMoiDao;
 import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.Hang;
@@ -66,7 +67,12 @@ public class SanPhamMoiServiceImpl implements SanPhamMoiService {
 
 		PathImage sanPhamImg = new PathImage();
 		String location = sanPhamImg.getSanPhamIMG();
-
+		
+		
+		//them link
+		String link = ResourceUtils.unAccent(spm.getTenSanPham());
+		spm.setLink(link);
+		
 		// them san pham moi
 		sanPhamMoiDao.themSanPham(spm);
 

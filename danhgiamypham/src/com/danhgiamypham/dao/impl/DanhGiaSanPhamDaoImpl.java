@@ -23,7 +23,7 @@ public class DanhGiaSanPhamDaoImpl implements DanhGiaSanPhamDao {
 	private DBProvider dbProvider;
 
 	@Override
-	public ResponseData<List<DanhGiaSanPham>> getDanhGiaSanPham(int maSP) {
+	public ResponseData<List<DanhGiaSanPham>> getDanhGiaSanPham(String link) {
 		ResponseData<List<DanhGiaSanPham>> response = new ResponseData<List<DanhGiaSanPham>>();
 		List<DanhGiaSanPham> danhGiaSanPhams = new ArrayList<DanhGiaSanPham>();
 
@@ -31,7 +31,7 @@ public class DanhGiaSanPhamDaoImpl implements DanhGiaSanPhamDao {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getDanhGia(?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
-			st.setInt(1, maSP);
+			st.setString(1, link);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				int maDG  = rs.getInt("MaDanhGia");

@@ -22,7 +22,7 @@ public class LoaiDaDaoImpl implements LoaiDaDao {
 	private DBProvider dbProvider;
 
 	@Override
-	public ResponseData<List<LoaiDa>> getLoaiDa(int maSP) {
+	public ResponseData<List<LoaiDa>> getLoaiDa(String link) {
 		ResponseData<List<LoaiDa>> response = new ResponseData<List<LoaiDa>>();
 		List<LoaiDa> loaiDas = new ArrayList<LoaiDa>();
 
@@ -30,7 +30,7 @@ public class LoaiDaDaoImpl implements LoaiDaDao {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getLoaiDa(?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
-			st.setInt(1, maSP);
+			st.setString(1, link);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				String tenLD = rs.getString("TenNhom");

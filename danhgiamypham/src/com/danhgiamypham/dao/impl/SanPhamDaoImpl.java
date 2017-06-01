@@ -48,9 +48,10 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
+				String link = rs.getString("Link");
 
 				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
-						soLDG, hinhAC);
+						soLDG, hinhAC,link);
 				sanPhams.add(sp);
 			}
 			response.setData(sanPhams);
@@ -82,9 +83,10 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
+				String link = rs.getString("Link");
 
 				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
-						soLDG, hinhAC);
+						soLDG, hinhAC, link);
 				sanPhams.add(sp);
 			}
 			response.setData(sanPhams);
@@ -163,9 +165,10 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
+				String link = rs.getString("Link");
 
 				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
-						soLDG, hinhAC);
+						soLDG, hinhAC, link);
 				sanPhams.add(sp);
 			}
 			response.setData(sanPhams);
@@ -199,9 +202,10 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
+				String link = rs.getString("Link");
 
 				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
-						soLDG, hinhAC);
+						soLDG, hinhAC,link);
 				sanPhams.add(sp);
 			}
 			response.setData(sanPhams);
@@ -285,9 +289,10 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
+				String link = rs.getString("Link");
 
 				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
-						soLDG, hinhAC);
+						soLDG, hinhAC,link);
 				sanPhams.add(sp);
 			}
 			response.setData(sanPhams);
@@ -321,9 +326,10 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
+				String link = rs.getString("Link");
 
 				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
-						soLDG, hinhAC);
+						soLDG, hinhAC, link);
 				sanPhams.add(sp);
 			}
 			response.setData(sanPhams);
@@ -405,9 +411,10 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
+				String link = rs.getString("Link");
 
 				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
-						soLDG, hinhAC);
+						soLDG, hinhAC, link);
 				sanPhams.add(sp);
 			}
 			response.setData(sanPhams);
@@ -441,9 +448,10 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
+				String link = rs.getString("Link");
 
 				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
-						soLDG, hinhAC);
+						soLDG, hinhAC, link);
 				sanPhams.add(sp);
 			}
 			response.setData(sanPhams);
@@ -527,10 +535,10 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
+				String link = rs.getString("Link");
 
 				SanPham sp = new SanPham(maSP, tenSP, tenH, tinhT, ngayD,
-						diemDG, soLDG, hinhAC);
-				System.out.print(sp.getTenSanPham());
+						diemDG, soLDG, hinhAC, link);
 				sanPhams.add(sp);
 			}
 			response.setData(sanPhams);
@@ -592,7 +600,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 	}
 
 	@Override
-	public ResponseData<SanPham> getChiTietSanpham(int maSP) {
+	public ResponseData<SanPham> getChiTietSanpham(String link) {
 		ResponseData<SanPham> response = new ResponseData<SanPham>();
 		SanPham sanPham = null;
 
@@ -600,10 +608,10 @@ public class SanPhamDaoImpl implements SanPhamDao {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getChiTietSanPham(?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
-			st.setInt(1, maSP);
+			st.setString(1, link);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
-				maSP = rs.getInt("MaSanPham");
+				int maSP = rs.getInt("MaSanPham");
 				String tenSP = rs.getString("TenSanPham");
 				String tenH = rs.getString("TenHang");
 				int maH = rs.getInt("MaHang");
@@ -621,10 +629,11 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				String hinh2 = rs.getString("Hinh2");
 				String hinh3 = rs.getString("Hinh3");
 				String hinh4 = rs.getString("Hinh4");
+				link = rs.getString("Link");
 
 				sanPham = new SanPham(maSP, tenSP, tenH, maH, maNH, gioiT, congD, cachSD,
 						thanhP, tenND, tinhT, ngayD, diemDG, hinhAC, hinh1,
-						hinh2, hinh3, hinh4);
+						hinh2, hinh3, hinh4, link);
 			}
 			response.setData(sanPham);
 			rs.close();
@@ -654,8 +663,9 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int diemDG = rs.getInt("DiemDanhGia");
 				String ghiC = rs.getString("GhiChu");
 				int maH = rs.getInt("MaHang");
+				String link = rs.getString("Link");
 
-				SanPham spyt = new SanPham(maND, tenSP, tenH, diemDG, ghiC, maH);
+				SanPham spyt = new SanPham(maND, tenSP, tenH, diemDG, ghiC, maH, link);
 				sanPhamYeuThichs.add(spyt);
 			}
 			response.setData(sanPhamYeuThichs);
@@ -717,9 +727,10 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
+				String link = rs.getString("Link");
 
 				SanPham sp = new SanPham(maSP, tenSP, tenH, tinhT, ngayD,
-						diemDG, soLDG, hinhAC);
+						diemDG, soLDG, hinhAC, link);
 				sanPhams.add(sp);
 			}
 			response.setData(sanPhams);
@@ -776,14 +787,14 @@ public class SanPhamDaoImpl implements SanPhamDao {
 	}
 
 	@Override
-	public ResponseData<Integer> getTimMaDanhMuc(int maSP) {
+	public ResponseData<Integer> getTimMaDanhMuc(String link) {
 		ResponseData<Integer> response = new ResponseData<Integer>();
 		int maDanhMuc = 0;
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call timMaDanhMuc(?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
-			st.setInt(1, maSP);
+			st.setString(1, link);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				maDanhMuc = rs.getInt("MaDanhMuc");
@@ -816,9 +827,10 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");
+				String link = rs.getString("Link");
 
 				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
-						soLDG, hinhAC);
+						soLDG, hinhAC, link);
 				sanPhams.add(sp);
 			}
 			response.setData(sanPhams);
@@ -833,14 +845,14 @@ public class SanPhamDaoImpl implements SanPhamDao {
 	}
 	
 	@Override
-	public ResponseData<Integer> getNhomSanPhamTheoBoPhan(int maSP) {
+	public ResponseData<Integer> getNhomSanPhamTheoBoPhan(String link) {
 		ResponseData<Integer> response = new ResponseData<Integer>();
 		int maNhomBoPhan = 0;
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getNhomSanPhamTheoBoPhan(?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
-			st.setInt(1, maSP);
+			st.setString(1, link);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				maNhomBoPhan = rs.getInt("MaNhomSanPham");
@@ -856,7 +868,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 	}
 	
 	@Override
-	public ResponseData<List<Integer>> listMaNhomSanPham(int maSP) {
+	public ResponseData<List<Integer>> listMaNhomSanPham(String link) {
 		ResponseData<List<Integer>> response = new ResponseData<List<Integer>>();
 		List<Integer> listNhomSanPham = new ArrayList<Integer>();
 		int maNhom = 0;
@@ -864,7 +876,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getlistMaNhomSanPham(?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
-			st.setInt(1, maSP);
+			st.setString(1, link);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				maNhom = rs.getInt("MaNhomSanPham");

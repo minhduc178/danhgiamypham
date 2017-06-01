@@ -35,12 +35,12 @@ public interface SanPhamDao {
 	public ResponseData<List<SanPham>> getSanPhamYeuThich(int id);
 	public ResponseData<List<Hang>> getHangYeuThich(int id);
 	
-	public ResponseData<SanPham> getChiTietSanpham(int id);
+	public ResponseData<SanPham> getChiTietSanpham(String link);
 	public ResponseData<List<SanPham>> getDuyetSanPham(int tinhTrang);	
-	public ResponseData<Integer> getNhomSanPhamTheoBoPhan(int maSP);
-	public ResponseData<List<Integer>> listMaNhomSanPham(int maSP);
+	public ResponseData<Integer> getNhomSanPhamTheoBoPhan(String link);
+	public ResponseData<List<Integer>> listMaNhomSanPham(String link);
 	public ResponseData<Boolean> getDuyetSanPhamDang(int maSP);	
 	public ResponseData<Boolean> getXoaSanPhamDang(int maSP);
-	public ResponseData<Integer> getTimMaDanhMuc(int maSP);
+	public ResponseData<Integer> getTimMaDanhMuc(String link);
 	public ResponseData<List<SanPham>> getDuongDa();
 }

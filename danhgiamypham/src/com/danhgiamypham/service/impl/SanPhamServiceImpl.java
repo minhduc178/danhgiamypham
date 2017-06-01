@@ -339,19 +339,19 @@ public class SanPhamServiceImpl implements SanPhamService {
 	
 
 	@Override
-	public ResponseData<SanPham> getChiTietSanPham(int maSP) {
-		ResponseData<SanPham> sp = sanPhamDao.getChiTietSanpham(maSP);
+	public ResponseData<SanPham> getChiTietSanPham(String link) {
+		ResponseData<SanPham> sp = sanPhamDao.getChiTietSanpham(link);
 		SanPham spnew = sp.getData();
-		ResponseData<List<LoaiDa>> ld = loaiDaDao.getLoaiDa(maSP);
+		ResponseData<List<LoaiDa>> ld = loaiDaDao.getLoaiDa(link);
 		
 		
-		ResponseData<List<DanhGiaSanPham>> blsp = getDanhGiaTheoSP(maSP);
+		ResponseData<List<DanhGiaSanPham>> blsp = getDanhGiaTheoSP(link);
 		
 		List<DanhGiaSanPham> blspnew = blsp.getData();
 		spnew.setLoaiDas(ld.getData());
 		spnew.setDanhGiaSanPhams(blspnew);
 
-		ResponseData<Integer> maDanhMuc = sanPhamDao.getTimMaDanhMuc(maSP);
+		ResponseData<Integer> maDanhMuc = sanPhamDao.getTimMaDanhMuc(link);
 		int maDanhMucnew = maDanhMuc.getData();
 		spnew.setMaDanhMuc(maDanhMucnew);
 
@@ -364,10 +364,10 @@ public class SanPhamServiceImpl implements SanPhamService {
 
 	}	
 	
-	public ResponseData<List<DanhGiaSanPham>> getDanhGiaTheoSP(int maSP) {
+	public ResponseData<List<DanhGiaSanPham>> getDanhGiaTheoSP(String link) {
 		ResponseData<List<DanhGiaSanPham>> dgspList = new ResponseData<List<DanhGiaSanPham>>();
 		List<DanhGiaSanPham> danhGiaSanPham = new ArrayList<DanhGiaSanPham>();
-		dgspList = danhGiaSanPhamDao.getDanhGiaSanPham(maSP);
+		dgspList = danhGiaSanPhamDao.getDanhGiaSanPham(link);
 		for (DanhGiaSanPham dgsp : dgspList.getData()) {
 			ResponseData<List<String>> hinhAnhListData = danhGiaSanPhamDao.getHinhAnhBinhLuan(dgsp.getMaDanhGia());
 			List<String> hinhAnhList = hinhAnhListData.getData();
@@ -380,16 +380,16 @@ public class SanPhamServiceImpl implements SanPhamService {
 	
 	
 	@Override
-	public ResponseData<SanPham> getChiTietSanPhamSua(int maSP) {
-		ResponseData<SanPham> sp = sanPhamDao.getChiTietSanpham(maSP);
+	public ResponseData<SanPham> getChiTietSanPhamSua(String link) {
+		ResponseData<SanPham> sp = sanPhamDao.getChiTietSanpham(link);
 		SanPham spnew = sp.getData();
 		
 		int maNhomHang = spnew.getMaNhomHang();
-		ResponseData<List<LoaiDa>> ld = loaiDaDao.getLoaiDa(maSP);
-		ResponseData<List<DanhGiaSanPham>> blsp = danhGiaSanPhamDao.getDanhGiaSanPham(maSP);
+		ResponseData<List<LoaiDa>> ld = loaiDaDao.getLoaiDa(link);
+		ResponseData<List<DanhGiaSanPham>> blsp = danhGiaSanPhamDao.getDanhGiaSanPham(link);
 		ResponseData<List<Hang>> hangTheoNhom =  danhMucDao.getHangTheoNhom(maNhomHang);
-		ResponseData<Integer> maNhomSanPhamBoPhan =  sanPhamDao.getNhomSanPhamTheoBoPhan(maSP);
-		ResponseData<List<Integer>> listMaNhomSanPham =  sanPhamDao.listMaNhomSanPham(maSP);
+		ResponseData<Integer> maNhomSanPhamBoPhan =  sanPhamDao.getNhomSanPhamTheoBoPhan(link);
+		ResponseData<List<Integer>> listMaNhomSanPham =  sanPhamDao.listMaNhomSanPham(link);
 	
 		List<Hang> hangTheoNhomnew = hangTheoNhom.getData();
 		List<DanhGiaSanPham> blspnew = blsp.getData();
@@ -401,7 +401,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 		spnew.setMaNhomSanPhamBoPhan(maNhomSanPhamBoPhannew);
 		spnew.setMaNhomSanPhams(listMaNhomSanPham.getData());
 
-		ResponseData<Integer> maDanhMuc = sanPhamDao.getTimMaDanhMuc(maSP);
+		ResponseData<Integer> maDanhMuc = sanPhamDao.getTimMaDanhMuc(link);
 		int maDanhMucnew = maDanhMuc.getData();
 		spnew.setMaDanhMuc(maDanhMucnew);
 

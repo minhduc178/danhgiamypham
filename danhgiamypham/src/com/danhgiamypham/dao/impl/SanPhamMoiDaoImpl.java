@@ -119,7 +119,7 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		try {
 			Connection cnn = dbProvider.getConnection();
-			String sql = "{call themSanPham(?,?,?,?,?,?,?)}";
+			String sql = "{call themSanPham(?,?,?,?,?,?,?,?)}";
 			PreparedStatement st = cnn.prepareStatement(sql,
 					Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, spm.getTenSanPham());
@@ -129,6 +129,7 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 			st.setString(5, spm.getCachSuDung());
 			st.setString(6, spm.getThanhPhan());
 			st.setInt(7, spm.getMaNguoiDung());
+			st.setString(8, spm.getLink());
 
 			int rs  = st.executeUpdate();
 			

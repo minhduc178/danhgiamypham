@@ -6,5 +6,5 @@ import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.LoaiDa;
 
 public interface LoaiDaDao {
-	public ResponseData<List<LoaiDa>> getLoaiDa(int id);
+	public ResponseData<List<LoaiDa>> getLoaiDa(String link);
 }
