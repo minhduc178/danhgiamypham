@@ -43,7 +43,7 @@ public class ResourceUtils {
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
         String st =  pattern.matcher(temp).replaceAll("").replaceAll("Đ", "D").replaceAll("đ", "d");
         st = st.replaceAll("\\s+","-");
-        String result = st.replaceAll("[+.^:,]","");
+        String result = st.replaceAll("[&#+./%-\''^:,)(}{]","");
         return result;
     }
 	

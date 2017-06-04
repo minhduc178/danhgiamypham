@@ -1,11 +1,17 @@
 package com.danhgiamypham.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.danhgiamypham.Utilities.MaHoaMD5;
+import com.danhgiamypham.Utilities.PathRsIMG;
 import com.danhgiamypham.dao.UserDao;
 import com.danhgiamypham.dto.ResponseData;
+import com.danhgiamypham.model.HinhAnhSanPham;
+import com.danhgiamypham.model.PathImage;
 import com.danhgiamypham.model.User;
 import com.danhgiamypham.service.UserService;
 
@@ -29,10 +35,22 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResponseData<User> themTaiKhoan(User tk) {
+	public ResponseData<User> themTaiKhoan(User tk, List<MultipartFile> multiFile) {
+		// Them hinh anh
+		PathImage anhDaiDien = new PathImage();
+		String location = anhDaiDien.getHinhDaiDien();
+	
+		for (int i = 0; i < 1; i++) {
+			String pathHinh = PathRsIMG.ghiFile(multiFile.get(i), location);
+			tk.setHinhAnh(pathHinh);
+		}
+		
+		//them tai khoan
 		String mhtk = MaHoaMD5.mahoa(tk.getMatKhau());
 		tk.setMatKhau(mhtk);
 		ResponseData<User> response = userDao.themTaiKhoan(tk);
+		
+		
 		return response;
 	}
 }

@@ -54,12 +54,14 @@ public class UserDaoImpl implements UserDao {
 		ResponseData<User> response = new ResponseData<User>();
 		try {
 			Connection cnn = dbProvider.getConnection();
-			String sql = "{call themTaiKhoan(?,?,?)}";
+			String sql = "{call themTaiKhoan(?,?,?,?,?)}";
 			PreparedStatement st = cnn.prepareStatement(sql,
 					Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, tk.getTenDangNhap());
 			st.setString(2, tk.getMatKhau());
 			st.setString(3, tk.getEmail());
+			st.setString(4, tk.getTenDienDan());
+			st.setString(5, tk.getHinhAnh());
 			int affectedRows = st.executeUpdate();
 
 			if (affectedRows == 0) {

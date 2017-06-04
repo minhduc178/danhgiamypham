@@ -37,6 +37,9 @@
 	
 	<bean id="sanPhamMoiDao" class="com.danhgiamypham.dao.impl.SanPhamMoiDaoImpl"></bean>
 	<bean id="sanPhamMoiService" class="com.danhgiamypham.service.impl.SanPhamMoiServiceImpl"></bean>
+	
+	<bean id="thongTinWebDao" class="com.danhgiamypham.dao.impl.ThongTinWebDaoImpl"></bean>
+	<bean id="thongTinWebService" class="com.danhgiamypham.service.impl.ThongTinWebServiceImpl"></bean>  
 		
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
