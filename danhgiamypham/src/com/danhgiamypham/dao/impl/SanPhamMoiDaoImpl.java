@@ -84,7 +84,7 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 	}
 	
 	@Override
-	public ResponseData<List<NhomSanPham>> getNhomSanPhamTheoSP(int maSP, int MaDanhMuc) {
+	public ResponseData<List<NhomSanPham>> getNhomSanPhamTheoSP(String link, int MaDanhMuc) {
 		ResponseData<List<NhomSanPham>> response = new ResponseData<List<NhomSanPham>>();
 		List<NhomSanPham> nhomSanPhams = new ArrayList<NhomSanPham>();
 
@@ -92,7 +92,7 @@ public class SanPhamMoiDaoImpl implements SanPhamMoiDao {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getNhomSanPhamTheoSanPham(?,?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
-			st.setInt(1, maSP);
+			st.setString(1, link);
 			st.setInt(2, MaDanhMuc);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {

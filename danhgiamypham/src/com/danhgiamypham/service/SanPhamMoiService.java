@@ -13,7 +13,7 @@ import com.danhgiamypham.model.SanPhamMoi;
 public interface SanPhamMoiService {
 	public  ResponseData<List<Hang>> getHang();
 	public  ResponseData<List<NhomSanPham>> getNhomSanPhamTheoDanhMuc(int mdm);
-	public  ResponseData<List<NhomSanPham>> getNhomSPTheoSP(int maSP, int mdm);
+	public  ResponseData<List<NhomSanPham>> getNhomSPTheoSP(String link, int mdm);
 	public  ResponseData<Boolean> them(SanPhamMoi spm, List<MultipartFile> multiFile);
 	public  ResponseData<Boolean> capNhat(SanPham spm, List<MultipartFile> multiFile);
 

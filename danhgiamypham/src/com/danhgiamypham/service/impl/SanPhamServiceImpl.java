@@ -357,9 +357,21 @@ public class SanPhamServiceImpl implements SanPhamService {
 
 		float ddg = ResourceUtils.quyTron(spnew.getDiemDanhGia());
 		spnew.setDiemDanhGia(ddg);
+		
+		if(spnew.getCachSuDung().equals("undefined")){
+			spnew.setCachSuDung(null);
+		}
+		if(spnew.getGioiThieu().equals("undefined")){
+			spnew.setGioiThieu(null);
+		}
+		if(spnew.getThanhPhan().equals("undefined")){
+			spnew.setThanhPhan(null);
+		}
+		if(spnew.getCongDung().equals("undefined")){
+			spnew.setCongDung(null);
+		}
 		sp.setData(spnew);
-		
-		
+
 		return sp;
 
 	}	

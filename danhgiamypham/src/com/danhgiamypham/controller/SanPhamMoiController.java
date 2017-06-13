@@ -41,10 +41,10 @@ public class SanPhamMoiController {
 	
 	@RequestMapping(value = "get-nhom-sp-theo-sp", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseData<List<NhomSanPham>> getNhomSPTheoSP(@RequestParam("masanpham") int MaSanPham,
+	public ResponseData<List<NhomSanPham>> getNhomSPTheoSP(@RequestParam("masanpham") String link,
 											@RequestParam("madanhmuc") int MaDanhMuc								
 			) {
-		return sanPhamMoiService.getNhomSPTheoSP(MaSanPham, MaDanhMuc );
+		return sanPhamMoiService.getNhomSPTheoSP(link, MaDanhMuc );
 	}
 	
 	@RequestMapping(value = "them", method = RequestMethod.POST)

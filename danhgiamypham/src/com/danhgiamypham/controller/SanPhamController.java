@@ -3,6 +3,8 @@ package com.danhgiamypham.controller;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.danhgiamypham.Utilities.ResourceUtils;
 import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.dto.SanPhamYeuThichNhom;
 import com.danhgiamypham.model.SanPham;
@@ -44,12 +47,15 @@ public class SanPhamController {
 
 	@RequestMapping(value = "tim-kiem", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseData<List<SanPham>> getSanPhamTimKiem(@RequestParam("tranghientai") int trangHienTai,
+	public ResponseData<List<SanPham>> getSanPhamTimKiem(
+									@RequestParam("tranghientai") int trangHienTai,
 									@RequestParam("soluongtrongtrang") int soLuongTrongTrang, 
 									@RequestParam("timkiem")  String timKiem) {
 		
 		return sanPhamService.getSanPhamTimKiem(trangHienTai, soLuongTrongTrang, timKiem );
 	}
+	
+	
 
 //	lay tong san pham cho trang get san pham o home
 	@RequestMapping(value = "get-tongsosanpham", method = RequestMethod.GET)

@@ -38,12 +38,12 @@ public class SanPhamMoiServiceImpl implements SanPhamMoiService {
 	}
 
 	@Override
-	public ResponseData<List<NhomSanPham>> getNhomSPTheoSP(int maSP,
+	public ResponseData<List<NhomSanPham>> getNhomSPTheoSP(String link,
 			int MaDanhMuc) {
 		ResponseData<List<NhomSanPham>> response = new ResponseData<List<NhomSanPham>>();
 
 		ResponseData<List<NhomSanPham>> nsptheoSP = sanPhamMoiDao
-				.getNhomSanPhamTheoSP(maSP, MaDanhMuc);
+				.getNhomSanPhamTheoSP(link, MaDanhMuc);
 		ResponseData<List<NhomSanPham>> nsptheoDanhMuc = sanPhamMoiDao
 				.getNhomSanPhamTheoDanhMuc(MaDanhMuc);
 		List<NhomSanPham> nsptheoSPnew = nsptheoSP.getData();

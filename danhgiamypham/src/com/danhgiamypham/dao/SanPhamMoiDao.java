@@ -12,7 +12,7 @@ import com.danhgiamypham.model.SanPhamMoi;
 public interface SanPhamMoiDao {
 	public ResponseData<List<Hang>> getHang();
 	public ResponseData<List<NhomSanPham>> getNhomSanPhamTheoDanhMuc(int MaDanhMuc);
-	public ResponseData<List<NhomSanPham>> getNhomSanPhamTheoSP(int maSP, int MaDanhMuc);
+	public ResponseData<List<NhomSanPham>> getNhomSanPhamTheoSP(String link, int MaDanhMuc);
 
 	public ResponseData<Boolean> themSanPham(SanPhamMoi spm);
 	public ResponseData<Boolean> themHinhAnhMoi(HinhAnhSanPham hasp);
