@@ -54,17 +54,15 @@ public class UserController {
 
 	@RequestMapping(value = "them", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseData<User> themTaiKhoan(
-			MultipartHttpServletRequest request) {
+	public ResponseData<User> themTaiKhoan(MultipartHttpServletRequest request) {
+		System.out.print(request.getFiles("hinhDaiDien"));
 		List<MultipartFile> multiFile = request.getFiles("hinhDaiDien");
 		User user = new User();
 
 		try {
 			String email = request.getParameter("email");
-			String tenDangNhap = request
-					.getParameter("tenDangNhap");
-			String matKhau = request
-					.getParameter("matKhau");
+			String tenDangNhap = request.getParameter("tenDangNhap");
+			String matKhau = request.getParameter("matKhau");
 			String tenDienDan = ResourceUtils.readUTF8(request
 					.getParameter("tenDienDan"));
 
@@ -79,27 +77,5 @@ public class UserController {
 		return userService.themTaiKhoan(user, multiFile);
 
 	}
-
-	// @RequestMapping(value = "them", method = RequestMethod.POST)
-	// @ResponseBody
-	// public ResponseData<UserDTO> themTaiKhoan(@RequestBody UserDTO tkDTO) {
-	// /*
-	// * User tk = tkDTO.bind(); tk = userService.themTaiKhoan(tk);
-	// * tkDTO.unbind(tk);
-	// *
-	// * return tkDTO;
-	// */
-	// ResponseData<UserDTO> result = new ResponseData<UserDTO>();
-	// User tk = tkDTO.bind();
-	//
-	// ResponseData<User> response = userService.themTaiKhoan(tk);
-	// if(response.getErrorMessage().length() == 0){
-	// tkDTO.unbind(response.getData());
-	// result.setData(tkDTO);
-	// } else {
-	// result.setErrorMessage(response.getErrorMessage());
-	// }
-	// return result;
-	// }
 
 }

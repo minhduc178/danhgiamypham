@@ -1,21 +1,27 @@
 package com.danhgiamypham.dto;
 
+import java.math.BigInteger;
+
 import com.danhgiamypham.model.User;
 
 public class UserDTO {
 
-	private int maNguoiDung;
+	private BigInteger maNguoiDung;
 	private String tenDangNhap;
 	private String matKhau;
 	private String email;
+	private String tenDienDan;
+	private String hinhAnh;
 
 	public UserDTO() {
 	}
 
-	public UserDTO(String tenDangNhap, String matKhau, String email) {
+	public UserDTO(String tenDangNhap, String matKhau, String email,String tenDienDan, String hinhAnh) {
 		this.tenDangNhap = tenDangNhap;
 		this.matKhau = matKhau;
 		this.email = email;
+		this.tenDienDan = tenDienDan;
+		this.hinhAnh = hinhAnh;
 	}
 
 	public User bind() {
@@ -23,6 +29,8 @@ public class UserDTO {
 		tk.setTenDangNhap(tenDangNhap);
 		tk.setMatKhau(matKhau);
 		tk.setEmail(email);
+		tk.setTenDienDan(tenDienDan);
+		tk.setHinhAnh(hinhAnh);
 
 		return tk;
 	}
@@ -32,13 +40,33 @@ public class UserDTO {
 		this.tenDangNhap = user.getTenDangNhap();
 		this.matKhau = null;
 		this.maNguoiDung = user.getMaNguoiDung();
+		this.tenDienDan=user.getTenDienDan();
+		this.hinhAnh = user.getHinhAnh();
 	}
 
-	public int getMaNguoiDung() {
+	public BigInteger getMaNguoiDung() {
 		return maNguoiDung;
 	}
+	
+	
 
-	public void setMaNguoiDung(int maNguoiDung) {
+	public String getTenDienDan() {
+		return tenDienDan;
+	}
+
+	public void setTenDienDan(String tenDienDan) {
+		this.tenDienDan = tenDienDan;
+	}
+
+	public String getHinhAnh() {
+		return hinhAnh;
+	}
+
+	public void setHinhAnh(String hinhAnh) {
+		this.hinhAnh = hinhAnh;
+	}
+
+	public void setMaNguoiDung(BigInteger maNguoiDung) {
 		this.maNguoiDung = maNguoiDung;
 	}
 

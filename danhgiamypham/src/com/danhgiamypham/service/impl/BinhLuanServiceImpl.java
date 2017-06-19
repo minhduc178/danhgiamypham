@@ -31,15 +31,16 @@ public class BinhLuanServiceImpl implements BinhLuanService {
 		String location = binhLuanImg.getBinhLuanIMG();
 
 		// them danh gia moi
-		binhLuanDao.themBinhLuan(bl);
+		response = binhLuanDao.themBinhLuan(bl);
 
 		// Lay ma danh gia tu du lieu moi tao
 		int maDG = bl.getMaDanhGia();
 
+		
 		// Them hinh anh
 		for (int i = 0; i < multiFile.size(); i++) {
 			String pathHinh = PathRsIMG.ghiFile(multiFile.get(i), location);
-			response = binhLuanDao.themHinhAnhBinhLuan(maDG, pathHinh);
+			binhLuanDao.themHinhAnhBinhLuan(maDG, pathHinh);
 		}
 
 		return response;

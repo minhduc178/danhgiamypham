@@ -340,24 +340,26 @@ public class SanPhamServiceImpl implements SanPhamService {
 
 	@Override
 	public ResponseData<SanPham> getChiTietSanPham(String link) {
+		//Load san pham
 		ResponseData<SanPham> sp = sanPhamDao.getChiTietSanpham(link);
 		SanPham spnew = sp.getData();
+		
+		//load loai da
 		ResponseData<List<LoaiDa>> ld = loaiDaDao.getLoaiDa(link);
-		
-		
-		ResponseData<List<DanhGiaSanPham>> blsp = getDanhGiaTheoSP(link);
-		
-		List<DanhGiaSanPham> blspnew = blsp.getData();
 		spnew.setLoaiDas(ld.getData());
-		spnew.setDanhGiaSanPhams(blspnew);
 
+		//load danh gia san pham
+		ResponseData<List<DanhGiaSanPham>> blsp = getDanhGiaTheoSP(link);
+		List<DanhGiaSanPham> blspnew = blsp.getData();
+		spnew.setDanhGiaSanPhams(blspnew);
+		
+		float ddg = ResourceUtils.quyTron(spnew.getDiemDanhGia());
+		spnew.setDiemDanhGia(ddg);
+		
 		ResponseData<Integer> maDanhMuc = sanPhamDao.getTimMaDanhMuc(link);
 		int maDanhMucnew = maDanhMuc.getData();
 		spnew.setMaDanhMuc(maDanhMucnew);
 
-		float ddg = ResourceUtils.quyTron(spnew.getDiemDanhGia());
-		spnew.setDiemDanhGia(ddg);
-		
 		if(spnew.getCachSuDung().equals("undefined")){
 			spnew.setCachSuDung(null);
 		}
@@ -376,18 +378,21 @@ public class SanPhamServiceImpl implements SanPhamService {
 
 	}	
 	
-	public ResponseData<List<DanhGiaSanPham>> getDanhGiaTheoSP(String link) {
-		ResponseData<List<DanhGiaSanPham>> dgspList = new ResponseData<List<DanhGiaSanPham>>();
-		List<DanhGiaSanPham> danhGiaSanPham = new ArrayList<DanhGiaSanPham>();
-		dgspList = danhGiaSanPhamDao.getDanhGiaSanPham(link);
-		for (DanhGiaSanPham dgsp : dgspList.getData()) {
+	public ResponseData<List<DanhGiaSanPham>> getDanhGiaTheoSP(String link) {	
+		ResponseData<List<DanhGiaSanPham>> response = new  ResponseData<List<DanhGiaSanPham>>();
+		List<DanhGiaSanPham> listDG = new ArrayList<DanhGiaSanPham>();
+		
+		ResponseData<List<DanhGiaSanPham>> dgspList = danhGiaSanPhamDao.getDanhGiaSanPham(link);
+		List<DanhGiaSanPham> danhGiaSanPhams = dgspList.getData();
+		
+		for (DanhGiaSanPham dgsp : danhGiaSanPhams) {
 			ResponseData<List<String>> hinhAnhListData = danhGiaSanPhamDao.getHinhAnhBinhLuan(dgsp.getMaDanhGia());
 			List<String> hinhAnhList = hinhAnhListData.getData();
 			dgsp.setHinhAnh(hinhAnhList);
-			danhGiaSanPham.add(dgsp);
+			listDG.add(dgsp);
 		}
-		dgspList.setData(danhGiaSanPham);
-		return dgspList;
+		response.setData(listDG);
+		return response;
 	}
 	
 	

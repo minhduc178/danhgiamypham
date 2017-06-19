@@ -1,5 +1,6 @@
 package com.danhgiamypham.dao.impl;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,10 +33,12 @@ public class UserDaoImpl implements UserDao {
 			st.setString(2, user.getMatKhau());
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
-				int maND = rs.getInt("MaNguoiDung");
+				BigInteger maND = BigInteger.valueOf(rs.getLong("MaNguoiDung"));
 				String email = rs.getString("Email");
-
-				user = new User(maND, email);
+				String tenDienDan =  rs.getString("TenDienDan");
+				String hinhAnh = rs.getString("HinhAnh");
+				
+				user = new User(maND, email, tenDienDan, hinhAnh);
 				response.setData(user);
 			}
 			rs.close();
@@ -68,7 +71,7 @@ public class UserDaoImpl implements UserDao {
 				response.setErrorMessage("Vui long thu lai sau");
 			}
 
-			int id = getMaxMaNguoiDung();
+			BigInteger id = getMaxMaNguoiDung();
 			tk.setMaNguoiDung(id);
 			response.setData(tk);
 
@@ -82,15 +85,15 @@ public class UserDaoImpl implements UserDao {
 		return response;
 	}
 
-	public int getMaxMaNguoiDung() {
-		int id = 0;
+	public BigInteger getMaxMaNguoiDung() {
+		BigInteger id = null;
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getMaxMaNguoiDung()}";
 			PreparedStatement st = cnn.prepareStatement(sql);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
-				id = rs.getInt("MaxMaNguoiDung");
+				id = BigInteger.valueOf(rs.getLong("MaxMaNguoiDung"));
 			}
 			rs.close();
 			st.close();

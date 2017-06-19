@@ -28,7 +28,7 @@ public class BinhLuanDaoImpl implements BinhLuanDao {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call themBinhLuanMoi(?,?,?,?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
-			st.setInt(1, bl.getMaNguoiDung());
+			st.setLong(1, Long.parseLong(String.valueOf(bl.getMaNguoiDung())));
 			st.setInt(2, bl.getMaSanPham());
 			st.setInt(3, bl.getDiemDanhGia());
 			st.setString(4, bl.getBinhLuan());

@@ -35,22 +35,27 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResponseData<User> themTaiKhoan(User tk, List<MultipartFile> multiFile) {
+	public ResponseData<User> themTaiKhoan(User tk,
+			List<MultipartFile> multiFile) {
 		// Them hinh anh
 		PathImage anhDaiDien = new PathImage();
 		String location = anhDaiDien.getHinhDaiDien();
-	
+
 		for (int i = 0; i < 1; i++) {
-			String pathHinh = PathRsIMG.ghiFile(multiFile.get(i), location);
-			tk.setHinhAnh(pathHinh);
+			if (multiFile.size() == 0) {
+				tk.setHinhAnh("20171506ava.png");
+			} else {
+				String pathHinh = PathRsIMG.ghiFile(multiFile.get(i), location);
+				tk.setHinhAnh(pathHinh);
+			}
+
 		}
-		
-		//them tai khoan
+
+		// them tai khoan
 		String mhtk = MaHoaMD5.mahoa(tk.getMatKhau());
 		tk.setMatKhau(mhtk);
 		ResponseData<User> response = userDao.themTaiKhoan(tk);
-		
-		
+
 		return response;
 	}
 }

@@ -1,12 +1,13 @@
 package com.danhgiamypham.dto;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
 import com.danhgiamypham.model.BinhLuan;
 
 public class BinhLuanDTO {
-	private int maNguoiDung;
+	private BigInteger maNguoiDung;
 	private int maSanPham;
 	private int diemDanhGia;
 	private String binhLuan;
@@ -15,7 +16,7 @@ public class BinhLuanDTO {
 	public BinhLuanDTO() {
 	}
 
-	public BinhLuanDTO(int maNguoiDung, int maSanPham, int diemDanhGia,
+	public BinhLuanDTO(BigInteger maNguoiDung, int maSanPham, int diemDanhGia,
 			String binhLuan, int soLuotLike, int tinhTrang, Date ngayBinhLuan, List<String> hinhAnh) {
 		this.maNguoiDung = maNguoiDung;
 		this.maSanPham = maSanPham;
@@ -53,11 +54,11 @@ public class BinhLuanDTO {
 		this.hinhAnh = hinhAnh;
 	}
 
-	public int getMaNguoiDung() {
+	public BigInteger getMaNguoiDung() {
 		return maNguoiDung;
 	}
 
-	public void setMaNguoiDung(int maNguoiDung) {
+	public void setMaNguoiDung(BigInteger maNguoiDung) {
 		this.maNguoiDung = maNguoiDung;
 	}
 

@@ -1,6 +1,7 @@
 package com.danhgiamypham.controller;
 
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class BinhLuanController {
 			e.printStackTrace();
 		}
 		
-		bl.setMaNguoiDung(Integer.parseInt(maND));
+		bl.setMaNguoiDung(BigInteger.valueOf(Long.valueOf(maND)));
 		bl.setMaSanPham(Integer.parseInt(maSP));
 		bl.setDiemDanhGia(Integer.parseInt(diemDG));
 		bl.setBinhLuan(binhL);

@@ -1,12 +1,13 @@
 package com.danhgiamypham.model;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 public class BinhLuan {
-	private int maNguoiDung;
+	private BigInteger maNguoiDung;
 	private int maSanPham;
 	private int diemDanhGia;
 	private int maDanhGia;
@@ -19,7 +20,7 @@ public class BinhLuan {
 	public BinhLuan() {
 	}
 
-	public BinhLuan(int maNguoiDung, int maSanPham, int diemDanhGia,
+	public BinhLuan(BigInteger maNguoiDung, int maSanPham, int diemDanhGia,
 			int maDanhGia, String binhLuan, int soLuotLike, int tinhTrang,
 			Date ngayBinhLuan, List<String> hinhAnh) {
 		super();
@@ -42,7 +43,7 @@ public class BinhLuan {
 
 		this.setBinhLuan(binhLuan);
 		this.setDiemDanhGia(Integer.parseInt(diemDanhGia));
-		this.setMaNguoiDung(Integer.parseInt(maNguoiDung));
+		this.setMaNguoiDung(BigInteger.valueOf(Long.parseLong(maNguoiDung)));
 		this.setMaSanPham(Integer.parseInt(maSanPham));
 
 	}
@@ -63,11 +64,11 @@ public class BinhLuan {
 		this.maDanhGia = maDanhGia;
 	}
 
-	public int getMaNguoiDung() {
+	public BigInteger getMaNguoiDung() {
 		return maNguoiDung;
 	}
 
-	public void setMaNguoiDung(int maNguoiDung) {
+	public void setMaNguoiDung(BigInteger maNguoiDung) {
 		this.maNguoiDung = maNguoiDung;
 	}
 

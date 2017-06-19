@@ -71,4 +71,31 @@ public class ImageController {
 			rs.append("Error: ").append(e.getMessage());
 		}
 	}
+	
+	
+	@RequestMapping(value = "getAnhDaiDien", method = RequestMethod.GET)
+	public void getResourceAnhDaiDien(@PathParam(value="name") String name,
+			HttpServletResponse response) {
+		StringBuilder rs = new StringBuilder();
+		try {
+			// Creating the directory to store file
+			PathImage anhDDImg = new PathImage();
+			String location = anhDDImg.getHinhDaiDien();
+			String path = PathRsIMG.pathHinh(location);
+			File dir = new File(path);
+			
+			if (!dir.exists()) {
+				throw new FileNotFoundException(name);
+			}
+
+			// read file
+			File file = new File(dir.getAbsolutePath()
+					+ System.getProperty("file.separator") + name);
+			InputStream in = new FileInputStream(file);
+			IOUtils.copy(in, response.getOutputStream());
+			response.flushBuffer();
+		} catch (Exception e) {
+			rs.append("Error: ").append(e.getMessage());
+		}
+	}
 }

@@ -13,6 +13,8 @@ public class DanhGiaSanPham {
 	private String addClass;
 	private String tinhTrangLike;
 	private List<String> hinhAnh;
+	private String tenDienDan;
+	private String anhDaiDien;
 
 	public DanhGiaSanPham() {
 
@@ -46,6 +48,40 @@ public class DanhGiaSanPham {
 		this.addClass = addClass;
 		this.tinhTrangLike = tinhTrangLike;
 		this.hinhAnh = hinhAnh;
+	}
+	
+
+	public DanhGiaSanPham(int maDanhGia, int diemDanhGia, String binhLuan,
+			int soLuotLike, int tinhTrang, Date ngayGiaNhap, String addClass,
+			String tinhTrangLike, String tenDienDan,
+			String anhDaiDien) {
+		super();
+		this.maDanhGia = maDanhGia;
+		this.diemDanhGia = diemDanhGia;
+		this.binhLuan = binhLuan;
+		this.soLuotLike = soLuotLike;
+		this.tinhTrang = tinhTrang;
+		this.ngayGiaNhap = ngayGiaNhap;
+		this.addClass = addClass;
+		this.tinhTrangLike = tinhTrangLike;
+		this.tenDienDan = tenDienDan;
+		this.anhDaiDien = anhDaiDien;
+	}
+
+	public String getTenDienDan() {
+		return tenDienDan;
+	}
+
+	public void setTenDienDan(String tenDienDan) {
+		this.tenDienDan = tenDienDan;
+	}
+
+	public String getAnhDaiDien() {
+		return anhDaiDien;
+	}
+
+	public void setAnhDaiDien(String anhDaiDien) {
+		this.anhDaiDien = anhDaiDien;
 	}
 
 	public List<String> getHinhAnh() {

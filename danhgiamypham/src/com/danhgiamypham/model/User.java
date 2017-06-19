@@ -1,21 +1,25 @@
 package com.danhgiamypham.model;
 
+import java.math.BigInteger;
+
 public class User {
 
 	private String tenDangNhap;
 	private String tenDienDan;
 	private String matKhau;
-	private int maNguoiDung;
+	private BigInteger maNguoiDung;
 	private String email;
 	private String hinhAnh;
 
 	public User() {
 	}
 
-	public User(int maNguoiDung, String email) {
+	public User(BigInteger maNguoiDung, String email, String tenDienDan,String hinhAnh) {
 
 		this.maNguoiDung = maNguoiDung;
 		this.email = email;
+		this.tenDienDan = tenDienDan;
+		this.hinhAnh = hinhAnh;
 	}
 
 	public User(String tenDangNhap, String matKhau, String email,
@@ -29,7 +33,7 @@ public class User {
 	}
 
 	public User(String tenDangNhap, String matKhau, String email,
-			int maNguoiDung, String tenDienDan, String hinhAnh) {
+			BigInteger maNguoiDung, String tenDienDan, String hinhAnh) {
 		super();
 		this.tenDangNhap = tenDangNhap;
 		this.matKhau = matKhau;
@@ -71,11 +75,11 @@ public class User {
 		this.matKhau = matKhau;
 	}
 
-	public int getMaNguoiDung() {
+	public BigInteger getMaNguoiDung() {
 		return maNguoiDung;
 	}
 
-	public void setMaNguoiDung(int maNguoiDung) {
+	public void setMaNguoiDung(BigInteger maNguoiDung) {
 		this.maNguoiDung = maNguoiDung;
 	}
 
