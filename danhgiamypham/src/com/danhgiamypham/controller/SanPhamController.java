@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.danhgiamypham.Utilities.ResourceUtils;
 import com.danhgiamypham.dto.ResponseData;
@@ -45,16 +46,25 @@ public class SanPhamController {
 	}
 
 
-	@RequestMapping(value = "tim-kiem", method = RequestMethod.GET)
+	@RequestMapping(value = "tim-kiem", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseData<List<SanPham>> getSanPhamTimKiem(
-									@RequestParam("tranghientai") int trangHienTai,
-									@RequestParam("soluongtrongtrang") int soLuongTrongTrang, 
-									@RequestParam("timkiem")  String timKiem) {
-		
-		return sanPhamService.getSanPhamTimKiem(trangHienTai, soLuongTrongTrang, timKiem );
-	}
+	public ResponseData<Set<SanPham>> getSanPhamTimKiem(MultipartHttpServletRequest request){
+	String ht = request.getParameter("tranghientai");
+	String sltt = request.getParameter("soluongtrongtrang");
+	String[] chuoiN = request.getParameterValues("chuoiNhom");	
 	
+	String timKiem = null;
+	try {
+		timKiem = ResourceUtils.readUTF8(request.getParameter("dulieu"));
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}		
+		int trangHienTai = Integer.parseInt(ht);
+		int soLuongTrongTrang = Integer.parseInt(sltt);
+		
+		return sanPhamService.getSanPhamTimKiem(trangHienTai, soLuongTrongTrang, timKiem, chuoiN);
+	}
 	
 
 //	lay tong san pham cho trang get san pham o home
@@ -132,24 +142,42 @@ public class SanPhamController {
 
 	
 	//lay tong san pham cho trang get san pham theo tim kiem
-	@RequestMapping(value = "get-tongsosanphamtimkiem", method = RequestMethod.GET)
+	@RequestMapping(value = "get-tongsosanphamtimkiem", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseData<Integer> getTongSoSanPhamTimKiem(@RequestParam("timkiem")  String timKiem) {
-		return sanPhamService.getTongSoSanPhamTimKiem(timKiem);
+	public ResponseData<Integer> getTongSoSanPhamTimKiem(MultipartHttpServletRequest request) {
+		
+		String k = "";
+		try {
+			k =  ResourceUtils.readUTF8(request.getParameter("dulieu"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return sanPhamService.getTongSoSanPhamTimKiem(k);
 	}
 	
-	@RequestMapping(value = "get-tongsosanphamtimkiemtheochuoi", method = RequestMethod.GET)
+	@RequestMapping(value = "get-tongsosanphamtimkiemtheochuoi", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseData<Integer> getTongSoSanPhamTimKiem(@RequestParam("timkiem")  String timKiem,
-										@RequestParam("chuoinhom") String[] chuoiNhom) {
+	public ResponseData<Integer> getTongSoSanPhamTimKiemTheoChuoi(MultipartHttpServletRequest request) {
+		String timKiem="";
+		String[] chuoiNhom = null;
+		try {
+
+		timKiem =  ResourceUtils.readUTF8(request.getParameter("dulieu"));
+		chuoiNhom = request.getParameterValues("chuoinhom");
+		} catch(Exception e){
+		}
+
 		return sanPhamService.getTongSoSanPhamTimKiemTheoChuoi(timKiem, chuoiNhom);
 	}
 	
 	
 	@RequestMapping(value = "get-chi-tiet-san-pham", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseData<SanPham> getChiTietSanPham(@RequestParam("link") String link) {
-		return sanPhamService.getChiTietSanPham(link);
+	public ResponseData<SanPham> getChiTietSanPham(
+			@RequestParam("link") String link,
+			@RequestParam("manguoidung") int maND) {
+		return sanPhamService.getChiTietSanPham(link, maND);
 	}
 	
 	@RequestMapping(value = "get-chi-tiet-san-pham-sua", method = RequestMethod.GET)

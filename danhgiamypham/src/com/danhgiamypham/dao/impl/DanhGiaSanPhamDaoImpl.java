@@ -15,6 +15,8 @@ import com.danhgiamypham.dao.DanhGiaSanPhamDao;
 import com.danhgiamypham.database.DBProvider;
 import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.DanhGiaSanPham;
+import com.danhgiamypham.model.LuotLike;
+import com.danhgiamypham.model.SanPham;
 
 @Component
 public class DanhGiaSanPhamDaoImpl implements DanhGiaSanPhamDao {
@@ -32,6 +34,7 @@ public class DanhGiaSanPhamDaoImpl implements DanhGiaSanPhamDao {
 			String sql = "{call getDanhGia(?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
 			st.setString(1, link);
+
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				int maDG  = rs.getInt("MaDanhGia");
@@ -40,12 +43,11 @@ public class DanhGiaSanPhamDaoImpl implements DanhGiaSanPhamDao {
 				int soLL = rs.getInt("SoLuotLike");
 				int tinhT = rs.getInt("TinhTrang");
 				Date ngayGN = rs.getDate("NgayGiaNhap");
-				String addC = rs.getString("AddClass");
-				String tinhTL = rs.getString("TinhTrangLike");
 				String tenDD = rs.getString("TenDienDan");
 				String hinhAnh = rs.getString("HinhAnh");
+				int maNDG  = rs.getInt("MaNguoiDung");				
 				
-				DanhGiaSanPham blsp = new DanhGiaSanPham(maDG, diemDG, binhL, soLL, tinhT,ngayGN, addC, tinhTL, tenDD, hinhAnh);
+				DanhGiaSanPham blsp = new DanhGiaSanPham(maDG, diemDG, binhL, soLL, tinhT,ngayGN, tenDD, hinhAnh,maNDG);
 				danhGiaSanPhams.add(blsp);			
 			}
 			response.setData(danhGiaSanPhams);
@@ -82,6 +84,34 @@ public class DanhGiaSanPhamDaoImpl implements DanhGiaSanPhamDao {
 			response.setErrorMessage("getHinhAnhBinhLuan bi loi");
 		}
 		return response;
+	}
+
+	@Override
+	public ResponseData<LuotLike> getLuotLike(int maDanhGia, int maND) {
+		ResponseData<LuotLike> response = new ResponseData<LuotLike>();
+		LuotLike luotLike = null;
+
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getLuotLike(?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maDanhGia);
+			st.setInt(2, maND);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				int daLike = rs.getInt("DaLike");
+
+				luotLike = new LuotLike(daLike);
+			}
+			response.setData(luotLike);
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			response.setErrorMessage("getLuotLike bi loi");
+		}
+		return response;
+
 	}
 
 }

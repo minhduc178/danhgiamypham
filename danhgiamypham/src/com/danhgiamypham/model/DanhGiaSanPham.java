@@ -15,10 +15,35 @@ public class DanhGiaSanPham {
 	private List<String> hinhAnh;
 	private String tenDienDan;
 	private String anhDaiDien;
+	private int maNguoiDanhGia;
+	private String suaDanhGia;
 
 	public DanhGiaSanPham() {
 
 	}
+	
+
+	public DanhGiaSanPham(int maDanhGia, int diemDanhGia, String binhLuan,
+			int soLuotLike, int tinhTrang, Date ngayGiaNhap, String addClass,
+			String tinhTrangLike, List<String> hinhAnh, String tenDienDan,
+			String anhDaiDien, int maNguoiDanhGia, String suaDanhGia) {
+		super();
+		this.maDanhGia = maDanhGia;
+		this.diemDanhGia = diemDanhGia;
+		this.binhLuan = binhLuan;
+		this.soLuotLike = soLuotLike;
+		this.tinhTrang = tinhTrang;
+		this.ngayGiaNhap = ngayGiaNhap;
+		this.addClass = addClass;
+		this.tinhTrangLike = tinhTrangLike;
+		this.hinhAnh = hinhAnh;
+		this.tenDienDan = tenDienDan;
+		this.anhDaiDien = anhDaiDien;
+		this.maNguoiDanhGia = maNguoiDanhGia;
+		this.suaDanhGia = suaDanhGia;
+	}
+
+
 
 	public DanhGiaSanPham(int maDanhGia, int diemDanhGia, String binhLuan,
 			int soLuotLike, int tinhTrang, Date ngayGiaNhap, String addClass,
@@ -67,6 +92,60 @@ public class DanhGiaSanPham {
 		this.tenDienDan = tenDienDan;
 		this.anhDaiDien = anhDaiDien;
 	}
+	
+	public DanhGiaSanPham(int maDanhGia, int diemDanhGia, String binhLuan,
+			int soLuotLike, int tinhTrang, Date ngayGiaNhap, String addClass,
+			String tinhTrangLike, String tenDienDan,
+			String anhDaiDien, int maNguoiDanhGia) {
+		super();
+		this.maDanhGia = maDanhGia;
+		this.diemDanhGia = diemDanhGia;
+		this.binhLuan = binhLuan;
+		this.soLuotLike = soLuotLike;
+		this.tinhTrang = tinhTrang;
+		this.ngayGiaNhap = ngayGiaNhap;
+		this.addClass = addClass;
+		this.tinhTrangLike = tinhTrangLike;
+		this.tenDienDan = tenDienDan;
+		this.anhDaiDien = anhDaiDien;
+		this.maNguoiDanhGia = maNguoiDanhGia;
+	}
+	
+	
+	public DanhGiaSanPham(int maDanhGia, int diemDanhGia, String binhLuan,
+			int soLuotLike, int tinhTrang, Date ngayGiaNhap,String tenDienDan,
+			String anhDaiDien, int maNguoiDanhGia) {
+		super();
+		this.maDanhGia = maDanhGia;
+		this.diemDanhGia = diemDanhGia;
+		this.binhLuan = binhLuan;
+		this.soLuotLike = soLuotLike;
+		this.tinhTrang = tinhTrang;
+		this.ngayGiaNhap = ngayGiaNhap;
+			this.tenDienDan = tenDienDan;
+		this.anhDaiDien = anhDaiDien;
+		this.maNguoiDanhGia = maNguoiDanhGia;
+	}
+	
+	
+	
+
+	public String getSuaDanhGia() {
+		return suaDanhGia;
+	}
+
+	public void setSuaDanhGia(String suaDanhGia) {
+		this.suaDanhGia = suaDanhGia;
+	}
+
+	public int getMaNguoiDanhGia() {
+		return maNguoiDanhGia;
+	}
+
+	public void setMaNguoiDanhGia(int maNguoiDanhGia) {
+		this.maNguoiDanhGia = maNguoiDanhGia;
+	}
+
 
 	public String getTenDienDan() {
 		return tenDienDan;

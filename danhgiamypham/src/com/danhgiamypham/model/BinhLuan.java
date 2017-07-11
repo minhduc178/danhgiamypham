@@ -16,9 +16,30 @@ public class BinhLuan {
 	private int tinhTrang;
 	private Date ngayBinhLuan;
 	private List<String> hinhAnh;
+	private int diemDanhGiaCu;
 
 	public BinhLuan() {
 	}
+	
+	
+
+	public BinhLuan(BigInteger maNguoiDung, int maSanPham, int diemDanhGia,
+			int maDanhGia, String binhLuan, int soLuotLike, int tinhTrang,
+			Date ngayBinhLuan, List<String> hinhAnh, int diemDanhGiaCu) {
+		super();
+		this.maNguoiDung = maNguoiDung;
+		this.maSanPham = maSanPham;
+		this.diemDanhGia = diemDanhGia;
+		this.maDanhGia = maDanhGia;
+		this.binhLuan = binhLuan;
+		this.soLuotLike = soLuotLike;
+		this.tinhTrang = tinhTrang;
+		this.ngayBinhLuan = ngayBinhLuan;
+		this.hinhAnh = hinhAnh;
+		this.diemDanhGiaCu = diemDanhGiaCu;
+	}
+
+
 
 	public BinhLuan(BigInteger maNguoiDung, int maSanPham, int diemDanhGia,
 			int maDanhGia, String binhLuan, int soLuotLike, int tinhTrang,
@@ -46,6 +67,16 @@ public class BinhLuan {
 		this.setMaNguoiDung(BigInteger.valueOf(Long.parseLong(maNguoiDung)));
 		this.setMaSanPham(Integer.parseInt(maSanPham));
 
+	}
+	
+	
+
+	public int getDiemDanhGiaCu() {
+		return diemDanhGiaCu;
+	}
+
+	public void setDiemDanhGiaCu(int diemDanhGiaCu) {
+		this.diemDanhGiaCu = diemDanhGiaCu;
 	}
 
 	public List<String> getHinhAnh() {

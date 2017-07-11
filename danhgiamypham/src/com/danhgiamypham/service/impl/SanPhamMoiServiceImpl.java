@@ -140,7 +140,7 @@ public class SanPhamMoiServiceImpl implements SanPhamMoiService {
 			// Xoa hinh anh trong server:
 			xoaHinhAnhSanPham(spm, location);
 
-			// them hinh anh trong mysql va server
+			// Them hinh anh
 			HinhAnhSanPham hasp = new HinhAnhSanPham();
 			hasp.setMaSanPham(maSP);
 			for (int i = 0; i < multiFile.size(); i++) {
@@ -157,7 +157,8 @@ public class SanPhamMoiServiceImpl implements SanPhamMoiService {
 					hasp.setHinh4(pathHinh);
 				}
 			}
-			response = sanPhamMoiDao.capNhatHinhAnh(maSP, hasp);
+			response  = sanPhamMoiDao.themHinhAnhMoi(hasp);
+		//	response = sanPhamMoiDao.capNhatHinhAnh(maSP, hasp);
 		}
 		return response;
 	}

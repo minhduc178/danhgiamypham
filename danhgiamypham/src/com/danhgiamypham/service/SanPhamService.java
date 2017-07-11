@@ -25,11 +25,11 @@ public interface SanPhamService {
 	public  ResponseData<Integer> getTongSoSanPhamMaNhomSP(int maNhomSP);
 	public  ResponseData<Integer> getTongSoSanPhamMaNhomSPChuoiNhom(int maNhomSP,String[] chuoiNhom);
 	
-	public  ResponseData<List<SanPham>> getSanPhamTimKiem(int trangHienTai, int soLuongTrongTrang, String timKiem);
+	public  ResponseData<Set<SanPham>> getSanPhamTimKiem(int trangHienTai, int soLuongTrongTrang, String timKiem, String[] chuoiN);
 	public  ResponseData<Integer> getTongSoSanPhamTimKiem(String timKiem);
 	public  ResponseData<Integer> getTongSoSanPhamTimKiemTheoChuoi(String timKiem, String[] chuoiNhom);
 
-	public  ResponseData<SanPham> getChiTietSanPham(String link);
+	public  ResponseData<SanPham> getChiTietSanPham(String link, int maND);
 	public  ResponseData<SanPham> getChiTietSanPhamSua(String link);
 	public  ResponseData<List<SanPham>> getDuongDa();
 	public  ResponseData<List<SanPham>> getDuyetSanPham(int tinhTrang);

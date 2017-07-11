@@ -31,6 +31,8 @@ public class SanPham {
 	private int maDanhMuc;	
 	private int maNhomSanPhamBoPhan;
 	private String link;
+	private int luotBinhLuan;
+	private int luotThich;
 	
 	private String[] listMaNhomSPham;
 
@@ -42,7 +44,59 @@ public class SanPham {
 	private List<SanPham> sanPhams;
 	private List<Integer> maNhomSanPhams;
 	
-	
+
+	public SanPham(int maSanPham, String tenSanPham, String tenHang,
+			String gioiThieu, String congDung, String cachSuDung,
+			String thanhPhan, String tenNguoiDung, int tinhTrang,
+			Date ngayDang, String tenNhom, float diemDanhGia,
+			int soLuotDanhGia, int soLuotBinhLuan, String hinhAnhChinh,
+			String hinh1, String hinh2, String hinh3, String hinh4,
+			String ghiChu, int maNguoiDung, int maHang, int maNhomHang,
+			int maNhomSanPham, int maDanhMuc, int maNhomSanPhamBoPhan,
+			String link, int luotBinhLuan, int luotThich,
+			String[] listMaNhomSPham, List<LoaiDa> loaiDas,
+			List<DanhGiaSanPham> danhGiaSanPhams, List<Hang> hangs,
+			List<NhomHang> nhomHangs, List<SanPham> sanPhams,
+			List<Integer> maNhomSanPhams) {
+		super();
+		this.maSanPham = maSanPham;
+		this.tenSanPham = tenSanPham;
+		this.tenHang = tenHang;
+		this.gioiThieu = gioiThieu;
+		this.congDung = congDung;
+		this.cachSuDung = cachSuDung;
+		this.thanhPhan = thanhPhan;
+		this.tenNguoiDung = tenNguoiDung;
+		this.tinhTrang = tinhTrang;
+		this.ngayDang = ngayDang;
+		this.tenNhom = tenNhom;
+		this.diemDanhGia = diemDanhGia;
+		this.soLuotDanhGia = soLuotDanhGia;
+		this.soLuotBinhLuan = soLuotBinhLuan;
+		this.hinhAnhChinh = hinhAnhChinh;
+		this.hinh1 = hinh1;
+		this.hinh2 = hinh2;
+		this.hinh3 = hinh3;
+		this.hinh4 = hinh4;
+		this.ghiChu = ghiChu;
+		this.maNguoiDung = maNguoiDung;
+		this.maHang = maHang;
+		this.maNhomHang = maNhomHang;
+		this.maNhomSanPham = maNhomSanPham;
+		this.maDanhMuc = maDanhMuc;
+		this.maNhomSanPhamBoPhan = maNhomSanPhamBoPhan;
+		this.link = link;
+		this.luotBinhLuan = luotBinhLuan;
+		this.luotThich = luotThich;
+		this.listMaNhomSPham = listMaNhomSPham;
+		this.loaiDas = loaiDas;
+		this.danhGiaSanPhams = danhGiaSanPhams;
+		this.hangs = hangs;
+		this.nhomHangs = nhomHangs;
+		this.sanPhams = sanPhams;
+		this.maNhomSanPhams = maNhomSanPhams;
+	}
+
 	public List<Integer> getMaNhomSanPhams() {
 		return maNhomSanPhams;
 	}
@@ -65,6 +119,24 @@ public class SanPham {
 
 	public void setSanPhams(List<SanPham> sanPhams) {
 		this.sanPhams = sanPhams;
+	}
+	
+	
+
+	public int getLuotBinhLuan() {
+		return luotBinhLuan;
+	}
+
+	public void setLuotBinhLuan(int luotBinhLuan) {
+		this.luotBinhLuan = luotBinhLuan;
+	}
+
+	public int getLuotThich() {
+		return luotThich;
+	}
+
+	public void setLuotThich(int luotThich) {
+		this.luotThich = luotThich;
 	}
 
 	public List<Hang> getHangs() {
@@ -183,7 +255,7 @@ public class SanPham {
 	
 	public SanPham(int maSP, String tenSP, String tenH, int maH,int maNH, String gioiT,String congD, String cachSD,
 			String thanhP,String tenND,int tinhT,Date ngayD,float diemDG,String hinhAC,String hinh1,
-			String hinh2,String hinh3,String hinh4, String link ){
+			String hinh2,String hinh3,String hinh4, String link, int luotBinhLuan, int luotThich ){
 		this.maSanPham = maSP;
 		this.tenSanPham = tenSP;
 		this.tenHang = tenH;
@@ -204,6 +276,8 @@ public class SanPham {
 		this.hinh3 = hinh3;
 		this.hinh4 = hinh4;
 		this.link = link;
+		this.luotBinhLuan = luotBinhLuan;
+		this.luotThich = luotThich;
 	}
 	
 	

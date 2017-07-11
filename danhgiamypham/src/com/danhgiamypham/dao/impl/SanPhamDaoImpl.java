@@ -514,10 +514,10 @@ public class SanPhamDaoImpl implements SanPhamDao {
 	}
 
 	@Override
-	public ResponseData<List<SanPham>> getSanPhamTimKiem(int trangHienTai,
+	public ResponseData<Set<SanPham>> getSanPhamTimKiem(int trangHienTai,
 			int soLuongTrongTrang, String timKiem) {
-		ResponseData<List<SanPham>> response = new ResponseData<List<SanPham>>();
-		List<SanPham> sanPhams = new ArrayList<SanPham>();
+		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
+		Set<SanPham> sanPhams = new HashSet<SanPham>();
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getSanPhamTimKiem(?, ?, ?)}";
@@ -551,6 +551,44 @@ public class SanPhamDaoImpl implements SanPhamDao {
 		return response;
 
 	}
+	
+	@Override
+	public ResponseData<Set<SanPham>> getSanPhamTimKiemMaChuoi(String timKiem,
+			int nhomChuoi) {
+		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
+		Set<SanPham> sanPhams = new HashSet<SanPham>();
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getSanPhamTimKiemMaChuoi(?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setString(1, timKiem);
+			st.setInt(2, nhomChuoi);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				int maSP = rs.getInt("MaSanPham");
+				String tenSP = rs.getString("TenSanPham");
+				String tenH = rs.getString("TenHang");
+				Date ngayD = rs.getDate("NgayDang");
+				float diemDG = rs.getFloat("DiemDanhGia");
+				int soLDG = rs.getInt("SoLuotDanhGia");
+				String hinhAC = rs.getString("HinhAnhChinh");
+				String link = rs.getString("Link");
+
+				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
+						soLDG, hinhAC, link);
+				sanPhams.add(sp);
+			}
+			response.setData(sanPhams);
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			response.setErrorMessage("getSanPhamTheoHangMaChuoi bi loi");
+		}
+		return response;
+
+	}
+
 
 	@Override
 	public ResponseData<Integer> getTongSanPhamTimKiem(String timKiem) {
@@ -630,10 +668,12 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				String hinh3 = rs.getString("Hinh3");
 				String hinh4 = rs.getString("Hinh4");
 				link = rs.getString("Link");
+				int luotBinhLuan = rs.getInt("SoLuotDanhGia");
+				int luotThich = rs.getInt("LuotThich");
 
 				sanPham = new SanPham(maSP, tenSP, tenH, maH, maNH, gioiT, congD, cachSD,
 						thanhP, tenND, tinhT, ngayD, diemDG, hinhAC, hinh1,
-						hinh2, hinh3, hinh4, link);
+						hinh2, hinh3, hinh4, link, luotBinhLuan, luotThich);
 			}
 			response.setData(sanPham);
 			rs.close();

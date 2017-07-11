@@ -38,6 +38,8 @@ public class BinhLuanController {
 		String maND =  request.getParameter("maNguoiDung");
 		String maSP =  request.getParameter("maSanPham");
 		String diemDG = request.getParameter("diemDanhGia");
+		String maDanhGia = request.getParameter("maDanhGia");
+		String diemDGCu = request.getParameter("diemDanhGiaCu");
 		String binhL = null;
 		try {
 			binhL = ResourceUtils.readUTF8(request.getParameter("binhLuan"));
@@ -46,9 +48,12 @@ public class BinhLuanController {
 			e.printStackTrace();
 		}
 		
+		
 		bl.setMaNguoiDung(BigInteger.valueOf(Long.valueOf(maND)));
 		bl.setMaSanPham(Integer.parseInt(maSP));
 		bl.setDiemDanhGia(Integer.parseInt(diemDG));
+		bl.setDiemDanhGiaCu(Integer.parseInt(diemDGCu));
+		bl.setMaDanhGia(Integer.parseInt(maDanhGia));
 		bl.setBinhLuan(binhL);
 		
 		return binhLuanService.themBinhLuan(bl, multiFile);
@@ -56,9 +61,13 @@ public class BinhLuanController {
 	
 	@RequestMapping(value = "themLike", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseData<Boolean> themLike(@RequestParam("madanhgia") int MaDanhGia, @RequestParam("soluotthich") int SoLuotThich,
-			@RequestParam("addClass") String AddClass) {
-		return  binhLuanService.themLike(MaDanhGia, SoLuotThich, AddClass);
+	public ResponseData<Boolean> themLike(
+			@RequestParam("madanhgia") int MaDanhGia, 
+			@RequestParam("soluotthich") int SoLuotThich,
+			@RequestParam("addClass") String AddClass,
+			@RequestParam("manguoidung") int maND,
+			@RequestParam("manguoidanhgia") int mNDG) {
+		return  binhLuanService.themLike(MaDanhGia, SoLuotThich, AddClass, maND, mNDG);
 	}
 	
 	@RequestMapping(value = "kiem-tra-binh-luan", method = RequestMethod.GET)
@@ -67,5 +76,6 @@ public class BinhLuanController {
 							@RequestParam("masanpham") int msp) {
 		return binhLuanService.kiemTraBinhLuan(mnd, msp);
 	}
+	
 
 }

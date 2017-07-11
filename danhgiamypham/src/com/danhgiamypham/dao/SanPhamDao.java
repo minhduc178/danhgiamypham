@@ -28,7 +28,8 @@ public interface SanPhamDao {
 	public ResponseData<Integer> getTongSoSanPhamMaNhomSP(int maNhomSP);
 	public ResponseData<Integer> getTongSoSanPhamMaNhomSPChuoiNhom(int maNhomSP, int nhomChuoi);
 
-	public ResponseData<List<SanPham>> getSanPhamTimKiem(int trangHienTai, int soLuongTrongTrang, String timKiem);
+	public ResponseData<Set<SanPham>> getSanPhamTimKiem(int trangHienTai, int soLuongTrongTrang, String timKiem);
+	public ResponseData<Set<SanPham>> getSanPhamTimKiemMaChuoi(String timKiem,int maNhom);
 	public ResponseData<Integer> getTongSanPhamTimKiem(String timKiem);
 	public ResponseData<Integer>getTongSoSanPhamTimKiemTheoChuoi(String timKiem,int chuoiNhom);
 	

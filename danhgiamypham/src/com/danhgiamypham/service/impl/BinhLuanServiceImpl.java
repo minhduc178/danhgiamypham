@@ -27,35 +27,56 @@ public class BinhLuanServiceImpl implements BinhLuanService {
 	public ResponseData<Boolean> themBinhLuan(BinhLuan bl,
 			List<MultipartFile> multiFile) {
 		ResponseData<Boolean> response = null;
-		PathImage binhLuanImg = new PathImage();
-		String location = binhLuanImg.getBinhLuanIMG();
-
-		// them danh gia moi
-		response = binhLuanDao.themBinhLuan(bl);
-
-		// Lay ma danh gia tu du lieu moi tao
-		int maDG = bl.getMaDanhGia();
 
 		
-		// Them hinh anh
-		for (int i = 0; i < multiFile.size(); i++) {
-			String pathHinh = PathRsIMG.ghiFile(multiFile.get(i), location);
-			binhLuanDao.themHinhAnhBinhLuan(maDG, pathHinh);
-		}
+		if(bl.getMaDanhGia() == 0){
+			//them danh gia
+			PathImage binhLuanImg = new PathImage();
+			String location = binhLuanImg.getBinhLuanIMG();
+	
+			// them danh gia moi
+			response = binhLuanDao.themBinhLuan(bl);
+	
+			// Lay ma danh gia tu du lieu moi tao
+			int maDG = bl.getMaDanhGia();
+	
+			
+			// Them hinh anh
+			for (int i = 0; i < multiFile.size(); i++) {
+				String pathHinh = PathRsIMG.ghiFile(multiFile.get(i), location);
+				binhLuanDao.themHinhAnhBinhLuan(maDG, pathHinh);
+			}
+	
+			return response;
+		} else {
+			//sua danh gia
+			response = binhLuanDao.updateBinhLuan(bl);
 
-		return response;
+			
+			//update danh gia
+			
+			//xoa hinh anh
+			
+			//them hinh anh moi
+			return response;
+		}
 	}
 
 	@Override
-	public ResponseData<Boolean> themLike(int mdg, int slt, String aClass) {
-		String tTrangLike;
+	public ResponseData<Boolean> themLike(int mdg, int slt, String aClass, int maND, int maNDG) {
+		int dLike;
+		int like;
+		// khong thich thi cot la 1, thich cot la 0
 		if (aClass.equals("thich")) {
-			tTrangLike = "Thích";
+			dLike = 0;
+			like = 1;
 		} else {
-			tTrangLike = "Không Thích";
+			dLike = 1;
+			like = -1;
 		}
-		ResponseData<Boolean> response = binhLuanDao.themLike(mdg, slt, aClass,
-				tTrangLike);
+		
+		ResponseData<Boolean> response = binhLuanDao.themLike(mdg, slt, dLike, maND, maNDG);
+
 		return response;
 	}
 
