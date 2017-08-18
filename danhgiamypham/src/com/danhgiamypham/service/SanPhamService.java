@@ -7,8 +7,12 @@ import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.dto.SanPhamYeuThichNhom;
 import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.SanPham;
+import com.danhgiamypham.model.SanPhamMoi;
 
 public interface SanPhamService {
+	
+	public  ResponseData<Set<SanPham>> getTenSanPham();
+	
 	public  ResponseData<Set<SanPham>> getSanPham(int trangHienTai, int soLuongTrongTrang, String[] chuoiNhom);
 	public  ResponseData<Integer> getTongSoSanPham();
 	public  ResponseData<Integer> getTongSoSanPhamTheoNhom(String[] nhomsanphams);
@@ -25,7 +29,7 @@ public interface SanPhamService {
 	public  ResponseData<Integer> getTongSoSanPhamMaNhomSP(int maNhomSP);
 	public  ResponseData<Integer> getTongSoSanPhamMaNhomSPChuoiNhom(int maNhomSP,String[] chuoiNhom);
 	
-	public  ResponseData<Set<SanPham>> getSanPhamTimKiem(int trangHienTai, int soLuongTrongTrang, String timKiem, String[] chuoiN);
+	public  ResponseData<Set<SanPham>> getSanPhamTimKiem(int trangHienTai, int soLuongTrongTrang, String timKiem, String[] chuoiNhom);
 	public  ResponseData<Integer> getTongSoSanPhamTimKiem(String timKiem);
 	public  ResponseData<Integer> getTongSoSanPhamTimKiemTheoChuoi(String timKiem, String[] chuoiNhom);
 

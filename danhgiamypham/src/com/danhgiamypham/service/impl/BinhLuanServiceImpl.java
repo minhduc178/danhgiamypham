@@ -27,19 +27,16 @@ public class BinhLuanServiceImpl implements BinhLuanService {
 	public ResponseData<Boolean> themBinhLuan(BinhLuan bl,
 			List<MultipartFile> multiFile) {
 		ResponseData<Boolean> response = null;
-
+		PathImage binhLuanImg = new PathImage();
+		String location = binhLuanImg.getBinhLuanIMG();
 		
 		if(bl.getMaDanhGia() == 0){
 			//them danh gia
-			PathImage binhLuanImg = new PathImage();
-			String location = binhLuanImg.getBinhLuanIMG();
-	
 			// them danh gia moi
 			response = binhLuanDao.themBinhLuan(bl);
 	
 			// Lay ma danh gia tu du lieu moi tao
 			int maDG = bl.getMaDanhGia();
-	
 			
 			// Them hinh anh
 			for (int i = 0; i < multiFile.size(); i++) {
@@ -50,14 +47,19 @@ public class BinhLuanServiceImpl implements BinhLuanService {
 			return response;
 		} else {
 			//sua danh gia
-			response = binhLuanDao.updateBinhLuan(bl);
-
-			
 			//update danh gia
+			response = binhLuanDao.updateBinhLuan(bl);
 			
 			//xoa hinh anh
 			
-			//them hinh anh moi
+			//xoa hinh anh vat ly
+			
+			// Them hinh anh
+			for (int i = 0; i < multiFile.size(); i++) {
+				String pathHinh = PathRsIMG.ghiFile(multiFile.get(i), location);
+				binhLuanDao.themHinhAnhBinhLuan(bl.getMaDanhGia(), pathHinh);
+			}
+				
 			return response;
 		}
 	}

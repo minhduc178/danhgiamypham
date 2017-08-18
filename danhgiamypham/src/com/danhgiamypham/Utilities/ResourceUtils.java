@@ -1,7 +1,11 @@
 package com.danhgiamypham.Utilities;
 
 import java.net.URLDecoder;
+import java.text.DateFormat;
 import java.text.Normalizer;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 
@@ -47,4 +51,24 @@ public class ResourceUtils {
         return result;
     }
 	
+    
+    //chuyen kieu ngay thang nam
+    public static Date convertDate(Date date){
+       String ngayDang = String.valueOf(date);
+       String k = ngayDang.substring(0, 4);
+       String l = ngayDang.substring(5, 7);
+       String m = ngayDang.substring(8, 10);
+       ngayDang = m + "/" + l + "/" + k;
+       DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); 
+       Date startDate = null;
+       try {
+           startDate = df.parse(ngayDang);
+           
+       } catch (ParseException e) {
+           e.printStackTrace();
+       }
+       return startDate;
+       
+    }
+    
 }

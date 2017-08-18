@@ -21,6 +21,7 @@ import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.LoaiDa;
 import com.danhgiamypham.model.LuotLike;
 import com.danhgiamypham.model.SanPham;
+import com.danhgiamypham.model.SanPhamMoi;
 import com.danhgiamypham.service.SanPhamService;
 
 @Service
@@ -37,6 +38,15 @@ public class SanPhamServiceImpl implements SanPhamService {
 
 	@Autowired
 	private DanhGiaSanPhamDao danhGiaSanPhamDao;
+	
+	@Override
+	public ResponseData<Set<SanPham>> getTenSanPham() {
+		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
+			ResponseData<Set<SanPham>> sanphams = sanPhamDao.getTenSanPham();
+			Set<SanPham> sanphamsnew = sanphams.getData();
+			response.setData(sanphamsnew);
+			return response;
+	}
 
 	@Override
 	public ResponseData<Set<SanPham>> getSanPham(int trangHienTai,
@@ -305,9 +315,9 @@ public class SanPhamServiceImpl implements SanPhamService {
 
 	@Override
 	public ResponseData<Set<SanPham>> getSanPhamTimKiem(int trangHienTai,
-			int soLuongTrongTrang, String timKiem, String[] chuoiNhom) {
+			int soLuongTrongTrang,String timKiem, String[] chuoiNhom) {
 		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
-
+		
 		if (chuoiNhom != null && chuoiNhom.length > 0) {
 			Set<SanPham> sanPhamNhom = new HashSet<SanPham>();
 			List<SanPham> kt = new ArrayList<SanPham>();
@@ -320,8 +330,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 			}
 			List<SanPham> sanPhamPhanTrang = new ArrayList<SanPham>();
 
-			ResponseData<Integer> t = getTongSoSanPhamTimKiemTheoChuoi(timKiem,
-					chuoiNhom);
+			ResponseData<Integer> t = getTongSoSanPhamTimKiemTheoChuoi(timKiem, chuoiNhom);
 			int tnew = t.getData();
 			sanPhamPhanTrang = Pagination.PhanTrang(trangHienTai,
 					soLuongTrongTrang, tnew, kt);
@@ -354,8 +363,8 @@ public class SanPhamServiceImpl implements SanPhamService {
 	}
 
 	@Override
-	public ResponseData<Integer> getTongSoSanPhamTimKiemTheoChuoi(
-			String timKiem, String[] chuoiNhom) {
+	public ResponseData<Integer> getTongSoSanPhamTimKiemTheoChuoi(String timKiem, String[] chuoiNhom) {
+		
 		ResponseData<Integer> response = new ResponseData<Integer>();
 		int n = 0;
 		for (String r : chuoiNhom) {
@@ -392,16 +401,16 @@ public class SanPhamServiceImpl implements SanPhamService {
 		int maDanhMucnew = maDanhMuc.getData();
 		spnew.setMaDanhMuc(maDanhMucnew);
 
-		if (spnew.getCachSuDung().equals("undefined")) {
+		if (spnew.getCachSuDung()==null || spnew.getCachSuDung().equals("undefined")) {
 			spnew.setCachSuDung(null);
 		}
-		if (spnew.getGioiThieu().equals("undefined")) {
+		if (spnew.getCachSuDung()==null || spnew.getGioiThieu().equals("undefined")) {
 			spnew.setGioiThieu(null);
 		}
-		if (spnew.getThanhPhan().equals("undefined")) {
+		if (spnew.getCachSuDung()==null || spnew.getThanhPhan().equals("undefined")) {
 			spnew.setThanhPhan(null);
 		}
-		if (spnew.getCongDung().equals("undefined")) {
+		if (spnew.getCachSuDung()==null || spnew.getCongDung().equals("undefined")) {
 			spnew.setCongDung(null);
 		}
 		sp.setData(spnew);

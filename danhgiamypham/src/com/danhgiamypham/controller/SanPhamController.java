@@ -17,6 +17,7 @@ import com.danhgiamypham.Utilities.ResourceUtils;
 import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.dto.SanPhamYeuThichNhom;
 import com.danhgiamypham.model.SanPham;
+import com.danhgiamypham.model.SanPhamMoi;
 import com.danhgiamypham.service.SanPhamService;
 
 @Controller
@@ -34,7 +35,12 @@ public class SanPhamController {
 		return sanPhamService.getSanPham(trangHienTai, soLuongTrongTrang, chuoiNhom);
 	}
 	
-
+	@RequestMapping(value = "get-ten-san-pham", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseData<Set<SanPham>> getTenSanPham() {
+		return sanPhamService.getTenSanPham();
+	}
+	
 	
 	@RequestMapping(value = "get-sanphamtheonhomsp", method = RequestMethod.GET)
 	@ResponseBody
@@ -159,12 +165,13 @@ public class SanPhamController {
 	@RequestMapping(value = "get-tongsosanphamtimkiemtheochuoi", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseData<Integer> getTongSoSanPhamTimKiemTheoChuoi(MultipartHttpServletRequest request) {
+		SanPhamMoi sptk = new SanPhamMoi();
 		String timKiem="";
-		String[] chuoiNhom = null;
-		try {
-
-		timKiem =  ResourceUtils.readUTF8(request.getParameter("dulieu"));
-		chuoiNhom = request.getParameterValues("chuoinhom");
+		String[] chuoiNhom=null;
+		try {			
+			timKiem =  ResourceUtils.readUTF8(request.getParameter("dulieu"));
+			chuoiNhom = request.getParameterValues("chuoiNhom");
+			
 		} catch(Exception e){
 		}
 

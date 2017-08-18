@@ -44,6 +44,14 @@ public class SanPham {
 	private List<SanPham> sanPhams;
 	private List<Integer> maNhomSanPhams;
 	
+	
+	
+
+	public SanPham(int maSanPham, String tenSanPham) {
+		super();
+		this.maSanPham = maSanPham;
+		this.tenSanPham = tenSanPham;
+	}
 
 	public SanPham(int maSanPham, String tenSanPham, String tenHang,
 			String gioiThieu, String congDung, String cachSuDung,

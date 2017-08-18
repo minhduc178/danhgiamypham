@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -14,6 +15,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.danhgiamypham.Utilities.ResourceUtils;
 import com.danhgiamypham.dao.SanPhamDao;
 import com.danhgiamypham.database.DBProvider;
 import com.danhgiamypham.dto.ResponseData;
@@ -28,6 +30,33 @@ public class SanPhamDaoImpl implements SanPhamDao {
 	@Autowired
 	private DBProvider dbProvider;
 
+	@Override
+	public ResponseData<Set<SanPham>> getTenSanPham() {
+		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
+		Set<SanPham> sanPhams = new HashSet<SanPham>();
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getTenSanPham()}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				int maSP = rs.getInt("MaSanPham");
+				String tenSP = rs.getString("TenSanPham");
+
+				SanPham sp = new SanPham(maSP, tenSP);
+				sanPhams.add(sp);
+			}
+			response.setData(sanPhams);
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			response.setErrorMessage("getTenSanPham bi loi");
+		}
+		return response;
+
+	}
+	
 	@Override
 	public ResponseData<Set<SanPham>> getSanPham(int trangHienTai,
 			int soLuongTrongTrang) {
@@ -45,6 +74,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				String tenSP = rs.getString("TenSanPham");
 				String tenH = rs.getString("TenHang");
 				Date ngayD = rs.getDate("NgayDang");
+	//			ngayD = ResourceUtils.convertDate(ngayD);
 				float diemDG = rs.getFloat("DiemDanhGia");
 				int soLDG = rs.getInt("SoLuotDanhGia");
 				String hinhAC = rs.getString("HinhAnhChinh");

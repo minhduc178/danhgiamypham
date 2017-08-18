@@ -8,6 +8,8 @@ import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.SanPham;
 
 public interface SanPhamDao {
+	public ResponseData<Set<SanPham>> getTenSanPham();
+
 	public ResponseData<Set<SanPham>> getSanPham(int trangHienTai, int soLuongTrongTrang);
 	public ResponseData<Set<SanPham>> getSanPhamTheoNhomSP(int maNhom);
 	public ResponseData<Integer> getTongSanPham();
