@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
 
+import com.danhgiamypham.model.SoLuongDang;
+
 
 
 
@@ -15,20 +17,15 @@ import java.util.regex.Pattern;
 public class Testting {
 
 	public static void main(String[] args) throws Exception {
-		
-	       String ngayDang = "04/05/2017";
-	       System.out.println(ngayDang);
-	       
-	       DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); 
-	       Date startDate = null;
-	       try {
-	           startDate = df.parse(ngayDang);
-	           System.out.print(startDate);
-	           
-	       } catch (ParseException e) {
-	           e.printStackTrace();
-	       }
-		}
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		String ngayDang = String.valueOf(dateFormat.format(date));
+	    String k = ngayDang.substring(0, 4);
+	    String l = ngayDang.substring(5, 7);
+	    String m = ngayDang.substring(8, 10);
+	    String ngayDangnew = k + "-" + l + "-" + m;
+	    String thangDang = k + "-" + l;
+	}
 	
 	
 	

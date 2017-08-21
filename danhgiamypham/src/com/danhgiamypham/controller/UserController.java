@@ -55,7 +55,6 @@ public class UserController {
 	@RequestMapping(value = "them", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseData<User> themTaiKhoan(MultipartHttpServletRequest request) {
-		System.out.print(request.getFiles("hinhDaiDien"));
 		List<MultipartFile> multiFile = request.getFiles("hinhDaiDien");
 		User user = new User();
 

@@ -490,10 +490,25 @@ public class SanPhamServiceImpl implements SanPhamService {
 		ResponseData<Integer> maDanhMuc = sanPhamDao.getTimMaDanhMuc(link);
 		int maDanhMucnew = maDanhMuc.getData();
 		spnew.setMaDanhMuc(maDanhMucnew);
+		
+		if (spnew.getCachSuDung()==null || spnew.getCachSuDung().equals("undefined")) {
+			spnew.setCachSuDung(null);
+		}
+		if (spnew.getCachSuDung()==null || spnew.getGioiThieu().equals("undefined")) {
+			spnew.setGioiThieu(null);
+		}
+		if (spnew.getCachSuDung()==null || spnew.getThanhPhan().equals("undefined")) {
+			spnew.setThanhPhan(null);
+		}
+		if (spnew.getCachSuDung()==null || spnew.getCongDung().equals("undefined")) {
+			spnew.setCongDung(null);
+		}
 
 		float ddg = ResourceUtils.quyTron(spnew.getDiemDanhGia());
 		spnew.setDiemDanhGia(ddg);
 		sp.setData(spnew);
+		
+		
 		return sp;
 	}
 
