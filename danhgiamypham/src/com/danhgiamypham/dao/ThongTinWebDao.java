@@ -8,4 +8,6 @@ import com.danhgiamypham.model.SoSanPhamThem;
 public interface ThongTinWebDao {
 	public SoSanPhamThem soSanPham();
 	public List<SoLuongDang> soLuongDangSP(String thang, String ngay);
+	public List<SoLuongDang> soLuongBinhLuan(String thang, String ngay);
+
 }

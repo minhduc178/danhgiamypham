@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 			if (multiFile.size() == 0) {
 				tk.setHinhAnh("20171506ava.png");
 			} else {
-				String pathHinh = PathRsIMG.ghiFile(multiFile.get(i), location);
+				String pathHinh = PathRsIMG.ghiFile(multiFile.get(i), location, tk.getTenDangNhap());
 				tk.setHinhAnh(pathHinh);
 			}
 

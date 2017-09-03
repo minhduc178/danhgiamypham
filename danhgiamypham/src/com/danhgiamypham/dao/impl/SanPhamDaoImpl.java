@@ -62,6 +62,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 			int soLuongTrongTrang) {
 		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
 		Set<SanPham> sanPhams = new HashSet<SanPham>();
+		List<SanPham> sanPhamds = new ArrayList<SanPham>(); 
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getSanPham(?, ?)}";
@@ -83,14 +84,29 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				SanPham sp = new SanPham(maSP, tenSP, tenH, ngayD, diemDG,
 						soLDG, hinhAC,link);
 				sanPhams.add(sp);
+				sanPhamds.add(sp);
+				System.out.println(sp.getMaSanPham());
 			}
+			for(SanPham spn: sanPhamds){
+				System.out.println(spn.getMaSanPham());
+			}
+			
+			System.out.print("AAAAAAAAA");
+			
+			for(SanPham spn: sanPhams){
+				System.out.println(spn.getMaSanPham());
+			}
+			
 			response.setData(sanPhams);
+	
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
 			response.setErrorMessage("getSanPham bi loi");
 		}
+		
+	
 		return response;
 
 	}
@@ -299,10 +315,9 @@ public class SanPhamDaoImpl implements SanPhamDao {
 
 	// sanphamtheomahang
 	@Override
-	public ResponseData<Set<SanPham>> getSanPhamTheoHang(int trangHienTai,
+	public List<SanPham> getSanPhamTheoHang(int trangHienTai,
 			int soLuongTrongTrang, int maH) {
-		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
-		Set<SanPham> sanPhams = new HashSet<SanPham>();
+		List<SanPham> sanPhams = new ArrayList<SanPham>();
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getSanPhamTheoHang(?,?,?)}";
@@ -325,14 +340,13 @@ public class SanPhamDaoImpl implements SanPhamDao {
 						soLDG, hinhAC,link);
 				sanPhams.add(sp);
 			}
-			response.setData(sanPhams);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			response.setErrorMessage("getSanPhamTheoHang bi loi");
+//			e.setErrorMessage("getSanPhamTheoHang bi loi");
 		}
-		return response;
+		return sanPhams;
 
 	}
 

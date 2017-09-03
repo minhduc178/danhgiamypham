@@ -39,6 +39,21 @@ public class ThongTinWebServiceImpl implements ThongTinWebService {
 		List<SoLuongDang> spt = thongTinWebDao.soLuongDangSP(thangDang, ngayDangnew);
 		return spt;
 	}
+	
+	@Override
+	public List<SoLuongDang> soLuongBinhLuan() {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		String ngayDang = String.valueOf(dateFormat.format(date));
+	    String k = ngayDang.substring(0, 4);
+	    String l = ngayDang.substring(5, 7);
+	    String m = ngayDang.substring(8, 10);
+	    String ngayDangnew = k + "-" + l + "-" + m;
+	    String thangDang = k + "-" + l;
+		
+		List<SoLuongDang> spt = thongTinWebDao.soLuongBinhLuan(thangDang, ngayDangnew);
+		return spt;
+	}
 
 
 	

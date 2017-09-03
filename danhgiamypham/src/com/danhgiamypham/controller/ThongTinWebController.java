@@ -33,5 +33,12 @@ public class ThongTinWebController {
 		List<SoLuongDang> k = thongTinWebService.soLuongDangSP();
 		return k;
 	}
+	
+	@RequestMapping(value = "get-soluongbinhluan", method = RequestMethod.GET)
+	@ResponseBody
+	public List<SoLuongDang> soLuongBinhLuan() {
+		List<SoLuongDang> k = thongTinWebService.soLuongBinhLuan();
+		return k;
+	}
 
 }

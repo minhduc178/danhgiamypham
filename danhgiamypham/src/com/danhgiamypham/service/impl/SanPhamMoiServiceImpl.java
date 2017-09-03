@@ -72,6 +72,7 @@ public class SanPhamMoiServiceImpl implements SanPhamMoiService {
 		//them link
 		String link = ResourceUtils.unAccent(spm.getTenSanPham());
 		spm.setLink(link);
+		String nameImage = spm.getLink();
 		
 		// them san pham moi
 		sanPhamMoiDao.themSanPham(spm);
@@ -92,7 +93,7 @@ public class SanPhamMoiServiceImpl implements SanPhamMoiService {
 		HinhAnhSanPham hasp = new HinhAnhSanPham();
 		hasp.setMaSanPham(maSP);
 		for (int i = 0; i < multiFile.size(); i++) {
-			String pathHinh = PathRsIMG.ghiFile(multiFile.get(i), location);
+			String pathHinh = PathRsIMG.ghiFile(multiFile.get(i), location, nameImage);
 			if (i == 0) {
 				hasp.setHinhAnhChinh(pathHinh);
 			} else if (i == 1) {
@@ -144,7 +145,7 @@ public class SanPhamMoiServiceImpl implements SanPhamMoiService {
 			HinhAnhSanPham hasp = new HinhAnhSanPham();
 			hasp.setMaSanPham(maSP);
 			for (int i = 0; i < multiFile.size(); i++) {
-				String pathHinh = PathRsIMG.ghiFile(multiFile.get(i), location);
+				String pathHinh = PathRsIMG.ghiFile(multiFile.get(i), location, spm.getLink());
 				if (i == 0) {
 					hasp.setHinhAnhChinh(pathHinh);
 				} else if (i == 1) {

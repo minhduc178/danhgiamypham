@@ -20,7 +20,7 @@ public class PathRsIMG {
 		return pathRs;
 	}
 	
-	public static String ghiFile(MultipartFile multiFile, String location) {
+	public static String ghiFile(MultipartFile multiFile, String location, String nameImage) {
 		String pathRs = "";
 		StringBuilder rs = new StringBuilder();
 		try {
@@ -31,8 +31,11 @@ public class PathRsIMG {
 			
 			
 			String locationHinh = PathRsIMG.pathHinh(location);
-			String fileName =Calendar.getInstance().getTimeInMillis() + multiFile.getOriginalFilename();
+			String fileName =nameImage + Calendar.getInstance().getTimeInMillis();
+			System.out.println(multiFile.getOriginalFilename());
+			System.out.println(ResourceUtils.unAccent(multiFile.getOriginalFilename()));
 			pathRs = locationHinh + File.separator+ fileName;
+			System.out.println(pathRs);
 			 dir = new File(locationHinh);
 
 			// saving the file
@@ -54,6 +57,8 @@ public class PathRsIMG {
 		}
 		return pathRs;
 	}
+	
+	
 	
 	
 	

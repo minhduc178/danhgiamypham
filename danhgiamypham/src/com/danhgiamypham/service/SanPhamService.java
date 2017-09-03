@@ -21,9 +21,9 @@ public interface SanPhamService {
 	public  ResponseData<Integer> getTongSoSanPhamMaDanhMuc(int maDanhMuc);
 	public  ResponseData<Integer> getTongSoSanPhamMaDanhMucChuoiNhom(int maDanhMuc,String[] chuoiNhom);
 	
-	public  ResponseData<Set<SanPham>> getSanPhamTheoHang(int trangHienTai, int soLuongTrongTrang,int id, String[] chuoiNhom );
-	public  ResponseData<Integer> getTongSoSanPhamMaHang(int maHang);
-	public  ResponseData<Integer> getTongSoSanPhamMaHangChuoiNhom(int maHang,String[] chuoiNhom);
+	public  List<SanPham> getSanPhamTheoHang(int trangHienTai, int soLuongTrongTrang,String link, String[] chuoiNhom );
+	public  ResponseData<Integer> getTongSoSanPhamMaHang(String maHang);
+//	public  ResponseData<Integer> getTongSoSanPhamMaHangChuoiNhom(String link);
 	
 	public  ResponseData<Set<SanPham>> getSanPhamTheoNhomSanPham(int trangHienTai, int soLuongTrongTrang,int maNhomSanPham, String[] chuoiNhom );
 	public  ResponseData<Integer> getTongSoSanPhamMaNhomSP(int maNhomSP);

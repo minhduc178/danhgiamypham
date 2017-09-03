@@ -88,4 +88,31 @@ public class ThongTinWebDaoImpl implements ThongTinWebDao {
 		}
 		return sources;
 	}
+	
+	@Override
+	public List<SoLuongDang> soLuongBinhLuan(String thang, String ngay) {
+		List<SoLuongDang> sources = new ArrayList<SoLuongDang>();
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call getSoBinhLuanDang(?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setString(1, thang);
+			st.setString(2, ngay);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				SoLuongDang spt = new SoLuongDang();
+				spt.setMaNguoiDang(rs.getInt("MaNhomNguoiDung"));
+				spt.setSoLuongTrongNgay(rs.getInt("SoLuotNgay"));
+				spt.setSoLuongTrongThang(rs.getInt("SoLuotThang"));
+				spt.setTenDienDan(rs.getString("TenNhomNguoiDung"));
+				sources.add(spt);
+			}
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sources;
+	}
 }

@@ -69,6 +69,7 @@ public class DanhMucServiceImpl implements DanhMucService {
 		ResponseData<List<DanhMuc>> danhMucs = danhMucDao.getAll();
 		ResponseData<List<NhomSanPham>> nhomSanPhamList = danhMucDao.getNhomSanPham();
 		List<NhomSanPham> nhomSanPhams = nhomSanPhamList.getData();
+		
 		for (int i = 0; i < 4; i++) {
 			DanhMuc dm = danhMucs.getData().get(i);
 			List<NhomSanPham> sanPhamCungDanhMuc = nhomSanPhamTheoDM(dm.getMaDanhMuc(), nhomSanPhams);
@@ -101,9 +102,9 @@ public class DanhMucServiceImpl implements DanhMucService {
 		for (NhomHang nh : nhomHangList) {
 			if (kyTu.equals(nh.getTenNhomHang())) {
 				return nh.getMaNhomHang();
-			}
+			} 
 		}
-		return -1;
+		return 91;
 	}
 
 }

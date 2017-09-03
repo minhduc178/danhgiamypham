@@ -40,7 +40,8 @@ public class BinhLuanServiceImpl implements BinhLuanService {
 			
 			// Them hinh anh
 			for (int i = 0; i < multiFile.size(); i++) {
-				String pathHinh = PathRsIMG.ghiFile(multiFile.get(i), location);
+				String imageName = String.valueOf("BINHLUAN"  + bl.getMaSanPham());
+				String pathHinh = PathRsIMG.ghiFile(multiFile.get(i), location, imageName);
 				binhLuanDao.themHinhAnhBinhLuan(maDG, pathHinh);
 			}
 	
@@ -56,7 +57,8 @@ public class BinhLuanServiceImpl implements BinhLuanService {
 			
 			// Them hinh anh
 			for (int i = 0; i < multiFile.size(); i++) {
-				String pathHinh = PathRsIMG.ghiFile(multiFile.get(i), location);
+				String imageName = String.valueOf("BINHLUAN"  + bl.getMaSanPham());
+				String pathHinh = PathRsIMG.ghiFile(multiFile.get(i), location,imageName);
 				binhLuanDao.themHinhAnhBinhLuan(bl.getMaDanhGia(), pathHinh);
 			}
 				

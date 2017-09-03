@@ -2,6 +2,7 @@ package com.danhgiamypham.controller;
 
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -112,24 +113,24 @@ public class SanPhamController {
 	//sanphamtheohang-controller lay tong san pham cho trang get san pham theo hang
 		@RequestMapping(value = "get-tongsosanphammahang", method = RequestMethod.GET)
 		@ResponseBody
-		public ResponseData<Integer> getTongSoSanPhamMaHang(@RequestParam("mahang")  int maHang) {
+		public ResponseData<Integer> getTongSoSanPhamMaHang(@RequestParam("mahang")  String maHang) {
 			return sanPhamService.getTongSoSanPhamMaHang(maHang);
 		}
 		
-		@RequestMapping(value = "get-tongsosanphammahangchuoinhom", method = RequestMethod.GET)
-		@ResponseBody
-		public ResponseData<Integer> getTongSoSanPhamMaHang(@RequestParam("mahang")  int maHang,
-											@RequestParam("nhomsanphams") String[] chuoiNhom) {
-			return sanPhamService.getTongSoSanPhamMaHangChuoiNhom(maHang, chuoiNhom);
-		}
+//		@RequestMapping(value = "get-tongsosanphammahangchuoinhom", method = RequestMethod.GET)
+//		@ResponseBody
+//		public ResponseData<Integer> getTongSoSanPhamMaHangChuoiNhom(@RequestParam("mahang")  String link) {
+//			return sanPhamService.getTongSoSanPhamMaHangChuoiNhom(link);
+//		}
 		
 		@RequestMapping(value = "get-sanphamtheohang", method = RequestMethod.GET)
 		@ResponseBody
-		public ResponseData<Set<SanPham>> getSanPhamTheoHang(@RequestParam("tranghientai") int trangHienTai,
+		public List<SanPham> getSanPhamTheoHang(@RequestParam("tranghientai") int trangHienTai,
 													@RequestParam("soluongtrongtrang") int soLuongTrongTrang, 
-													@RequestParam("mahang") int maHang,
+													@RequestParam("mahang") String link,
 													@RequestParam("chuoinhom") String[] chuoiNhom) {
-			return sanPhamService.getSanPhamTheoHang(trangHienTai,soLuongTrongTrang, maHang, chuoiNhom);
+			List<SanPham> spList =  sanPhamService.getSanPhamTheoHang(trangHienTai,soLuongTrongTrang, link, chuoiNhom);
+			return spList;
 		}
 	
 //	lay tong san pham cho trang get san pham theo nhom san pham
