@@ -17,11 +17,35 @@ public class DanhGiaSanPham {
 	private String anhDaiDien;
 	private int maNguoiDanhGia;
 	private String suaDanhGia;
+	private int nguoiDungBinhLuan;
+	private int nguoiDungThich;
 
 	public DanhGiaSanPham() {
 
 	}
-	
+
+	public DanhGiaSanPham(int maDanhGia, int diemDanhGia, String binhLuan,
+			int soLuotLike, int tinhTrang, Date ngayGiaNhap, String addClass,
+			String tinhTrangLike, List<String> hinhAnh, String tenDienDan,
+			String anhDaiDien, int maNguoiDanhGia, String suaDanhGia,
+			int nguoiDungBinhLuan, int nguoiDungThich) {
+		super();
+		this.maDanhGia = maDanhGia;
+		this.diemDanhGia = diemDanhGia;
+		this.binhLuan = binhLuan;
+		this.soLuotLike = soLuotLike;
+		this.tinhTrang = tinhTrang;
+		this.ngayGiaNhap = ngayGiaNhap;
+		this.addClass = addClass;
+		this.tinhTrangLike = tinhTrangLike;
+		this.hinhAnh = hinhAnh;
+		this.tenDienDan = tenDienDan;
+		this.anhDaiDien = anhDaiDien;
+		this.maNguoiDanhGia = maNguoiDanhGia;
+		this.suaDanhGia = suaDanhGia;
+		this.nguoiDungBinhLuan = nguoiDungBinhLuan;
+		this.nguoiDungThich = nguoiDungThich;
+	}
 
 	public DanhGiaSanPham(int maDanhGia, int diemDanhGia, String binhLuan,
 			int soLuotLike, int tinhTrang, Date ngayGiaNhap, String addClass,
@@ -43,8 +67,6 @@ public class DanhGiaSanPham {
 		this.suaDanhGia = suaDanhGia;
 	}
 
-
-
 	public DanhGiaSanPham(int maDanhGia, int diemDanhGia, String binhLuan,
 			int soLuotLike, int tinhTrang, Date ngayGiaNhap, String addClass,
 			String tinhTrangLike) {
@@ -57,9 +79,9 @@ public class DanhGiaSanPham {
 		this.ngayGiaNhap = ngayGiaNhap;
 		this.addClass = addClass;
 		this.tinhTrangLike = tinhTrangLike;
-	
+
 	}
-	
+
 	public DanhGiaSanPham(int maDanhGia, int diemDanhGia, String binhLuan,
 			int soLuotLike, int tinhTrang, Date ngayGiaNhap, String addClass,
 			String tinhTrangLike, List<String> hinhAnh) {
@@ -74,12 +96,10 @@ public class DanhGiaSanPham {
 		this.tinhTrangLike = tinhTrangLike;
 		this.hinhAnh = hinhAnh;
 	}
-	
 
 	public DanhGiaSanPham(int maDanhGia, int diemDanhGia, String binhLuan,
 			int soLuotLike, int tinhTrang, Date ngayGiaNhap, String addClass,
-			String tinhTrangLike, String tenDienDan,
-			String anhDaiDien) {
+			String tinhTrangLike, String tenDienDan, String anhDaiDien) {
 		super();
 		this.maDanhGia = maDanhGia;
 		this.diemDanhGia = diemDanhGia;
@@ -92,11 +112,11 @@ public class DanhGiaSanPham {
 		this.tenDienDan = tenDienDan;
 		this.anhDaiDien = anhDaiDien;
 	}
-	
+
 	public DanhGiaSanPham(int maDanhGia, int diemDanhGia, String binhLuan,
 			int soLuotLike, int tinhTrang, Date ngayGiaNhap, String addClass,
-			String tinhTrangLike, String tenDienDan,
-			String anhDaiDien, int maNguoiDanhGia) {
+			String tinhTrangLike, String tenDienDan, String anhDaiDien,
+			int maNguoiDanhGia) {
 		super();
 		this.maDanhGia = maDanhGia;
 		this.diemDanhGia = diemDanhGia;
@@ -110,11 +130,10 @@ public class DanhGiaSanPham {
 		this.anhDaiDien = anhDaiDien;
 		this.maNguoiDanhGia = maNguoiDanhGia;
 	}
-	
-	
+
 	public DanhGiaSanPham(int maDanhGia, int diemDanhGia, String binhLuan,
-			int soLuotLike, int tinhTrang, Date ngayGiaNhap,String tenDienDan,
-			String anhDaiDien, int maNguoiDanhGia) {
+			int soLuotLike, int tinhTrang, Date ngayGiaNhap, String tenDienDan,
+			String anhDaiDien, int maNguoiDanhGia, int nguoiDungBinhLuan, int nguoiDungThich) {
 		super();
 		this.maDanhGia = maDanhGia;
 		this.diemDanhGia = diemDanhGia;
@@ -122,13 +141,28 @@ public class DanhGiaSanPham {
 		this.soLuotLike = soLuotLike;
 		this.tinhTrang = tinhTrang;
 		this.ngayGiaNhap = ngayGiaNhap;
-			this.tenDienDan = tenDienDan;
+		this.tenDienDan = tenDienDan;
 		this.anhDaiDien = anhDaiDien;
 		this.maNguoiDanhGia = maNguoiDanhGia;
+		this.nguoiDungBinhLuan=nguoiDungBinhLuan;
+		this.nguoiDungThich=nguoiDungThich;
 	}
-	
-	
-	
+
+	public int getNguoiDungBinhLuan() {
+		return nguoiDungBinhLuan;
+	}
+
+	public void setNguoiDungBinhLuan(int nguoiDungBinhLuan) {
+		this.nguoiDungBinhLuan = nguoiDungBinhLuan;
+	}
+
+	public int getNguoiDungThich() {
+		return nguoiDungThich;
+	}
+
+	public void setNguoiDungThich(int nguoiDungThich) {
+		this.nguoiDungThich = nguoiDungThich;
+	}
 
 	public String getSuaDanhGia() {
 		return suaDanhGia;
@@ -145,7 +179,6 @@ public class DanhGiaSanPham {
 	public void setMaNguoiDanhGia(int maNguoiDanhGia) {
 		this.maNguoiDanhGia = maNguoiDanhGia;
 	}
-
 
 	public String getTenDienDan() {
 		return tenDienDan;

@@ -41,6 +41,9 @@ public interface SanPhamService {
 	public  ResponseData<Boolean> getXoaSanPhamDang(int maSP);
 	public  ResponseData<Set<SanPham>> getSanPhamTheoNhomSP(int maNSP);
 	public  ResponseData<List<SanPhamYeuThichNhom>> getSanPhamYeuThich(int maND);
+	public  Boolean themSanPhamYeuThich(int maNguoiDung, int maSanPham);
+	public  Boolean xoaSanPhamYeuThich(int maNguoiDung, int maSanPham);
+	public  Boolean themGhiChuYeuThich(int maNguoiDung,int maSanPham,String ghiChu);
 	public  ResponseData<List<Hang>> getHangYeuThich(int maND);
 	public  ResponseData<Set<SanPham>> locSanPham(String chuoiMN);
 

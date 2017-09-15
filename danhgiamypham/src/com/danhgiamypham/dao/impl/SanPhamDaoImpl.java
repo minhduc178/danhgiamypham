@@ -21,6 +21,7 @@ import com.danhgiamypham.database.DBProvider;
 import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.SanPham;
+import com.danhgiamypham.model.SanPhamMoi;
 
 @Component
 public class SanPhamDaoImpl implements SanPhamDao {
@@ -742,6 +743,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				int maND = rs.getInt("MaNguoiDung");
+				int maSP = rs.getInt("MaSanPham");
 				String tenSP = rs.getString("TenSanPham");
 				String tenH = rs.getString("TenHang");
 				int diemDG = rs.getInt("DiemDanhGia");
@@ -749,7 +751,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				int maH = rs.getInt("MaHang");
 				String link = rs.getString("Link");
 
-				SanPham spyt = new SanPham(maND, tenSP, tenH, diemDG, ghiC, maH, link);
+				SanPham spyt = new SanPham(maND, maSP, tenSP, tenH, diemDG, ghiC, maH, link);
 				sanPhamYeuThichs.add(spyt);
 			}
 			response.setData(sanPhamYeuThichs);
@@ -762,7 +764,76 @@ public class SanPhamDaoImpl implements SanPhamDao {
 		return response;
 
 	}
+	
 
+	@Override
+	public Boolean themSanPhamYeuThich(int maND, int maSP) {
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call themSanPhamYeuThich(?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maND);
+			st.setInt(2, maSP);
+
+			int rs  = st.executeUpdate();
+				
+			if(rs==1){
+				return true;
+			} 
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			
+		}
+		return false;
+	}
+
+	@Override
+	public Boolean xoaSanPhamYeuThich(int maND, int maSP) {
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call xoaSanPhamYeuThich(?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maND);
+			st.setInt(2, maSP);
+			int rs = st.executeUpdate();
+			if (rs == 1) {
+				return true;
+			}
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			
+		}
+		return false;
+
+	}
+	
+	@Override
+	public Boolean themGhiChuYeuThich(int maNguoiDung,int maSanPham,String ghiChu){
+		try {
+			Connection cnn = dbProvider.getConnection();
+			String sql = "{call themGhiChuYeuThich(?,?,?)}";
+			PreparedStatement st = cnn.prepareStatement(sql);
+			st.setInt(1, maNguoiDung);
+			st.setInt(2, maSanPham);
+			st.setString(3, ghiChu);
+			int rs  = st.executeUpdate();
+			if(rs==1){
+				return true;
+			} 
+			
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			
+
+		}
+		return false;
+
+	}
+
+	
 	@Override
 	public ResponseData<List<Hang>> getHangYeuThich(int maNguoiDung) {
 		ResponseData<List<Hang>> response = new ResponseData<List<Hang>>();

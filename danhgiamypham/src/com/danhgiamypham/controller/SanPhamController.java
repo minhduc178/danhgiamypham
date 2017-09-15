@@ -199,6 +199,32 @@ public class SanPhamController {
 	public ResponseData<List<SanPhamYeuThichNhom>> getSanPhamYeuThich(@RequestParam("manguoidung") int MaNguoiDung) {
 		return sanPhamService.getSanPhamYeuThich(MaNguoiDung);
 	}
+	
+	@RequestMapping(value = "them-yeu-thich", method = RequestMethod.GET)
+	@ResponseBody
+	public Boolean themSanPhamYeuThich(@RequestParam("manguoidung") int maNguoiDung,
+										@RequestParam("masanpham") int maSanPham) {
+		return sanPhamService.themSanPhamYeuThich(maNguoiDung, maSanPham);
+	}
+	
+	@RequestMapping(value = "xoa-yeu-thich", method = RequestMethod.GET)
+	@ResponseBody
+	public Boolean xoaSanPhamYeuThich(@RequestParam("manguoidung") int maNguoiDung,
+										@RequestParam("masanpham") int maSanPham) {
+		return sanPhamService.xoaSanPhamYeuThich(maNguoiDung, maSanPham);
+	}
+	
+	@RequestMapping(value = "them-ghi-chu", method = RequestMethod.POST)
+	@ResponseBody
+	public Boolean themGhiChuYeuThich(MultipartHttpServletRequest request) throws Exception{
+		String maNguoiDung = request.getParameter("manguoidung");
+		String maSanPham = request.getParameter("masanpham");
+		String ghiChu = ResourceUtils.readUTF8(request.getParameter("ghichu"));
+		
+		int maND = Integer.parseInt(maNguoiDung);
+		int maSP = Integer.parseInt(maSanPham);
+		return sanPhamService.themGhiChuYeuThich(maND, maSP, ghiChu);
+	}
 
 	@RequestMapping(value = "get-duyetsanpham", method = RequestMethod.GET)
 	@ResponseBody

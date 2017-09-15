@@ -45,9 +45,11 @@ public class DanhGiaSanPhamDaoImpl implements DanhGiaSanPhamDao {
 				Date ngayGN = rs.getDate("NgayGiaNhap");
 				String tenDD = rs.getString("TenDienDan");
 				String hinhAnh = rs.getString("HinhAnh");
-				int maNDG  = rs.getInt("MaNguoiDung");				
+				int maNDG  = rs.getInt("MaNguoiDung");
+				int nDBL = rs.getInt("LuotBinhLuan");
+				int nDT = rs.getInt("LuotThich");
 				
-				DanhGiaSanPham blsp = new DanhGiaSanPham(maDG, diemDG, binhL, soLL, tinhT,ngayGN, tenDD, hinhAnh,maNDG);
+				DanhGiaSanPham blsp = new DanhGiaSanPham(maDG, diemDG, binhL, soLL, tinhT,ngayGN, tenDD, hinhAnh,maNDG,nDBL, nDT);
 				danhGiaSanPhams.add(blsp);			
 			}
 			response.setData(danhGiaSanPhams);

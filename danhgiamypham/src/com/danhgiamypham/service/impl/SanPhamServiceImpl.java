@@ -606,6 +606,23 @@ public class SanPhamServiceImpl implements SanPhamService {
 		response.setData(spytNhom);
 		return response;
 	}
+	
+	
+	@Override
+	public Boolean themSanPhamYeuThich(int maNguoiDung, int maSanPham) {
+		return sanPhamDao.themSanPhamYeuThich(maNguoiDung, maSanPham);
+	}
+	
+	@Override
+	public Boolean xoaSanPhamYeuThich(int maNguoiDung, int maSanPham) {
+		return sanPhamDao.xoaSanPhamYeuThich(maNguoiDung, maSanPham);
+	}
+	
+	@Override
+	public Boolean themGhiChuYeuThich(int maNguoiDung,int maSanPham,String ghiChu){
+		return sanPhamDao.themGhiChuYeuThich(maNguoiDung, maSanPham, ghiChu);
+
+	}
 
 	private List<SanPham> sanPhamTheoH(int maH, List<SanPham> sanPhams) {
 		List<SanPham> sPh = new ArrayList<SanPham>();
@@ -629,4 +646,6 @@ public class SanPhamServiceImpl implements SanPhamService {
 		}
 		return sanp;
 	}
+
+
 }

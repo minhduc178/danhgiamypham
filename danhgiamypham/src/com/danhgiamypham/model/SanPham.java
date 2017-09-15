@@ -28,29 +28,152 @@ public class SanPham {
 	private int maHang;
 	private int maNhomHang;
 	private int maNhomSanPham;
-	private int maDanhMuc;	
+	private int maDanhMuc;
 	private int maNhomSanPhamBoPhan;
 	private String link;
 	private int luotBinhLuan;
 	private int luotThich;
-	
+
 	private String[] listMaNhomSPham;
 
-	
 	private List<LoaiDa> loaiDas;
 	private List<DanhGiaSanPham> danhGiaSanPhams;
 	private List<Hang> hangs;
 	private List<NhomHang> nhomHangs;
 	private List<SanPham> sanPhams;
 	private List<Integer> maNhomSanPhams;
+
+	public SanPham() {
 	
-	
-	
+	}
 
 	public SanPham(int maSanPham, String tenSanPham) {
 		super();
 		this.maSanPham = maSanPham;
 		this.tenSanPham = tenSanPham;
+	}
+
+	public SanPham(int maSanPham, String tenSanPham, String tenHang,
+			int tinhTrang, Date ngayDang, float diemDanhGia, int soLuotDanhGia,
+			String hinhAnhChinh, String link) {
+		super();
+		this.maSanPham = maSanPham;
+		this.tenSanPham = tenSanPham;
+		this.tenHang = tenHang;
+		this.tinhTrang = tinhTrang;
+		this.ngayDang = ngayDang;
+		this.diemDanhGia = diemDanhGia;
+		this.soLuotDanhGia = soLuotDanhGia;
+		this.hinhAnhChinh = hinhAnhChinh;
+		this.link = link;
+
+	}
+
+	public SanPham(int maSanPham, String tenSanPham, String tenHang,
+			String gioiThieu, String congDung, String cachSuDung,
+			String thanhPhan, String tenNguoiDung, int tinhTrang,
+			Date ngayDang, String tenNhom, float diemDanhGia,
+			int soLuotDanhGia, int soLuotBinhLuan, String hinhAnhChinh,
+			int maNhomSanPham) {
+		super();
+		this.maSanPham = maSanPham;
+		this.tenSanPham = tenSanPham;
+		this.tenHang = tenHang;
+		this.gioiThieu = gioiThieu;
+		this.congDung = congDung;
+		this.cachSuDung = cachSuDung;
+		this.thanhPhan = thanhPhan;
+		this.tenNguoiDung = tenNguoiDung;
+		this.tinhTrang = tinhTrang;
+		this.ngayDang = ngayDang;
+		this.tenNhom = tenNhom;
+		this.diemDanhGia = diemDanhGia;
+		this.soLuotDanhGia = soLuotDanhGia;
+		this.soLuotBinhLuan = soLuotBinhLuan;
+		this.hinhAnhChinh = hinhAnhChinh;
+		this.maNhomSanPham = maNhomSanPham;
+
+	}
+
+	public SanPham(int maSanPham, String tenSanPham, String tenHang,
+			Date ngayDang, float diemDanhGia, int soLuotDanhGia,
+			String hinhAnhChinh, String link) {
+		super();
+		this.maSanPham = maSanPham;
+		this.tenSanPham = tenSanPham;
+		this.tenHang = tenHang;
+		this.ngayDang = ngayDang;
+		this.diemDanhGia = diemDanhGia;
+		this.soLuotDanhGia = soLuotDanhGia;
+		this.hinhAnhChinh = hinhAnhChinh;
+		this.link = link;
+	}
+
+	public SanPham(int maSP, String tenSP, String tenH, String gioiT,
+			String congD, String cachSD, String thanhP, String tenND,
+			int tinhT, Date ngayD, float diemDG, String hinhAC, String hinh1,
+			String hinh2, String hinh3, String hinh4, String link) {
+		this.maSanPham = maSP;
+		this.tenSanPham = tenSP;
+		this.tenHang = tenH;
+		this.gioiThieu = gioiT;
+		this.congDung = congD;
+		this.cachSuDung = cachSD;
+		this.thanhPhan = thanhP;
+		this.tenNguoiDung = tenND;
+		this.tinhTrang = tinhT;
+		this.ngayDang = ngayD;
+		this.tinhTrang = tinhT;
+		this.diemDanhGia = diemDG;
+		this.hinhAnhChinh = hinhAC;
+		this.hinh1 = hinh1;
+		this.hinh2 = hinh2;
+		this.hinh3 = hinh3;
+		this.hinh4 = hinh4;
+		this.link = link;
+	}
+
+	public SanPham(int maSP, String tenSP, String tenH, int maH, int maNH,
+			String gioiT, String congD, String cachSD, String thanhP,
+			String tenND, int tinhT, Date ngayD, float diemDG, String hinhAC,
+			String hinh1, String hinh2, String hinh3, String hinh4,
+			String link, int luotBinhLuan, int luotThich) {
+		this.maSanPham = maSP;
+		this.tenSanPham = tenSP;
+		this.tenHang = tenH;
+		this.maHang = maH;
+		this.maNhomHang = maNH;
+		this.gioiThieu = gioiT;
+		this.congDung = congD;
+		this.cachSuDung = cachSD;
+		this.thanhPhan = thanhP;
+		this.tenNguoiDung = tenND;
+		this.tinhTrang = tinhT;
+		this.ngayDang = ngayD;
+		this.tinhTrang = tinhT;
+		this.diemDanhGia = diemDG;
+		this.hinhAnhChinh = hinhAC;
+		this.hinh1 = hinh1;
+		this.hinh2 = hinh2;
+		this.hinh3 = hinh3;
+		this.hinh4 = hinh4;
+		this.link = link;
+		this.luotBinhLuan = luotBinhLuan;
+		this.luotThich = luotThich;
+	}
+
+	public SanPham(int maNguoiDung, int maSanPham, String tenSanPham,
+			String tenHang, int diemDanhGia, String ghiChu, int maHang,
+			String link) {
+		this.maNguoiDung = maNguoiDung;
+		this.maSanPham = maSanPham;
+		this.tenSanPham = tenSanPham;
+		this.tenHang = tenHang;
+		this.diemDanhGia = diemDanhGia;
+		this.ghiChu = ghiChu;
+		this.maHang = maHang;
+		this.link = link;
+
 	}
 
 	public SanPham(int maSanPham, String tenSanPham, String tenHang,
@@ -128,8 +251,6 @@ public class SanPham {
 	public void setSanPhams(List<SanPham> sanPhams) {
 		this.sanPhams = sanPhams;
 	}
-	
-	
 
 	public int getLuotBinhLuan() {
 		return luotBinhLuan;
@@ -178,129 +299,6 @@ public class SanPham {
 	public void setLoaiDas(List<LoaiDa> loaiDas) {
 		this.loaiDas = loaiDas;
 	}
-
-	
-	public SanPham() {
-	}
-
-	public SanPham(int maSanPham, String tenSanPham, String tenHang, int tinhTrang,
-			Date ngayDang, float diemDanhGia, int soLuotDanhGia,  String hinhAnhChinh, String link) {
-		super();
-		this.maSanPham = maSanPham;
-		this.tenSanPham = tenSanPham;
-		this.tenHang = tenHang;
-		this.tinhTrang = tinhTrang;
-		this.ngayDang = ngayDang;
-		this.diemDanhGia = diemDanhGia;
-		this.soLuotDanhGia = soLuotDanhGia;
-		this.hinhAnhChinh = hinhAnhChinh;
-		this.link = link;
-
-	}
-	
-	public SanPham(int maSanPham, String tenSanPham, String tenHang,
-			String gioiThieu, String congDung, String cachSuDung,
-			String thanhPhan, String tenNguoiDung, int tinhTrang,
-			Date ngayDang, String tenNhom, float diemDanhGia,
-			int soLuotDanhGia, int soLuotBinhLuan, String hinhAnhChinh, int maNhomSanPham) {
-		super();
-		this.maSanPham = maSanPham;
-		this.tenSanPham = tenSanPham;
-		this.tenHang = tenHang;
-		this.gioiThieu = gioiThieu;
-		this.congDung = congDung;
-		this.cachSuDung = cachSuDung;
-		this.thanhPhan = thanhPhan;
-		this.tenNguoiDung = tenNguoiDung;
-		this.tinhTrang = tinhTrang;
-		this.ngayDang = ngayDang;
-		this.tenNhom = tenNhom;
-		this.diemDanhGia = diemDanhGia;
-		this.soLuotDanhGia = soLuotDanhGia;
-		this.soLuotBinhLuan = soLuotBinhLuan;
-		this.hinhAnhChinh = hinhAnhChinh;
-		this.maNhomSanPham = maNhomSanPham;
-
-	}
-	
-	public SanPham(int maSanPham, String tenSanPham, String tenHang,
-			Date ngayDang, float diemDanhGia,
-			int soLuotDanhGia, String hinhAnhChinh, String link) {
-		super();
-		this.maSanPham = maSanPham;
-		this.tenSanPham = tenSanPham;
-		this.tenHang = tenHang;
-		this.ngayDang = ngayDang;
-		this.diemDanhGia = diemDanhGia;
-		this.soLuotDanhGia = soLuotDanhGia;
-		this.hinhAnhChinh = hinhAnhChinh;
-		this.link = link;
-	}
-	
-	public SanPham(int maSP,String tenSP, String tenH,String gioiT,
-			String congD,String cachSD,String thanhP,String tenND,
-			int tinhT,Date ngayD,float diemDG,String hinhAC,String hinh1,
-			String hinh2, String hinh3,String hinh4, String link ){
-		this.maSanPham = maSP;
-		this.tenSanPham = tenSP;
-		this.tenHang = tenH;
-		this.gioiThieu = gioiT;
-		this.congDung = congD;
-		this.cachSuDung  = cachSD;
-		this.thanhPhan = thanhP;
-		this.tenNguoiDung = tenND;
-		this.tinhTrang = tinhT;
-		this.ngayDang = ngayD;
-		this.tinhTrang = tinhT;
-		this.diemDanhGia = diemDG;
-		this.hinhAnhChinh = hinhAC;
-		this.hinh1 = hinh1;
-		this.hinh2 = hinh2;
-		this.hinh3 = hinh3;
-		this.hinh4 = hinh4;
-		this.link = link;
-	}
-	
-	public SanPham(int maSP, String tenSP, String tenH, int maH,int maNH, String gioiT,String congD, String cachSD,
-			String thanhP,String tenND,int tinhT,Date ngayD,float diemDG,String hinhAC,String hinh1,
-			String hinh2,String hinh3,String hinh4, String link, int luotBinhLuan, int luotThich ){
-		this.maSanPham = maSP;
-		this.tenSanPham = tenSP;
-		this.tenHang = tenH;
-		this.maHang = maH;
-		this.maNhomHang = maNH;
-		this.gioiThieu = gioiT;
-		this.congDung = congD;
-		this.cachSuDung  = cachSD;
-		this.thanhPhan = thanhP;
-		this.tenNguoiDung = tenND;
-		this.tinhTrang = tinhT;
-		this.ngayDang = ngayD;
-		this.tinhTrang = tinhT;
-		this.diemDanhGia = diemDG;
-		this.hinhAnhChinh = hinhAC;
-		this.hinh1 = hinh1;
-		this.hinh2 = hinh2;
-		this.hinh3 = hinh3;
-		this.hinh4 = hinh4;
-		this.link = link;
-		this.luotBinhLuan = luotBinhLuan;
-		this.luotThich = luotThich;
-	}
-	
-	
-	
-	public SanPham(int maNguoiDung, String tenSanPham, String tenHang,
-			int diemDanhGia, String ghiChu, int maHang, String link) {
-		this.maNguoiDung = maNguoiDung;
-		this.tenSanPham = tenSanPham;
-		this.tenHang = tenHang;
-		this.diemDanhGia = diemDanhGia;
-		this.ghiChu = ghiChu;
-		this.maHang =  maHang;
-		this.link = link;
-		
-	}	
 
 	public String getLink() {
 		return link;
@@ -438,7 +436,6 @@ public class SanPham {
 		this.ngayDang = ngayDang;
 	}
 
-	
 	public String getTenNhom() {
 		return tenNhom;
 	}
@@ -518,11 +515,5 @@ public class SanPham {
 	public void setMaDanhMuc(int maDanhMuc) {
 		this.maDanhMuc = maDanhMuc;
 	}
-	
-	
-	
 
 }
-
-
-
