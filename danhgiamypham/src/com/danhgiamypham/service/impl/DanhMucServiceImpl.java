@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.danhgiamypham.Utilities.ResourceUtils;
 import com.danhgiamypham.dao.DanhMucDao;
 import com.danhgiamypham.dto.DanhMucNhom;
 import com.danhgiamypham.dto.ResponseData;
@@ -52,7 +53,13 @@ public class DanhMucServiceImpl implements DanhMucService {
 	@Override
 	public ResponseData<Boolean> themHang(String tenHang) {
 		int maNhomSanPham = timMaNhomHang(tenHang);
-		return danhMucDao.themHang(tenHang, maNhomSanPham);
+		//them link
+		String link = ResourceUtils.unAccent(tenHang);
+		System.out.println(tenHang);
+		System.out.println(maNhomSanPham);
+		System.out.println(link);
+
+		return danhMucDao.themHang(tenHang, maNhomSanPham, link);
 	}
 
 	@Override

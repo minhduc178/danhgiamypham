@@ -67,8 +67,7 @@ public class SanPhamMoiServiceImpl implements SanPhamMoiService {
 
 		PathImage sanPhamImg = new PathImage();
 		String location = sanPhamImg.getSanPhamIMG();
-		
-		
+			
 		//them link
 		String link = ResourceUtils.unAccent(spm.getTenSanPham());
 		spm.setLink(link);

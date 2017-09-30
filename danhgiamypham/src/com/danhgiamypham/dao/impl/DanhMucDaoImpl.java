@@ -163,14 +163,15 @@ public class DanhMucDaoImpl implements DanhMucDao {
 	}
 
 	@Override
-	public ResponseData<Boolean> themHang(String tenHang, int maNhomSanPham) {
+	public ResponseData<Boolean> themHang(String tenHang, int maNhomSanPham, String link) {
 		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		try {
 			Connection cnn = dbProvider.getConnection();
-			String sql = "{call themHang(?,?)}";
+			String sql = "{call themHang(?,?,?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
 			st.setString(1, tenHang);
 			st.setInt(2, maNhomSanPham);
+			st.setString(3, link);
 
 			int rs = st.executeUpdate();
 

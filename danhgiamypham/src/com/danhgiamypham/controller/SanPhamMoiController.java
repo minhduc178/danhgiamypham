@@ -97,7 +97,6 @@ public class SanPhamMoiController {
 			String maH = request.getParameter("maHang");
 			String[] chuoiN = request.getParameterValues("chuoiNhom");	
 			
-
 			spm.setMaNguoiDung(Integer.parseInt(maND));
 			spm.setMaSanPham(Integer.parseInt(maSP));
 			spm.setTenSanPham(tenSP);

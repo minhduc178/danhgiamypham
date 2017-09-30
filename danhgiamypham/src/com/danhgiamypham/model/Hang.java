@@ -4,7 +4,8 @@ public class Hang {
 	private int maHang;
 	private String tenHang;
 	private int maNhomHang;
-
+	private String linkHang;
+	
 	public Hang() {
 
 	}
@@ -20,6 +21,22 @@ public class Hang {
 		this.maHang = maHang;
 		this.tenHang = tenHang;
 		
+	}
+
+	public Hang(int maHang, String tenHang, int maNhomHang, String linkHang) {
+		super();
+		this.maHang = maHang;
+		this.tenHang = tenHang;
+		this.maNhomHang = maNhomHang;
+		this.linkHang = linkHang;
+	}
+
+	public String getLinkHang() {
+		return linkHang;
+	}
+
+	public void setLinkHang(String linkHang) {
+		this.linkHang = linkHang;
 	}
 
 	public int getMaHang() {
