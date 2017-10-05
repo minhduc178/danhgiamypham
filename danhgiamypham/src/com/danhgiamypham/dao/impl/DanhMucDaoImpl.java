@@ -163,15 +163,16 @@ public class DanhMucDaoImpl implements DanhMucDao {
 	}
 
 	@Override
-	public ResponseData<Boolean> themHang(String tenHang, int maNhomSanPham, String link) {
+	public ResponseData<Boolean> themHang(String tenHang, int maNhomSanPham, String link, int maND) {
 		ResponseData<Boolean> response = new ResponseData<Boolean>();
 		try {
 			Connection cnn = dbProvider.getConnection();
-			String sql = "{call themHang(?,?,?)}";
+			String sql = "{call themHang(?,?,?,?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
 			st.setString(1, tenHang);
 			st.setInt(2, maNhomSanPham);
 			st.setString(3, link);
+			st.setInt(4, maND);
 
 			int rs = st.executeUpdate();
 
@@ -201,8 +202,9 @@ public class DanhMucDaoImpl implements DanhMucDao {
 				int maH = rs.getInt("MaHang");
 				String tenH = rs.getString("TenHang");
 				int maNH = rs.getInt("MaNhomHang");
+				String link = rs.getString("LinkHang");
 
-				Hang nh = new Hang(maH, tenH, maNH);
+				Hang nh = new Hang(maH, tenH, maNH, link);
 				hangs.add(nh);
 			}
 			response.setData(hangs);
@@ -214,5 +216,34 @@ public class DanhMucDaoImpl implements DanhMucDao {
 		}
 		return response;
 	}
+	
+	public  ResponseData<List<Hang>> getHangDaThem(){
+		ResponseData<List<Hang>> response = new ResponseData<List<Hang>>();
+		List<Hang> hangs = new ArrayList<Hang>();
+		try {
+			Connection cnn = dbProvider.getConnection();
+			Statement st = cnn.createStatement();
+			String sql = "{call getHangDaThem()}";
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				int maH = rs.getInt("MaHang");
+				String tenH = rs.getString("TenHang");
+				int maND = rs.getInt("MaNguoiDung");
+				String tenND = rs.getString("TenDienDan");
+
+				Hang nh = new Hang(maH, tenH, 1, "xuan", maND, tenND);
+				hangs.add(nh);
+			}
+			
+			response.setData(hangs);
+			rs.close();
+			st.close();
+			cnn.close();
+		} catch (SQLException e) {
+			response.setErrorMessage("getHang bi loi");
+		}
+		return response;
+	}
+
 
 }

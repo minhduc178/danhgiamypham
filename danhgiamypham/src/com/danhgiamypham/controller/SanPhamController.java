@@ -113,8 +113,8 @@ public class SanPhamController {
 	//sanphamtheohang-controller lay tong san pham cho trang get san pham theo hang
 		@RequestMapping(value = "get-tongsosanphammahang", method = RequestMethod.GET)
 		@ResponseBody
-		public ResponseData<Integer> getTongSoSanPhamMaHang(@RequestParam("mahang")  String maHang) {
-			return sanPhamService.getTongSoSanPhamMaHang(maHang);
+		public ResponseData<Integer> getTongSoSanPhamMaHang(@RequestParam("mahang")  String link) {
+			return sanPhamService.getTongSoSanPhamMaHang(link);
 		}
 		
 //		@RequestMapping(value = "get-tongsosanphammahangchuoinhom", method = RequestMethod.GET)

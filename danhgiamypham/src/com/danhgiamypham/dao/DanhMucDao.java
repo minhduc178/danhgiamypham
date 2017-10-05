@@ -14,6 +14,7 @@ public interface DanhMucDao {
 	public ResponseData<Boolean> themNhomSanPham(int MaDanhMuc, String TenNhomSanPham);
 	public ResponseData<List<Hang>> getHang();
 	public ResponseData<List<NhomHang>> getNhomHang();
-	public ResponseData<Boolean> themHang(String tenHang, int maNhomSanPham, String link);
+	public ResponseData<Boolean> themHang(String tenHang, int maNhomSanPham, String link, int maND);
 	public ResponseData<List<Hang>> getHangTheoNhom(int maNhomHang);
+	public ResponseData<List<Hang>> getHangDaThem();
 }

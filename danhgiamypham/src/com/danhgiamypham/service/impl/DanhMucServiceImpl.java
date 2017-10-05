@@ -51,21 +51,19 @@ public class DanhMucServiceImpl implements DanhMucService {
 	}
 
 	@Override
-	public ResponseData<Boolean> themHang(String tenHang) {
+	public ResponseData<Boolean> themHang(String tenHang, int maND) {
 		int maNhomSanPham = timMaNhomHang(tenHang);
 		//them link
 		String link = ResourceUtils.unAccent(tenHang);
-		System.out.println(tenHang);
-		System.out.println(maNhomSanPham);
-		System.out.println(link);
 
-		return danhMucDao.themHang(tenHang, maNhomSanPham, link);
+		return danhMucDao.themHang(tenHang, maNhomSanPham, link, maND);
 	}
 
 	@Override
 	public ResponseData<List<Hang>> getHangTheoNhom(int maNhomHang) {
 		return danhMucDao.getHangTheoNhom(maNhomHang);
 	}
+	
 
 	@Override
 	public ResponseData<List<DanhMucNhom>> getDanhMucNhom() {
@@ -102,6 +100,7 @@ public class DanhMucServiceImpl implements DanhMucService {
 	}
 
 	private int timMaNhomHang(String tenHang) {
+		System.out.print(tenHang);
 		ResponseData<List<NhomHang>> nhomHangs = danhMucDao.getNhomHang();
 		List<NhomHang> nhomHangList = nhomHangs.getData();
 		String kyTu = Character.toString(tenHang.charAt(0));
@@ -113,5 +112,10 @@ public class DanhMucServiceImpl implements DanhMucService {
 		}
 		return 91;
 	}
+	
+	public ResponseData<List<Hang>> getHangDaThem(){
+		return danhMucDao.getHangDaThem();
+	}
+
 
 }

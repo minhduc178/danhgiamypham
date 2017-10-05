@@ -5,8 +5,12 @@ import java.text.DateFormat;
 import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Pattern;
+
+import com.danhgiamypham.model.SanPham;
 
 
 public class ResourceUtils {
@@ -69,6 +73,20 @@ public class ResourceUtils {
        }
        return startDate;
        
+    }
+    
+    public static List<SanPham> checkTrungNhau(List<SanPham> sanPhamList){
+    	List<SanPham> sanPhamChecked = new ArrayList<SanPham>(); 
+    	for(SanPham sp: sanPhamList){
+    		for(SanPham spChecked: sanPhamChecked){
+    			if(sp.getMaSanPham() == spChecked.getMaSanPham()){
+        			break;
+    			} else {
+    				sanPhamChecked.add(sp);
+    			}
+    		}
+    	}
+    	return sanPhamChecked;
     }
     
 }

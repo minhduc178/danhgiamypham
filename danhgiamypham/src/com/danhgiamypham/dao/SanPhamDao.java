@@ -1,6 +1,5 @@
 package com.danhgiamypham.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -21,10 +20,10 @@ public interface SanPhamDao {
 	public ResponseData<Integer> getTongSoSanPhamMaDanhMuc(int maDanhMuc);
 	public ResponseData<Integer> getTongSoSanPhamMaDanhMuc(int maDanhMuc, int maNhom);
 	
-	public List<SanPham> getSanPhamTheoHang(int trangHienTai, int soLuongTrongTrang, int maH);
-	public ResponseData<Set<SanPham>> getSanPhamTheoHangMaChuoi(int maDM, int nhomChuoi);
-	public ResponseData<Integer> getTongSoSanPhamMaHang(int maHang);
-	public ResponseData<Integer> getTongSoSanPhamMaHang(int maHang, int maNhom);
+	public List<SanPham> getSanPhamTheoHang(int trangHienTai, int soLuongTrongTrang, String link);
+	public ResponseData<Set<SanPham>> getSanPhamTheoHangMaChuoi(String link, int nhomChuoi);
+	public ResponseData<Integer> getTongSoSanPhamMaHang(String link);
+	public ResponseData<Integer> getTongSoSanPhamMaHang(String link, int maNhom);
 	
 	public ResponseData<Set<SanPham>> getSanPhamTheoNhomSPham(int trangHienTai, int soLuongTrongTrang, int maNhom);
 	public ResponseData<Set<SanPham>> getSanPhamMaNhomSPMaChuoi(int maNhomSP, int nhomChuoi);

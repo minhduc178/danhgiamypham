@@ -10,21 +10,17 @@ import org.springframework.stereotype.Service;
 
 import com.danhgiamypham.Utilities.Pagination;
 import com.danhgiamypham.Utilities.ResourceUtils;
-import com.danhgiamypham.controller.DanhMucController;
 import com.danhgiamypham.dao.DanhGiaSanPhamDao;
 import com.danhgiamypham.dao.DanhMucDao;
 import com.danhgiamypham.dao.LoaiDaDao;
 import com.danhgiamypham.dao.SanPhamDao;
-import com.danhgiamypham.dto.DanhMucNhom;
 import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.dto.SanPhamYeuThichNhom;
 import com.danhgiamypham.model.DanhGiaSanPham;
 import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.LoaiDa;
 import com.danhgiamypham.model.LuotLike;
-import com.danhgiamypham.model.NhomSanPham;
 import com.danhgiamypham.model.SanPham;
-import com.danhgiamypham.model.SanPhamMoi;
 import com.danhgiamypham.service.DanhMucService;
 import com.danhgiamypham.service.SanPhamService;
 
@@ -82,6 +78,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 				rs = sanPhamDao.getSanPhamTheoNhomSP(maNhom);
 				kt.addAll(rs.getData());
 			}
+			
 			List<SanPham> sanPhamPhanTrang = new ArrayList<SanPham>();
 
 			ResponseData<Integer> t = getTongSoSanPhamTheoNhom(chuoiNhom);
@@ -89,6 +86,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 			sanPhamPhanTrang = Pagination.PhanTrang(trangHienTai,
 					soLuongTrongTrang, tnew, kt);
 			sanPhamNhom.addAll(sanPhamPhanTrang);
+			
 			response.setData(sanPhamNhom);
 			return response;
 		}
@@ -198,13 +196,12 @@ public class SanPhamServiceImpl implements SanPhamService {
 			int soLuongTrongTrang, String link, String[] chuoiNhomNew) {
 		int k = link.indexOf(" ");
 		if (k<0){
-			int maH = Integer.valueOf(link);
 			List<SanPham> sanp = new ArrayList<SanPham>();
 
 			trangHienTai = ResourceUtils.tinhTrangHienTai(trangHienTai,
 					soLuongTrongTrang);
 			sanp = sanPhamDao.getSanPhamTheoHang(trangHienTai,
-					soLuongTrongTrang, maH);
+					soLuongTrongTrang, link);
 
 			for (SanPham sp : sanp) {
 				float ddg = ResourceUtils.quyTron(sp.getDiemDanhGia());
@@ -214,9 +211,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 			return sanp;
 
 		} else {
-			String linkSP = link.substring(0, link.indexOf(" "));
-			int maH = Integer.valueOf(linkSP);
-			
+			String linkSP = link.substring(0, link.indexOf(" "));			
 			String m=link.substring(link.indexOf(" ")+1);
 			String[] chuoiNhom = m.split(" ");
 			
@@ -225,19 +220,23 @@ public class SanPhamServiceImpl implements SanPhamService {
 				int maNhom = Integer.parseInt(r);
 				ResponseData<Set<SanPham>> rs = new ResponseData<Set<SanPham>>();
 
-				rs = sanPhamDao.getSanPhamTheoHangMaChuoi(maH, maNhom);
+				rs = sanPhamDao.getSanPhamTheoHangMaChuoi(linkSP, maNhom);
 				Set<SanPham> rsnew = rs.getData();
 				sanPhamNhom.addAll(rsnew);
 			}
+			
+			List<SanPham> sanPhamNew = new ArrayList<SanPham>();
+
 			List<SanPham> sanPhamPhanTrang = new ArrayList<SanPham>();
 
 			ResponseData<Integer> t = getTongSoSanPhamMaHang(link);
 			int tnew = t.getData();
 			sanPhamPhanTrang = Pagination.PhanTrang(trangHienTai,
 					soLuongTrongTrang, tnew, sanPhamNhom);
-			sanPhamNhom.addAll(sanPhamPhanTrang);
 			
-			return sanPhamNhom;
+			sanPhamNew.addAll(sanPhamPhanTrang);
+			
+			return sanPhamNew;
 		}
 	}
 
@@ -245,12 +244,12 @@ public class SanPhamServiceImpl implements SanPhamService {
 	public ResponseData<Integer> getTongSoSanPhamMaHang(String link) {
 		int h = link.indexOf(" ");
 		if (h <0){
-			int t = Integer.valueOf(link);
-			return sanPhamDao.getTongSoSanPhamMaHang(t);
+		//	int t = Integer.valueOf(link);
+			return sanPhamDao.getTongSoSanPhamMaHang(link);
 		} else {
 			ResponseData<Integer> response = new ResponseData<Integer>();
 			String linkSP = link.substring(0, link.indexOf(" "));
-			int maH = Integer.valueOf(linkSP);
+		//	int maH = Integer.valueOf(linkSP);
 			
 			String m=link.substring(link.indexOf(" ")+1);
 			String[] chuoiNhom = m.split(" ");
@@ -258,7 +257,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 			int n = 0;
 			for (String r : chuoiNhom) {
 				int maNhom = Integer.parseInt(r);
-				ResponseData<Integer> k = sanPhamDao.getTongSoSanPhamMaHang(maH,
+				ResponseData<Integer> k = sanPhamDao.getTongSoSanPhamMaHang(linkSP,
 						maNhom);
 				int mnew = k.getData();
 				n = n + mnew;
@@ -447,16 +446,16 @@ public class SanPhamServiceImpl implements SanPhamService {
 		spnew.setMaDanhMuc(maDanhMucnew);
 
 		if (spnew.getCachSuDung()==null || spnew.getCachSuDung().equals("undefined")) {
-			spnew.setCachSuDung(null);
+			spnew.setCachSuDung("");
 		}
-		if (spnew.getCachSuDung()==null || spnew.getGioiThieu().equals("undefined")) {
-			spnew.setGioiThieu(null);
+		if (spnew.getGioiThieu()==null || spnew.getGioiThieu().equals("undefined")) {
+			spnew.setGioiThieu("");
 		}
-		if (spnew.getCachSuDung()==null || spnew.getThanhPhan().equals("undefined")) {
-			spnew.setThanhPhan(null);
+		if (spnew.getThanhPhan()==null || spnew.getThanhPhan().equals("undefined")) {
+			spnew.setThanhPhan("");
 		}
-		if (spnew.getCachSuDung()==null || spnew.getCongDung().equals("undefined")) {
-			spnew.setCongDung(null);
+		if (spnew.getCongDung()==null || spnew.getCongDung().equals("undefined")) {
+			spnew.setCongDung("");
 		}
 		sp.setData(spnew);
 
@@ -537,16 +536,16 @@ public class SanPhamServiceImpl implements SanPhamService {
 		spnew.setMaDanhMuc(maDanhMucnew);
 		
 		if (spnew.getCachSuDung()==null || spnew.getCachSuDung().equals("undefined")) {
-			spnew.setCachSuDung(null);
+			spnew.setCachSuDung("");
 		}
-		if (spnew.getCachSuDung()==null || spnew.getGioiThieu().equals("undefined")) {
-			spnew.setGioiThieu(null);
+		if (spnew.getGioiThieu()==null || spnew.getGioiThieu().equals("undefined")) {
+			spnew.setGioiThieu("");
 		}
-		if (spnew.getCachSuDung()==null || spnew.getThanhPhan().equals("undefined")) {
-			spnew.setThanhPhan(null);
+		if (spnew.getThanhPhan()==null || spnew.getThanhPhan().equals("undefined")) {
+			spnew.setThanhPhan("");
 		}
-		if (spnew.getCachSuDung()==null || spnew.getCongDung().equals("undefined")) {
-			spnew.setCongDung(null);
+		if (spnew.getCongDung()==null || spnew.getCongDung().equals("undefined")) {
+			spnew.setCongDung("");
 		}
 
 		float ddg = ResourceUtils.quyTron(spnew.getDiemDanhGia());

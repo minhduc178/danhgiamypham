@@ -6,9 +6,28 @@ public class Hang {
 	private int maNhomHang;
 	private String linkHang;
 	
+	private int maNguoiDung;
+	private String tenNguoiDung;
+	
 	public Hang() {
 
 	}
+
+
+	public Hang(int maHang, String tenHang, int maNhomHang, String linkHang,
+			int maNguoiDung, String tenNguoiDung) {
+		super();
+		this.maHang = maHang;
+		this.tenHang = tenHang;
+		this.maNhomHang = maNhomHang;
+		this.linkHang = linkHang;
+		this.maNguoiDung = maNguoiDung;
+		this.tenNguoiDung = tenNguoiDung;
+	}
+
+
+
+
 
 	public Hang(int maHang, String tenHang, int maNhomHang) {
 		super();
@@ -29,6 +48,24 @@ public class Hang {
 		this.tenHang = tenHang;
 		this.maNhomHang = maNhomHang;
 		this.linkHang = linkHang;
+	}
+	
+	
+
+	public int getMaNguoiDung() {
+		return maNguoiDung;
+	}
+
+	public void setMaNguoiDung(int maNguoiDung) {
+		this.maNguoiDung = maNguoiDung;
+	}
+
+	public String getTenNguoiDung() {
+		return tenNguoiDung;
+	}
+
+	public void setTenNguoiDung(String tenNguoiDung) {
+		this.tenNguoiDung = tenNguoiDung;
 	}
 
 	public String getLinkHang() {

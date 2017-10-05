@@ -8,12 +8,12 @@ public class NhomHang {
 
 	}
 
-	public NhomHang(int maNhomHang, String tenNhomHang) {
-		super();
+
+	public NhomHang( int maNhomHang,String tenNhomHang) {
 		this.tenNhomHang = tenNhomHang;
 		this.maNhomHang = maNhomHang;
 	}
-
+	
 
 	public String getTenNhomHang() {
 		return tenNhomHang;

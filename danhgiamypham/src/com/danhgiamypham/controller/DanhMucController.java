@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.danhgiamypham.Utilities.ResourceUtils;
 import com.danhgiamypham.dto.DanhMucNhom;
@@ -15,6 +17,7 @@ import com.danhgiamypham.dto.ResponseData;
 import com.danhgiamypham.model.DanhMuc;
 import com.danhgiamypham.model.Hang;
 import com.danhgiamypham.model.NhomHang;
+import com.danhgiamypham.model.SanPhamMoi;
 import com.danhgiamypham.service.DanhMucService;
 
 @Controller
@@ -52,25 +55,31 @@ public class DanhMucController {
 	}
 	
 	
-	@RequestMapping(value = "them-hang", method = RequestMethod.GET)
+	@RequestMapping(value = "them-hang", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseData<Boolean> themHang(@RequestParam("tenhang") String tenHang) {
-		ResponseData<Boolean> response = new ResponseData<Boolean>();
-		String tenHangMoi=null;
-		try{
-			tenHangMoi = ResourceUtils.readUTF8(tenHang);
-		} catch (Exception e) {
-			response.setErrorMessage("them-hang bi loi");
+	public ResponseData<Boolean> them(MultipartHttpServletRequest request) {
+		String tenH = null;
+		String maND=null;
+		try {
+			maND = request.getParameter("manguoidung");
+			tenH = ResourceUtils.readUTF8(request.getParameter("tenhang"));
+		} catch(Exception e){
 		}
-		response = danhMucService.themHang(tenHangMoi); 
-		return response;
 		
+		int maNDnew = Integer.valueOf(maND);
+		return danhMucService.themHang(tenH, maNDnew);
 	}
 	
 	@RequestMapping(value = "get-hang-theo-nhom", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseData<List<Hang>> getHangTheoNhom(@RequestParam("manhomhang") int maNhomHang) {
 		return danhMucService.getHangTheoNhom(maNhomHang);
+	}
+	
+	@RequestMapping(value = "get-hang-da-them", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseData<List<Hang>> getHangDaThem() {
+		return danhMucService.getHangDaThem();
 	}
 	
 

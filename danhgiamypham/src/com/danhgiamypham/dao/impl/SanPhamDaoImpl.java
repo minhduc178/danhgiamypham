@@ -317,7 +317,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 	// sanphamtheomahang
 	@Override
 	public List<SanPham> getSanPhamTheoHang(int trangHienTai,
-			int soLuongTrongTrang, int maH) {
+			int soLuongTrongTrang, String linkHang) {
 		List<SanPham> sanPhams = new ArrayList<SanPham>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -325,7 +325,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 			PreparedStatement st = cnn.prepareStatement(sql);
 			st.setInt(1, trangHienTai);
 			st.setInt(2, soLuongTrongTrang);
-			st.setInt(3, maH);
+			st.setString(3, linkHang);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				int maSP = rs.getInt("MaSanPham");
@@ -352,7 +352,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 	}
 
 	@Override
-	public ResponseData<Set<SanPham>> getSanPhamTheoHangMaChuoi(int maH,
+	public ResponseData<Set<SanPham>> getSanPhamTheoHangMaChuoi(String linkHang,
 			int nhomChuoi) {
 		ResponseData<Set<SanPham>> response = new ResponseData<Set<SanPham>>();
 		Set<SanPham> sanPhams = new HashSet<SanPham>();
@@ -360,7 +360,7 @@ public class SanPhamDaoImpl implements SanPhamDao {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getSanPhamTheoHangMaChuoi(?,?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
-			st.setInt(1, maH);
+			st.setString(1, linkHang);
 			st.setInt(2, nhomChuoi);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
@@ -389,14 +389,14 @@ public class SanPhamDaoImpl implements SanPhamDao {
 	}
 
 	@Override
-	public ResponseData<Integer> getTongSoSanPhamMaHang(int maHang) {
+	public ResponseData<Integer> getTongSoSanPhamMaHang(String link) {
 		ResponseData<Integer> response = new ResponseData<Integer>();
 		int tongSanPham = 0;
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getSoLuongMaHang(?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
-			st.setInt(1, maHang);
+			st.setString(1, link);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				tongSanPham = rs.getInt("SoLuongTheoHang");
@@ -412,14 +412,14 @@ public class SanPhamDaoImpl implements SanPhamDao {
 	}
 
 	@Override
-	public ResponseData<Integer> getTongSoSanPhamMaHang(int maHang, int maNhom) {
+	public ResponseData<Integer> getTongSoSanPhamMaHang(String link, int maNhom) {
 		ResponseData<Integer> response = new ResponseData<Integer>();
 		int tongSanPham = 0;
 		try {
 			Connection cnn = dbProvider.getConnection();
 			String sql = "{call getSoLuongMaHangMaNhom(?, ?)}";
 			PreparedStatement st = cnn.prepareStatement(sql);
-			st.setInt(1, maHang);
+			st.setString(1, link);
 			st.setInt(2, maNhom);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
