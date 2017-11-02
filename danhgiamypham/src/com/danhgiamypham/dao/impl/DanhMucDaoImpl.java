@@ -109,8 +109,7 @@ public class DanhMucDaoImpl implements DanhMucDao {
 	}
 
 	@Override
-	public ResponseData<List<NhomHang>> getNhomHang() {
-		ResponseData<List<NhomHang>> response = new ResponseData<List<NhomHang>>();
+	public List<NhomHang> getNhomHang() {
 		List<NhomHang> nhomHangs = new ArrayList<NhomHang>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -124,14 +123,13 @@ public class DanhMucDaoImpl implements DanhMucDao {
 				NhomHang nh = new NhomHang(maNH, tenNH);
 				nhomHangs.add(nh);
 			}
-			response.setData(nhomHangs);
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			response.setErrorMessage("getNhomHang bi loi");
+			
 		}
-		return response;
+		return nhomHangs;
 
 	}
 
@@ -189,8 +187,7 @@ public class DanhMucDaoImpl implements DanhMucDao {
 	}
 
 	@Override
-	public ResponseData<List<Hang>> getHangTheoNhom(int maNhomHang) {
-		ResponseData<List<Hang>> response = new ResponseData<List<Hang>>();
+	public List<Hang> getHangTheoNhom(int maNhomHang) {
 		List<Hang> hangs = new ArrayList<Hang>();
 		try {
 			Connection cnn = dbProvider.getConnection();
@@ -207,14 +204,13 @@ public class DanhMucDaoImpl implements DanhMucDao {
 				Hang nh = new Hang(maH, tenH, maNH, link);
 				hangs.add(nh);
 			}
-			response.setData(hangs);
+			
 			rs.close();
 			st.close();
 			cnn.close();
 		} catch (SQLException e) {
-			response.setErrorMessage("getHangTheoNhom bi loi");
 		}
-		return response;
+		return hangs;
 	}
 	
 	public  ResponseData<List<Hang>> getHangDaThem(){

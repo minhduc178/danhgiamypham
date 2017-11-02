@@ -33,6 +33,7 @@ public class SanPham {
 	private String link;
 	private int luotBinhLuan;
 	private int luotThich;
+	private String linkHang;
 
 	private String[] listMaNhomSPham;
 
@@ -137,7 +138,7 @@ public class SanPham {
 			String gioiT, String congD, String cachSD, String thanhP,
 			String tenND, int tinhT, Date ngayD, float diemDG, String hinhAC,
 			String hinh1, String hinh2, String hinh3, String hinh4,
-			String link, int luotBinhLuan, int luotThich) {
+			String link, int luotBinhLuan, int luotThich, String linkHang) {
 		this.maSanPham = maSP;
 		this.tenSanPham = tenSP;
 		this.tenHang = tenH;
@@ -160,6 +161,7 @@ public class SanPham {
 		this.link = link;
 		this.luotBinhLuan = luotBinhLuan;
 		this.luotThich = luotThich;
+		this.linkHang = linkHang;
 	}
 
 	public SanPham(int maNguoiDung, int maSanPham, String tenSanPham,
@@ -227,6 +229,8 @@ public class SanPham {
 		this.sanPhams = sanPhams;
 		this.maNhomSanPhams = maNhomSanPhams;
 	}
+	
+	
 
 	public List<Integer> getMaNhomSanPhams() {
 		return maNhomSanPhams;
@@ -258,6 +262,16 @@ public class SanPham {
 
 	public void setLuotBinhLuan(int luotBinhLuan) {
 		this.luotBinhLuan = luotBinhLuan;
+	}
+	
+	
+
+	public String getLinkHang() {
+		return linkHang;
+	}
+
+	public void setLinkHang(String linkHang) {
+		this.linkHang = linkHang;
 	}
 
 	public int getLuotThich() {

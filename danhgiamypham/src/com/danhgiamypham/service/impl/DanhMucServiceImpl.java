@@ -46,7 +46,7 @@ public class DanhMucServiceImpl implements DanhMucService {
 	}
 
 	@Override
-	public ResponseData<List<NhomHang>> getNhomHang() {
+	public List<NhomHang> getNhomHang() {
 		return danhMucDao.getNhomHang();
 	}
 
@@ -60,7 +60,7 @@ public class DanhMucServiceImpl implements DanhMucService {
 	}
 
 	@Override
-	public ResponseData<List<Hang>> getHangTheoNhom(int maNhomHang) {
+	public List<Hang> getHangTheoNhom(int maNhomHang) {
 		return danhMucDao.getHangTheoNhom(maNhomHang);
 	}
 	
@@ -100,9 +100,7 @@ public class DanhMucServiceImpl implements DanhMucService {
 	}
 
 	private int timMaNhomHang(String tenHang) {
-		System.out.print(tenHang);
-		ResponseData<List<NhomHang>> nhomHangs = danhMucDao.getNhomHang();
-		List<NhomHang> nhomHangList = nhomHangs.getData();
+		List<NhomHang> nhomHangList = danhMucDao.getNhomHang();
 		String kyTu = Character.toString(tenHang.charAt(0));
 		kyTu = kyTu.toUpperCase();
 		for (NhomHang nh : nhomHangList) {

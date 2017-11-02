@@ -715,10 +715,11 @@ public class SanPhamDaoImpl implements SanPhamDao {
 				link = rs.getString("Link");
 				int luotBinhLuan = rs.getInt("SoLuotDanhGia");
 				int luotThich = rs.getInt("LuotThich");
+				String linkH = rs.getString("LinkHang");
 
 				sanPham = new SanPham(maSP, tenSP, tenH, maH, maNH, gioiT, congD, cachSD,
 						thanhP, tenND, tinhT, ngayD, diemDG, hinhAC, hinh1,
-						hinh2, hinh3, hinh4, link, luotBinhLuan, luotThich);
+						hinh2, hinh3, hinh4, link, luotBinhLuan, luotThich, linkH);
 			}
 			response.setData(sanPham);
 			rs.close();

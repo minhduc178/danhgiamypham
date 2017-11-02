@@ -514,8 +514,12 @@ public class SanPhamServiceImpl implements SanPhamService {
 		ResponseData<List<LoaiDa>> ld = loaiDaDao.getLoaiDa(link);
 		ResponseData<List<DanhGiaSanPham>> blsp = danhGiaSanPhamDao
 				.getDanhGiaSanPham(link);
-		ResponseData<List<Hang>> hangTheoNhom = danhMucDao
-				.getHangTheoNhom(maNhomHang);
+		
+		List<Hang> hangs = new ArrayList<Hang>();
+		hangs = danhMucDao.getHangTheoNhom(maNhomHang);
+		ResponseData<List<Hang>> hangTheoNhom = new ResponseData<List<Hang>>();
+		hangTheoNhom.setData(hangs);
+		
 		ResponseData<Integer> maNhomSanPhamBoPhan = sanPhamDao
 				.getNhomSanPhamTheoBoPhan(link);
 		ResponseData<List<Integer>> listMaNhomSanPham = sanPhamDao

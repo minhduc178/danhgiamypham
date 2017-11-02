@@ -50,7 +50,7 @@ public class DanhMucController {
 	
 	@RequestMapping(value = "get-hang-nhom", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseData<List<NhomHang>> getNhomHang() {
+	public List<NhomHang> getNhomHang() {
 		return danhMucService.getNhomHang();
 	}
 	
@@ -72,7 +72,7 @@ public class DanhMucController {
 	
 	@RequestMapping(value = "get-hang-theo-nhom", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseData<List<Hang>> getHangTheoNhom(@RequestParam("manhomhang") int maNhomHang) {
+	public List<Hang> getHangTheoNhom(@RequestParam("manhomhang") int maNhomHang) {
 		return danhMucService.getHangTheoNhom(maNhomHang);
 	}
 	
