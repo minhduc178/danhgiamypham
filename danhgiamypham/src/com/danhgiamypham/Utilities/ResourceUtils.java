@@ -49,7 +49,7 @@ public class ResourceUtils {
     public static String unAccent(String s) {
         String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
-        String st =  pattern.matcher(temp).replaceAll("").replaceAll("Đ", "D").replaceAll("đ", "d");
+        String st =  pattern.matcher(temp).replaceAll("").replaceAll("Đ", "D").replaceAll("đ", "d").replaceAll("α", "a");
         st = st.replaceAll("\\s+","-");
         String result = st.replaceAll("[&#+./%-\''^:,)(}{]","");
         return result;
