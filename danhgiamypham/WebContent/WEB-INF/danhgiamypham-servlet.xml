@@ -61,4 +61,12 @@
     	<mvc:path-matching registered-suffixes-only="false"/>
 	</mvc:annotation-driven>
 	
+	<mvc:cors>
+		<mvc:mapping path="/**"
+					 allowed-origins="*"
+					 allowed-methods="POST, GET, PUT, OPTIONS, DELETE"
+					 allowed-headers="X-Auth-Token, Content-Type"
+					 allow-credentials="false"
+					 max-age="4800" />
+	</mvc:cors>
 </beans>

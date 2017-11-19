@@ -19,7 +19,6 @@ import com.danhgiamypham.model.NhomSanPham;
 import com.danhgiamypham.model.SanPham;
 import com.danhgiamypham.model.SanPhamMoi;
 import com.danhgiamypham.service.SanPhamMoiService;
-
 @Controller
 @RequestMapping("/san-pham-moi/")
 public class SanPhamMoiController {
